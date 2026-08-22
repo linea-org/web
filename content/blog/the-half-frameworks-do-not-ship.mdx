@@ -1,0 +1,50 @@
+---
+title: The half frameworks do not ship
+date: "2026-08-04"
+author: Linea Labs
+excerpt: LangGraph solves the logic. You still host, retry, store memory, and sandbox. That second half is the product.
+image: /ref/rocket-hero.webp
+tags:
+  - Ops
+  - Runtime
+---
+
+LangGraph, and tools like it, solved a real problem: how to write the agent loop as a graph instead of a pile of `if` statements. That is the logic half.
+
+The ops half is still on you. You host the process. You retry the crash. You store what the agent learned. You sandbox the code node. You keep the input so you can replay one step.
+
+Linea is that second half.
+
+![The hosted half of the stack](/ref/rocket-hero.webp)
+
+## What you still write
+
+The unique logic stays yours. A code node is an escape hatch, not a confession. The SDK is a first-class authoring surface, not a lesser path.
+
+```ts
+import { graph } from "@linea/sdk";
+
+export const recovery = graph({
+  name: "invoice-recovery",
+  nodes: {
+    fetch: http.get("/invoices/:id"),
+    reason: model.complete("Explain the failure."),
+    notify: http.post("/hooks/slack"),
+  },
+});
+```
+
+You do not stand up the store, the worker, or the replay UI for that graph. That is the host.
+
+## Logic vs ops
+
+| Layer | Framework | Linea |
+| --- | --- | --- |
+| Graph of steps | You write it | You write it |
+| Host and retries | You operate it | Comes with the run |
+| Memory across runs | You stand up a store | Comes with the run |
+| Step-level replay | You do not have the input | The checkpoint is the input |
+
+If you already have the logic half, you do not need another framework. You need the run to remember what it saw.
+
+Read [Why replay needs the checkpoint](/blog/why-replay-needs-the-checkpoint) next, or [start building](/#start).
