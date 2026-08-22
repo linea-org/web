@@ -8,12 +8,13 @@ export function Announcement() {
       <Cross className="top-0 right-0 translate-x-1/2 -translate-y-1/2" />
       <a
         href="/replay"
-        className="block px-5 py-2 text-center text-sm leading-5 text-muted hover:text-white sm:px-8"
+        className="block min-w-0 px-5 py-2 text-center text-sm leading-5 text-muted [overflow-wrap:anywhere] hover:text-white sm:px-8"
       >
         <span className="whitespace-nowrap">
           <ExternalIcon className="mb-px mr-1.5 inline size-3" />
-          Step-level replay: re-run one step without re-running the graph.
-        </span>
+          Step-level replay:
+        </span>{" "}
+        re-run one step without re-running the graph.
       </a>
     </Band>
   );
