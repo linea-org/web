@@ -16,9 +16,15 @@ async function getHighlighter(): Promise<Highlighter> {
   return highlighter;
 }
 
+type HighlightLang = (typeof LANGS)[number];
+
+function resolveLang(lang: string): HighlightLang {
+  return LANGS.includes(lang as HighlightLang) ? (lang as HighlightLang) : "text";
+}
+
 export async function highlightCode(code: string, lang: string): Promise<string> {
   const instance = await getHighlighter();
-  const language = LANGS.includes(lang as (typeof LANGS)[number]) ? lang : "text";
+  const language = resolveLang(lang);
 
   if (!instance.getLoadedLanguages().includes(language)) {
     await instance.loadLanguage(language);

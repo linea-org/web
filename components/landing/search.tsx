@@ -6,7 +6,7 @@ import {
   useMemo,
   useRef,
   useState,
-  type KeyboardEvent,
+  type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 import Link from "next/link";
 import { ExternalIcon } from "@/components/landing/external-icon";
@@ -79,7 +79,7 @@ export function Search({ entries }: { entries: SearchEntry[] }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  function onDialogKey(event: KeyboardEvent<HTMLDialogElement>) {
+  function onDialogKey(event: ReactKeyboardEvent<HTMLDialogElement>) {
     if (results.length === 0) {
       return;
     }
