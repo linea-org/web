@@ -8,6 +8,7 @@ const STATIC = [
   "/about",
   "/audience",
   "/blog",
+  "/research",
   "/careers",
   "/faq",
   "/pricing",

@@ -6,14 +6,27 @@ import { ExternalIcon } from "@/components/landing/external-icon";
 type ButtonVariant = "primary" | "secondary";
 
 const BUTTON_BASE =
-  "inline-flex h-9 shrink-0 box-border items-center gap-2 rounded-md border pl-3 pr-1.5 text-sm font-medium leading-none tracking-tight transition-colors";
+  "lp-btn group inline-flex h-9 shrink-0 box-border items-center gap-2 rounded-md border pl-3 pr-1.5 text-sm font-medium leading-none tracking-tight";
 
-function buttonClass(variant: ButtonVariant): string {
+function buttonClass(variant: ButtonVariant, iconOnly: boolean): string {
+  if (iconOnly) {
+    switch (variant) {
+      case "primary":
+        return "lp-btn lp-btn-primary group inline-flex size-9 shrink-0 items-center justify-center border border-white bg-white text-black";
+      case "secondary":
+        return "lp-btn lp-btn-secondary group inline-flex size-9 shrink-0 items-center justify-center border border-white/25 bg-background text-white";
+      default: {
+        const _never: never = variant;
+        return _never;
+      }
+    }
+  }
+
   switch (variant) {
     case "primary":
-      return `${BUTTON_BASE} border-white bg-white text-black hover:border-neutral-200 hover:bg-neutral-200`;
+      return `${BUTTON_BASE} lp-btn-primary border-white bg-white text-black`;
     case "secondary":
-      return `${BUTTON_BASE} border-white/12 bg-transparent text-white hover:border-white/25`;
+      return `${BUTTON_BASE} lp-btn-secondary border-white/25 bg-background text-white`;
     default: {
       const _never: never = variant;
       return _never;
@@ -34,11 +47,28 @@ function keycapClass(variant: ButtonVariant): string {
   }
 }
 
+export function Keycap({
+  shortcut,
+  variant = "secondary",
+}: {
+  shortcut: string;
+  variant?: ButtonVariant;
+}) {
+  return (
+    <kbd
+      aria-hidden
+      className={`inline-flex size-[18px] items-center justify-center rounded-[3px] border text-[10px] font-medium leading-none ${keycapClass(variant)}`}
+    >
+      {shortcut.toUpperCase()}
+    </kbd>
+  );
+}
+
 const routes = new Map<string, string>();
 let listening = false;
 
 function onKeydown(event: KeyboardEvent) {
-  if (event.metaKey || event.ctrlKey || event.altKey) {
+  if (!(event.ctrlKey || event.metaKey) || event.altKey) {
     return;
   }
 
@@ -84,6 +114,8 @@ export function Button({
   variant = "primary",
   shortcut,
   externalIcon = true,
+  iconOnly = false,
+  label,
   className = "",
   children,
 }: {
@@ -91,6 +123,8 @@ export function Button({
   variant?: ButtonVariant;
   shortcut: string;
   externalIcon?: boolean;
+  iconOnly?: boolean;
+  label?: string;
   className?: string;
   children: ReactNode;
 }) {
@@ -104,20 +138,16 @@ export function Button({
   return (
     <a
       href={href}
-      className={`${buttonClass(variant)} ${className}`.trim()}
-      aria-keyshortcuts={shortcut}
+      className={`${buttonClass(variant, iconOnly)} ${className}`.trim()}
+      aria-keyshortcuts={`Control+${shortcut}`}
+      aria-label={iconOnly ? label : undefined}
       {...(external
         ? { target: "_blank", rel: "noreferrer" }
         : {})}
     >
       {children}
       {external && externalIcon ? <ExternalIcon /> : null}
-      <kbd
-        aria-hidden
-        className={`inline-flex size-[18px] items-center justify-center rounded-[3px] border text-[10px] font-medium ${keycapClass(variant)}`}
-      >
-        {shortcut.toUpperCase()}
-      </kbd>
+      {iconOnly ? null : <Keycap shortcut={shortcut} variant={variant} />}
     </a>
   );
 }

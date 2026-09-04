@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ExternalIcon } from "@/components/landing/external-icon";
 import { Band } from "@/components/landing/frame";
 import { DOCS_URL, PLATFORM_URL } from "@/lib/docs";
+import { SOCIAL_LINKS } from "@/lib/socials";
 
 type FooterLink = {
   href: string;
@@ -26,6 +27,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
     links: [
       { href: "/faq", label: "FAQ" },
       { href: "/blog", label: "Blog" },
+      { href: "/research", label: "Research" },
       { href: "/audience", label: "Who it is for" },
     ],
   },
@@ -39,11 +41,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
   },
   {
     title: "Social",
-    links: [
-      { href: "https://x.com", label: "Twitter", external: true },
-      { href: "https://github.com", label: "GitHub", external: true },
-      { href: "https://discord.com", label: "Discord", external: true },
-    ],
+    links: SOCIAL_LINKS.map((link) => ({ ...link, external: true })),
   },
 ];
 
@@ -90,10 +88,10 @@ export function SiteFooter() {
             <div className="max-w-sm lg:shrink-0">
               <p className="text-sm text-white">Linea Labs</p>
               <p className="mt-3 text-sm text-muted">
-                The hosted ops layer for agents.
+                A hosted runtime for agent graphs.
               </p>
               <p className="mt-6 text-sm leading-6 text-muted">
-                You write the logic unique to your problem.{" "}
+                You write the logic that is unique to the problem.{" "}
                 <a
                   href={PLATFORM_URL}
                   className={linkClass}

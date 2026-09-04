@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { ExternalIcon } from "@/components/landing/external-icon";
+import { Logo } from "@/components/landing/logo";
 import { authorProfile } from "@/lib/authors";
 
 export function AuthorLink({
@@ -15,13 +15,7 @@ export function AuthorLink({
 
   const inner = (
     <>
-      <Image
-        src={profile?.image ?? "/ref/rocket-avatar.webp"}
-        alt=""
-        width={24}
-        height={24}
-        className="size-6 object-cover"
-      />
+      <Logo size={24} />
       <span className={className}>{name}</span>
       {showIcon && profile ? <ExternalIcon /> : null}
     </>

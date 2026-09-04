@@ -1,12 +1,15 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ExternalIcon } from "@/components/landing/external-icon";
 import { Band } from "@/components/landing/frame";
 import { GitHubIcon } from "@/components/landing/github-icon";
+import { Logo } from "@/components/landing/logo";
 import { MobileNav } from "@/components/landing/mobile-nav";
+import { Search } from "@/components/landing/search";
 import { Button } from "@/components/landing/ui";
 import { PLATFORM_URL } from "@/lib/docs";
+import { GITHUB_URL } from "@/lib/socials";
 import { NAV, type NavItem } from "@/lib/nav";
+import { getSearchEntries } from "@/lib/search-entries";
 
 function NavEntry({ item }: { item: NavItem }) {
   switch (item.kind) {
@@ -81,7 +84,7 @@ export function SiteHeader() {
       <header className="relative flex h-14 items-center justify-between px-5 sm:px-8">
         <div className="flex min-w-0 items-center gap-8">
           <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/linea.svg" alt="" width={28} height={28} />
+            <Logo />
             <span className="text-[15px] font-medium tracking-tight">Linea</span>
           </Link>
           <nav
@@ -96,21 +99,25 @@ export function SiteHeader() {
             ))}
           </nav>
         </div>
-        <div className="hidden items-center gap-2 lg:flex">
-          <Button
-            href="https://github.com"
-            variant="secondary"
-            shortcut="g"
-            externalIcon={false}
-          >
-            <GitHubIcon />
-            We are open source
-          </Button>
-          <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>
-            Start building
-          </Button>
+        <div className="flex items-center gap-2">
+          <Search entries={getSearchEntries()} />
+          <div className="hidden items-center gap-2 lg:flex">
+            <Button
+              href={GITHUB_URL}
+              variant="secondary"
+              shortcut="g"
+              externalIcon={false}
+              iconOnly
+              label="GitHub"
+            >
+              <GitHubIcon />
+            </Button>
+            <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>
+              Start building
+            </Button>
+          </div>
+          <MobileNav />
         </div>
-        <MobileNav />
       </header>
     </Band>
   );

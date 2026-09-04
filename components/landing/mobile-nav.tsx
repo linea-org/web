@@ -6,6 +6,7 @@ import { ExternalIcon } from "@/components/landing/external-icon";
 import { GitHubIcon } from "@/components/landing/github-icon";
 import { Button } from "@/components/landing/button";
 import { PLATFORM_URL } from "@/lib/docs";
+import { GITHUB_URL } from "@/lib/socials";
 import { NAV } from "@/lib/nav";
 
 export function MobileNav() {
@@ -15,7 +16,7 @@ export function MobileNav() {
     <div className="lg:hidden">
       <button
         type="button"
-        className="inline-flex size-9 items-center justify-center border border-white/12 text-white"
+        className="lp-btn lp-btn-secondary inline-flex size-9 items-center justify-center border border-white/25 text-white"
         aria-expanded={open}
         aria-controls="mobile-nav"
         onClick={() => setOpen((value) => !value)}
@@ -110,14 +111,14 @@ export function MobileNav() {
           </nav>
           <div className="flex flex-col gap-2 border-t border-white/12 px-5 py-4 sm:px-8">
             <Button
-              href="https://github.com"
+              href={GITHUB_URL}
               variant="secondary"
               shortcut="g"
               externalIcon={false}
               className="w-full justify-center"
             >
               <GitHubIcon />
-              We are open source
+              GitHub
             </Button>
             <Button href={PLATFORM_URL} shortcut="s" externalIcon={false} className="w-full justify-center">
               Start building

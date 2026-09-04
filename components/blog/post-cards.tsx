@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Logo } from "@/components/landing/logo";
 import { formatPostDate, type BlogMeta } from "@/lib/blog-meta";
 
 export function PostCards({
@@ -33,13 +34,7 @@ export function PostCards({
             <p className="mt-2 text-sm leading-6 text-muted">{post.excerpt}</p>
             <div className="mt-auto flex items-center justify-between gap-3 pt-5">
               <div className="flex items-center gap-2">
-                <Image
-                  src="/ref/rocket-avatar.webp"
-                  alt=""
-                  width={24}
-                  height={24}
-                  className="size-6 object-cover"
-                />
+                <Logo size={24} />
                 <p className="text-sm">{post.author}</p>
               </div>
               <p className="text-xs text-muted">{formatPostDate(post.date)}</p>

@@ -12,9 +12,17 @@ export default async function Image({
 }) {
   const { slug } = await params;
   if (!postExists(slug)) {
-    return createOgImage("Note", "Linea Labs");
+    return createOgImage({
+      eyebrow: "Note",
+      title: "Linea Labs",
+      description: "A note from Linea Labs.",
+    });
   }
 
   const { meta } = getPost(slug);
-  return createOgImage(meta.author, meta.title);
+  return createOgImage({
+    eyebrow: meta.author,
+    title: meta.title,
+    description: meta.excerpt,
+  });
 }

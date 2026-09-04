@@ -10,22 +10,22 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "About",
   description:
-    "Linea Labs builds Linea, the hosted ops layer for agents and workflows.",
+    "Linea Labs is a small team building Linea, a hosted runtime for agent graphs.",
   path: "/about",
 });
 
 const SAID = [
   {
-    title: "The company is early",
-    copy: "We are not pretending otherwise. No ghost customers, no ghost roles, no ghost price list.",
+    title: "We are early",
+    copy: "There is no customer wall and no invented price list. If a page would require us to pretend, we leave it blank.",
   },
   {
-    title: "The wedge is replay",
-    copy: "Fix one step without re-running the graph. That needs a checkpoint. That needs a host that ran the graph.",
+    title: "Replay is the reason this exists",
+    copy: "Fixing one step without re-running the graph requires a checkpoint. A checkpoint requires a host that actually ran the graph.",
   },
   {
-    title: "Builder and SDK are equal",
-    copy: "Two editors. One graph. The canvas and the file in git describe the same run.",
+    title: "Builder and SDK are the same graph",
+    copy: "The canvas and the file in git are two editors. They write one document. The run does not care which view you used.",
   },
 ] as const;
 
@@ -38,8 +38,8 @@ export default function AboutPage() {
             <div className="lp-hatch border-b border-white/12 p-1.5 lg:order-2 lg:border-b-0 lg:border-l">
               <div className="relative aspect-[3/2] overflow-hidden border border-white/12 lg:aspect-auto lg:min-h-72 lg:h-full">
                 <Image
-                  src="/ref/zed-page.jpg"
-                  alt="Placeholder product surface from zed.dev"
+                  src="/ref/linea-about.jpg"
+                  alt="Linea graph canvas and checkpoint inspector"
                   fill
                   className="object-cover object-center"
                   sizes="(min-width: 1024px) 50vw, 100vw"
@@ -53,8 +53,8 @@ export default function AboutPage() {
                 Linea Labs builds Linea.
               </h1>
               <p className="mt-4 max-w-md text-sm leading-6 text-muted">
-                Linea is the product: a hosted ops layer for agents and
-                workflows. The company is the team shipping that host.
+                Linea is the product: a hosted runtime for agent graphs. Linea
+                Labs is the small team shipping that host.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>
@@ -76,18 +76,17 @@ export default function AboutPage() {
                 Linea Labs
               </h2>
               <p className="mt-3 text-sm leading-6 text-muted">
-                Small, early, and not hiring from a fake board. We ship the
-                host. Roles go on Careers when there is real work to do, not
-                before.
+                A small team. We will post roles when there is real work to
+                hire for. Until then this page stays empty on purpose.
               </p>
             </article>
             <article className="border border-white/12 px-5 py-8 sm:border-0 sm:px-8">
               <p className="text-sm text-muted">The product</p>
               <h2 className="mt-3 text-xl font-medium tracking-tight">Linea</h2>
               <p className="mt-3 text-sm leading-6 text-muted">
-                You design a graph once. We run it with checkpoints, memory, a
-                sandboxed code node, and step-level replay. Builder and SDK
-                write the same run.
+                You design a graph once. We run it, keep a checkpoint after
+                each node, store memory across runs, and let you replay a
+                single step. The builder and the SDK write the same document.
               </p>
             </article>
           </div>
@@ -113,7 +112,7 @@ export default function AboutPage() {
           <Container className="py-8 sm:py-9">
             <p className="text-sm text-muted">The product</p>
             <h2 className="mt-3 text-2xl font-medium tracking-tight sm:text-3xl">
-              Three surfaces. One host.
+              Three surfaces, one host.
             </h2>
           </Container>
           <div className="grid gap-3 border-t border-white/12 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-white/12">

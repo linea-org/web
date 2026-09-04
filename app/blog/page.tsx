@@ -9,7 +9,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Blog",
   description:
-    "Notes on checkpoints, step-level replay, and the ops half frameworks do not ship.",
+    "How we think about checkpoints, replay, and the work a framework leaves on you.",
   path: "/blog",
 });
 

@@ -1,18 +1,23 @@
+import { CopyCode } from "@/components/code/copy-code";
 import { highlightCode } from "@/lib/highlight";
 
 export async function CodeBlock({
   code,
   lang,
+  framed = true,
 }: {
   code: string;
   lang: string;
+  framed?: boolean;
 }) {
   const html = await highlightCode(code, lang);
 
   return (
-    <div
-      className="lp-code h-full overflow-x-auto border border-white/12 bg-card"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <CopyCode
+      code={code}
+      className={`lp-code h-full overflow-x-auto bg-card ${framed ? "border border-white/12" : ""}`}
+    >
+      <div className="h-full" dangerouslySetInnerHTML={{ __html: html }} />
+    </CopyCode>
   );
 }

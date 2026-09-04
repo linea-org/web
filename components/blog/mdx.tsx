@@ -2,27 +2,13 @@ import {
   Children,
   isValidElement,
   type ComponentPropsWithoutRef,
-  type ReactNode,
 } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { CopyCode } from "@/components/code/copy-code";
+import { SwitchableCode } from "@/components/code/switchable-code";
+import { textFrom } from "@/components/code/text-from";
 import { highlightCode } from "@/lib/highlight";
-
-function textFrom(node: ReactNode): string {
-  if (typeof node === "string" || typeof node === "number") {
-    return String(node);
-  }
-
-  if (Array.isArray(node)) {
-    return node.map(textFrom).join("");
-  }
-
-  if (isValidElement<{ children?: ReactNode }>(node)) {
-    return textFrom(node.props.children);
-  }
-
-  return "";
-}
 
 export async function Pre({
   children,
@@ -37,10 +23,12 @@ export async function Pre({
   const html = await highlightCode(code, lang);
 
   return (
-    <div
+    <CopyCode
+      code={code}
       className="lp-code my-6 overflow-x-auto border border-white/12 bg-card"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    >
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </CopyCode>
   );
 }
 
@@ -117,6 +105,7 @@ export const mdxComponents = {
   li: (props: ComponentPropsWithoutRef<"li">) => <li {...props} />,
   pre: Pre,
   img: MdImage,
+  CodeSwitcher: SwitchableCode,
   table: (props: ComponentPropsWithoutRef<"table">) => (
     <div className="my-6 overflow-x-auto border border-white/12">
       <table className="w-full text-left text-sm" {...props} />

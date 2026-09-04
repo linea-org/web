@@ -5,5 +5,9 @@ export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return createOgImage("Careers", "No open roles yet.");
+  return createOgImage({
+    eyebrow: "Careers",
+    title: "No open roles yet.",
+    description: "Linea Labs is early. There are no open roles posted yet.",
+  });
 }

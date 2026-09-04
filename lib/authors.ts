@@ -1,3 +1,5 @@
+import { TWITTER_URL } from "@/lib/socials";
+
 type AuthorProfile = {
   url: string;
   image: string;
@@ -5,8 +7,8 @@ type AuthorProfile = {
 
 const AUTHORS: Record<string, AuthorProfile> = {
   "Linea Labs": {
-    url: "https://x.com",
-    image: "/ref/rocket-avatar.webp",
+    url: TWITTER_URL,
+    image: "/linea.svg",
   },
 };
 

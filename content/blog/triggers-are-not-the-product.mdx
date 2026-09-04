@@ -2,15 +2,19 @@
 title: Triggers are not the product
 date: "2026-07-14"
 author: Linea Labs
-excerpt: A schedule, a webhook, or the SDK can start a run. The product is what happens after it starts.
-image: /ref/rightfit-profile.jpg
+excerpt: Starting a graph is a solved problem. The product is what has to stay up after it starts.
+image: /ref/linea-replay.jpg
 tags:
   - Runtime
   - SDK
 ---
 
-Starting a graph is the easy half. Cron, a webhook, and `client.run()` are solved problems.
+Starting a graph is the easy half. Cron is a solved problem. A webhook is a solved problem. `client.run()` is a solved problem. None of those tell you what happens when step four dies at 2am, or when Tuesday's run needs a fact that Monday already learned.
 
-The hard half is the run that crashes on step four, the fact that has to live until next Tuesday, and the one node you need to call again without paying for steps one through three.
+We keep seeing teams treat the trigger as the product. The demo is a button that kicks off a loop. The hard work shows up later: a worker that has to come back, a record of what each node saw, a way to call one node again without paying for the ones that already succeeded.
 
-Linea takes the trigger and then does the work those triggers do not cover.
+That work is not glamorous, and it is not optional. If you skip it, every failure becomes a full re-run. Every fact becomes a sentence stuffed back into the next system prompt. Every code node becomes a process you babysit.
+
+Linea takes the trigger and then does the part the trigger does not cover. The host stays up. The checkpoint gets written. The next run can read what the last one knew.
+
+If you already have a way to start the graph, you do not need another one. You need the run to remember what it saw.

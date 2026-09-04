@@ -8,5 +8,9 @@ export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return createOgImage(product.name, product.title);
+  return createOgImage({
+    eyebrow: product.name,
+    title: product.title,
+    description: product.description,
+  });
 }

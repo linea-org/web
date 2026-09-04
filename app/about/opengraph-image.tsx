@@ -5,5 +5,10 @@ export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return createOgImage("About", "Linea Labs builds Linea.");
+  return createOgImage({
+    eyebrow: "About",
+    title: "Linea Labs builds Linea.",
+    description:
+      "Linea Labs is a small team building Linea, a hosted runtime for agent graphs.",
+  });
 }

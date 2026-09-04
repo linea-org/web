@@ -4,12 +4,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
+import { remarkCodeSwitcher } from "@/lib/remark-code-switcher";
 import { AuthorLink } from "@/components/blog/author-link";
 import { mdxComponents } from "@/components/blog/mdx";
 import { tagBadge } from "@/components/blog/tag-style";
 import { Band } from "@/components/landing/frame";
 import { SiteChrome } from "@/components/landing/site-chrome";
 import { Container } from "@/components/landing/ui";
+import { JsonLd } from "@/components/seo/json-ld";
 import {
   formatPostDate,
   getPost,
@@ -17,7 +19,8 @@ import {
   postExists,
   relatedPosts,
 } from "@/lib/blog";
-import { pageMeta } from "@/lib/seo";
+import { articleGraph } from "@/lib/schema";
+import { ogImageUrl, pageMeta } from "@/lib/seo";
 
 type PostPageProps = {
   params: Promise<{ slug: string }>;
@@ -40,22 +43,22 @@ export async function generateMetadata({
   }
 
   const { meta } = getPost(slug);
-  const url = `/blog/${slug}`;
+  const path = `/blog/${slug}`;
+  const base = pageMeta({
+    title: meta.title,
+    description: meta.excerpt,
+    path,
+    type: "article",
+  });
 
   return {
-    ...pageMeta({
-      title: meta.title,
-      description: meta.excerpt,
-      path: url,
-      type: "article",
-    }),
+    ...base,
     authors: [{ name: meta.author }],
     openGraph: {
+      ...base.openGraph,
       type: "article",
-      title: meta.title,
-      description: meta.excerpt,
-      url,
       publishedTime: meta.date,
+      modifiedTime: meta.date,
       authors: [meta.author],
       tags: meta.tags,
     },
@@ -73,6 +76,16 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <SiteChrome>
+      <JsonLd
+        data={articleGraph({
+          title: meta.title,
+          description: meta.excerpt,
+          path: `/blog/${slug}`,
+          date: meta.date,
+          author: meta.author,
+          image: ogImageUrl(`/blog/${slug}`),
+        })}
+      />
       <main>
         <Band marks={false}>
           <div className="border-b border-white/12 px-5 py-3 sm:px-8">
@@ -133,12 +146,12 @@ export default async function PostPage({ params }: PostPageProps) {
                 components={mdxComponents}
                 options={{
                   mdxOptions: {
-                    remarkPlugins: [remarkGfm],
+                    remarkPlugins: [remarkGfm, remarkCodeSwitcher],
                   },
                 }}
               />
             </Container>
-            <aside className="self-start border-t border-white/12 px-5 py-8 sm:px-8 lg:sticky lg:top-6 lg:border-t-0">
+            <aside className="self-start border-t border-white/12 px-5 py-8 sm:px-8 lg:sticky lg:top-20 lg:border-t-0">
               {meta.tags.length > 0 ? (
                 <div>
                   <p className="text-sm text-white">Tags</p>

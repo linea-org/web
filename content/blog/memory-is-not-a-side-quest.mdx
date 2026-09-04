@@ -3,14 +3,18 @@ title: Memory is not a side quest
 date: "2026-07-28"
 author: Linea Labs
 excerpt: Facts have to survive the run. If you stand up the store yourself, you are still doing the ops half.
-image: /ref/rocket-hero.webp
+image: /ref/linea-memory.jpg
 tags:
   - Memory
   - Ops
 ---
 
-Agents that forget the last run are toys. The useful ones keep facts, and they search a workspace knowledge base, without you wiring a store and a RAG pipeline for every graph.
+Agents that forget the last run are toys. The useful ones keep facts (`plan` is annual, `last_invoice` failed) and they can search a workspace knowledge base (retry policy, plan rules) without you wiring a store and a retrieval pipeline for every graph.
 
-That is a host problem. The graph should ask for memory. Linea should keep it.
+That is usually treated as a side quest. First you get the loop working. Then someone stands up a table. Then someone else stands up embeddings. Then the next graph cannot see what the last one wrote, because the glue was local.
 
-If the store is yours to operate, you are still writing glue. We built Linea so that part comes with the run.
+We think this is a host problem. The graph should ask for memory. The host should keep it. `remember`, `recall`, and `search` are calls on the run, not a weekend of schema design.
+
+This is not a claim that memory is easy. It is a claim about who operates it. If the store is yours, you are still writing the ops half. We built Linea so that part comes with the run, and so the builder and the SDK hit the same store.
+
+If you already like your own database, keep it. Linea is for the case where the store exists only because the agent needed somewhere to put a fact.

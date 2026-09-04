@@ -43,33 +43,33 @@ export const PRODUCTS: Product[] = [
     slug: "runtime",
     href: "/runtime",
     name: "Runtime",
-    hint: "Host the graph",
-    title: "Design the graph. Linea keeps it running.",
+    hint: "Execute the graph",
+    title: "You design the graph. We keep it running.",
     description:
-      "Hosted checkpoints, retries, crash safety, and a sandboxed code node. Builder and SDK write the same graph.",
+      "A hosted runtime with checkpoints, retries, crash resume, and a sandboxed code node. Builder and SDK write the same graph.",
     excerpt:
-      "Author visually or in JSON. Trigger from a schedule, a webhook, or your SDK. Crash safety, retries, and resume come with the host.",
-    image: "/ref/rightfit-jobs.jpg",
-    imageAlt: "Placeholder interface from rightfit.so",
+      "Author on a canvas or in TypeScript. Start from a schedule, a webhook, or your own code. Crash safety, retries, and resume are part of the host.",
+    image: "/ref/linea-runtime.jpg",
+    imageAlt: "Linea runtime console with checkpointed runs",
     how: {
-      title: "After the trigger, someone has to stay up",
-      lead: "Cron, a webhook, and client.run() are solved. The runtime is the process that takes the graph from there: workers, retries, a boxed code node, and a record of every step.",
+      title: "After the trigger, something has to stay up",
+      lead: "Cron, a webhook, and client.run() are solved problems. The runtime is what happens next: workers, retries, a boxed code node, and a record of every step.",
       steps: [
         {
           title: "One graph, two editors",
-          copy: "The canvas and the SDK write the same workflow JSON and the same node registry. Pick the surface you already work in.",
+          copy: "The canvas and the SDK write the same workflow JSON and the same node registry. Use the surface you already work in.",
         },
         {
           title: "Any start is fine",
-          copy: "A schedule, an HTTP hook, or a call from your app can begin the run. Linea does not care how it started.",
+          copy: "A schedule, an HTTP hook, or a call from your app can begin the run. The host does not care how it started.",
         },
         {
           title: "Crash, then resume",
-          copy: "If the host dies on step three, the next worker picks up from the last checkpoint. You do not re-queue the whole graph by hand.",
+          copy: "If the process dies on step three, the next worker continues from the last checkpoint. You do not re-queue the graph by hand.",
         },
         {
           title: "Code stays in a box",
-          copy: "The code node is an escape hatch for real logic. It still runs somewhere that cannot take the host down.",
+          copy: "A code node is an escape hatch for real logic. It still has to run somewhere that cannot take the host down.",
         },
       ],
     },
@@ -89,8 +89,8 @@ export const recovery = graph({
 });`,
     },
     compare: {
-      title: "The half a framework leaves on you",
-      lead: "LangGraph and tools like it solve the agent loop. You still host the process. That second half is the runtime.",
+      title: "The half a framework leaves with you",
+      lead: "Frameworks solve the agent loop. You still host the process. That second half is the runtime.",
       columns: ["A framework", "Linea runtime"],
       rows: [
         {
@@ -141,14 +141,14 @@ export const recovery = graph({
     hint: "One step, not the run",
     title: "Fix one step, not the whole run.",
     description:
-      "Step-level replay against the exact input a node saw. No full-graph tax.",
+      "Replay one node against the exact input it saw, without re-running the rest of the graph.",
     excerpt:
-      "Linea holds the checkpoint and the exact input each step saw. Re-run step four without paying for steps one through three again.",
-    image: "/ref/rightfit-profile.jpg",
-    imageAlt: "Placeholder profile surface from rightfit.so",
+      "Each node leaves a checkpoint: the exact payload it received. You can change a prompt on step four and run that node again without paying for steps one through three.",
+    image: "/ref/linea-replay.jpg",
+    imageAlt: "Linea replay inspector on a failed step",
     how: {
       title: "One run, then the one node that broke",
-      lead: "Invoice recovery ran. Fetch worked. Reason worked. draft_reply wrote a bad email. Replay that node. Do not pay for fetch and reason again.",
+      lead: "Invoice recovery ran. Fetch worked. Reason worked. draft_reply wrote a bad email. Replay that node. You should not have to pay for fetch and reason again.",
       steps: [
         {
           title: "The run already happened",
@@ -251,14 +251,14 @@ export const recovery = graph({
     hint: "Facts across runs",
     title: "Facts persist across runs.",
     description:
-      "Agent facts and workspace knowledge without a store and RAG pipeline you have to operate.",
+      "Agent facts and workspace knowledge, without a store and retrieval pipeline you have to operate.",
     excerpt:
-      "Agents remember what they learned last time, and search a workspace knowledge base, without you standing up a store and a RAG pipeline.",
-    image: "/ref/rocket-hero.webp",
-    imageAlt: "Placeholder visual from rocket.new",
+      "Agents can remember facts from last time and search a workspace knowledge base. You do not have to stand up a store and a retrieval pipeline for every graph.",
+    image: "/ref/linea-memory.jpg",
+    imageAlt: "Linea memory workspace with facts and knowledge",
     how: {
       title: "The graph asks. The host keeps the store.",
-      lead: "Memory is not a longer prompt. It is a fact that has to live until the next trigger, and a knowledge base the node can search without you shipping RAG.",
+      lead: "Memory is not a longer prompt. It is a fact that has to live until the next trigger, and a knowledge base a node can search without you shipping a retrieval stack.",
       steps: [
         {
           title: "Write a fact, not a hope",

@@ -10,19 +10,19 @@ export function Blog() {
   return (
     <Band marks={false}>
       <section id="blog">
-        <Container className="flex flex-col gap-6 py-10 sm:py-12 md:flex-row md:items-start md:justify-between">
+        <Container className="flex flex-col items-start gap-5 py-10 sm:py-12 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">
-              The latest from Linea Labs
+              Writing from the team
             </h2>
             <p className="mt-3 text-sm leading-6 text-muted">
-              Notes on checkpoints, step-level replay, and the ops half
-              frameworks do not ship.
+              How we think about checkpoints, replay, and the work a
+              framework leaves on you.
             </p>
           </div>
           <Link
             href="/blog"
-            className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md border border-white/12 px-3 text-sm font-medium tracking-tight hover:border-white/25"
+            className="lp-btn lp-btn-secondary inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md border border-white/25 px-3 text-sm font-medium tracking-tight"
           >
             View Blog
             <svg

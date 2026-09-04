@@ -30,6 +30,7 @@ body {
 a,
 button,
 summary,
+select,
 [role="button"] {
   cursor: pointer;
 }
@@ -77,7 +78,7 @@ a[aria-disabled="true"] {
 .lp-code pre {
   margin: 0;
   overflow-x: auto;
-  padding: 1rem 1.25rem;
+  padding: 2.5rem 1.25rem 1rem;
   font-size: 0.8125rem;
   line-height: 1.65;
   background: transparent !important;
@@ -85,6 +86,74 @@ a[aria-disabled="true"] {
 
 .lp-code code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.lp-code-switch pre {
+  padding-top: 1rem;
+}
+
+.lp-code-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath stroke='%23a3a3a3' stroke-width='1.2' d='m1 1 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.15rem center;
+}
+
+.lp-btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.lp-btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+.lp-btn::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: 220%;
+  aspect-ratio: 1;
+  height: auto;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.16s ease-out;
+}
+
+.lp-btn-primary::before {
+  background: rgb(0 0 0 / 0.1);
+}
+
+.lp-btn-secondary::before {
+  background: rgb(255 255 255 / 0.16);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-btn:hover::before {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.lp-search {
+  width: min(32rem, calc(100vw - 2rem));
+  margin: auto;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background: var(--background);
+  color: inherit;
+  padding: 0;
+}
+
+.lp-search::backdrop {
+  background: rgb(0 0 0 / 0.72);
 }
 
 
