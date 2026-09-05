@@ -5,18 +5,18 @@ import { SHOTS } from "@/lib/shots";
 const STEPS = [
   {
     index: "01",
-    title: "Author the graph",
-    copy: "Draw it in the builder or write it in the SDK. Both emit the same JSON.",
+    title: "Build your workflow",
+    copy: "Design on the canvas or define it in TypeScript. Both create the same deployable graph.",
   },
   {
     index: "02",
-    title: "We run it",
-    copy: "The host executes the graph, retries on failure, and writes a checkpoint after every node.",
+    title: "Deploy with confidence",
+    copy: "Start runs from your app, a webhook, or a schedule. Linea manages execution and recovery.",
   },
   {
     index: "03",
-    title: "Replay the break",
-    copy: "Name the step that failed and run it again. Nothing upstream has to move.",
+    title: "Improve every run",
+    copy: "Inspect each step, resolve signals, and replay only the work that needs another pass.",
   },
 ] as const;
 
@@ -24,8 +24,8 @@ const FEATURES = [
   {
     id: "product",
     index: "01",
-    title: "You design the graph. We keep it running.",
-    copy: "Author on a canvas or in TypeScript. Start from a schedule, a webhook, or your own code. Crash safety, retries, and resume are part of the host, not a side project.",
+    title: "Reliable execution, built in.",
+    copy: "Run multi-step agents without building a separate queue and recovery layer. Every step is checkpointed, failures are retried, and interrupted runs resume from the last successful node.",
     image: SHOTS.builder,
     alt: "Linea builder with a document summarization graph",
     tone: "cool" as const,
@@ -33,8 +33,8 @@ const FEATURES = [
   {
     id: "replay",
     index: "02",
-    title: "Fix one step, not the whole run.",
-    copy: "Each node leaves a checkpoint: the exact payload it received. You can change a prompt on step four and run that node again without paying for steps one through three.",
+    title: "Debug with the original context.",
+    copy: "See the input and output for every node. When a prompt, model, or tool needs a change, replay that step from the payload it originally received—without rerunning upstream work.",
     image: SHOTS.signals,
     alt: "Linea monitoring view with open signals",
     tone: "warm" as const,
@@ -42,8 +42,8 @@ const FEATURES = [
   {
     id: "memory",
     index: "03",
-    title: "Memory that survives the run.",
-    copy: "Agents can remember facts from last time and search a workspace knowledge base. You do not have to stand up a store and a retrieval pipeline for every graph.",
+    title: "Context that carries forward.",
+    copy: "Persist facts between executions and search shared workspace knowledge from any workflow. Give agents continuity without maintaining a separate memory and retrieval service.",
     image: SHOTS.evals,
     alt: "Linea evals for a published workflow",
     tone: "neutral" as const,
@@ -62,8 +62,8 @@ export function Features() {
               key={step.index}
               className="border border-white/12 px-5 py-7 sm:px-8 md:border-0"
             >
-              <p className="text-sm tabular-nums text-muted">{step.index}</p>
-              <h2 className="mt-2 text-base font-medium tracking-tight">
+              <h2 className="text-base font-medium tracking-tight">
+                <span className="tabular-nums">{step.index}.</span>{" "}
                 {step.title}
               </h2>
               <p className="mt-1 text-sm leading-6 text-muted">{step.copy}</p>
@@ -86,8 +86,8 @@ export function Features() {
               <div
                 className={`flex flex-col justify-center px-5 py-10 sm:px-8 lg:py-16 ${flip ? "lg:order-2" : ""}`}
               >
-                <p className="text-sm tabular-nums text-muted">{feature.index}</p>
-                <h3 className="mt-3 text-2xl font-medium tracking-tight sm:text-[1.75rem]">
+                <h3 className="text-2xl font-medium tracking-tight sm:text-[1.75rem]">
+                  <span className="tabular-nums">{feature.index}.</span>{" "}
                   {feature.title}
                 </h3>
                 <p className="mt-3 text-sm leading-6 text-muted">

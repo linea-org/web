@@ -42,7 +42,6 @@ export function Search({ entries }: { entries: SearchEntry[] }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listId = useId();
-  const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const results = useMemo(
@@ -51,7 +50,6 @@ export function Search({ entries }: { entries: SearchEntry[] }) {
   );
 
   function show() {
-    setOpen(true);
     setQuery("");
     setActive(0);
     dialogRef.current?.showModal();
@@ -59,7 +57,6 @@ export function Search({ entries }: { entries: SearchEntry[] }) {
   }
 
   function hide() {
-    setOpen(false);
     dialogRef.current?.close();
   }
 
@@ -129,7 +126,6 @@ export function Search({ entries }: { entries: SearchEntry[] }) {
         ref={dialogRef}
         className="lp-search"
         aria-label="Search resources"
-        onClose={() => setOpen(false)}
         onClick={(event) => {
           if (event.target === event.currentTarget) {
             hide();
@@ -148,7 +144,6 @@ export function Search({ entries }: { entries: SearchEntry[] }) {
             }}
             placeholder="Search resources"
             aria-controls={listId}
-            aria-expanded={open}
             aria-autocomplete="list"
             className="w-full bg-transparent text-sm tracking-tight text-white outline-none placeholder:text-muted"
           />

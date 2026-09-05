@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Band } from "@/components/landing/frame";
 import { SiteChrome } from "@/components/landing/site-chrome";
 import { Button, Container } from "@/components/landing/ui";
@@ -9,22 +8,22 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Who it is for",
   description:
-    "Linea is for founders, platform engineers, and teams who already know how they would operate an agent graph, and would rather not.",
+    "Linea helps product, AI, and platform teams build, run, and improve production agent workflows.",
   path: "/audience",
 });
 
-const NOT = [
+const FIT = [
   {
-    title: "Not a Zapier replacement",
-    copy: "If the work is a visual-only path, and a code node would mean the product failed, this is the wrong tool.",
+    title: "Use the tools you prefer",
+    copy: "Build visually when collaboration matters, or define the same workflow in TypeScript when code belongs in the repository.",
   },
   {
-    title: "Not another framework",
-    copy: "If you need a new way to write the agent loop, stay on the framework you have. We host the run. We do not replace the loop.",
+    title: "Bring your agent logic",
+    copy: "Linea is the execution layer around your prompts, model calls, tools, and business logic—not a requirement to rebuild them.",
   },
   {
-    title: "Not a customer page",
-    copy: "If you need a logo wall before you try it, we do not have one. The product is early. That is the whole answer.",
+    title: "Start small, then publish",
+    copy: "Test a workflow in the builder, inspect each step, and publish it to the hosted runtime when it is ready for real traffic.",
   },
 ] as const;
 
@@ -36,11 +35,11 @@ export default function AudiencePage() {
           <Container className="py-16 sm:py-24">
             <p className="text-sm text-muted">Who it is for</p>
             <h1 className="mt-3 max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
-              Built for people who already know how they would do this.
+              One platform for every team shipping agents.
             </h1>
             <p className="mt-5 max-w-xl text-sm leading-6 text-muted sm:text-base">
-              The builder is there if you want it. It is not the only way in.
-              The SDK is a first-class authoring surface, not a lesser path.
+              Design together in the builder, work in TypeScript with the SDK,
+              and run the same workflow on managed infrastructure.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>
@@ -57,26 +56,16 @@ export default function AudiencePage() {
           <div className="grid gap-3 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-white/12">
             {AUDIENCE.map((item, index) => (
               <article
-                key={item.name}
+                key={item.label}
                 className="border border-white/12 px-5 py-8 sm:px-8 md:border-0"
               >
                 <p className="text-sm tabular-nums text-muted">
-                  {String(index + 1).padStart(2, "0")}
+                  {String(index + 1).padStart(2, "0")}.
                 </p>
-                <Image
-                  src={item.image}
-                  alt=""
-                  width={40}
-                  height={40}
-                  loading="lazy"
-                  className="mt-4 size-10 object-cover"
-                />
+                <p className="mt-4 text-sm text-muted">{item.label}</p>
                 <h2 className="mt-3 text-xl font-medium tracking-tight">
-                  {item.name}
+                  {item.title}
                 </h2>
-                <p className="mt-1 text-sm text-muted">
-                  {item.title} · {item.role}
-                </p>
                 <p className="mt-3 text-sm leading-6 text-muted">{item.copy}</p>
               </article>
             ))}
@@ -85,13 +74,13 @@ export default function AudiencePage() {
 
         <Band marks={false}>
           <Container className="py-10 sm:py-12">
-            <p className="text-sm text-muted">Who it is not for</p>
+            <p className="text-sm text-muted">How teams work with Linea</p>
             <h2 className="mt-3 max-w-xl text-2xl font-medium tracking-tight sm:text-3xl">
-              And who it is not for.
+              Fit Linea into the stack you already have.
             </h2>
           </Container>
           <div className="grid gap-3 border-t border-white/12 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-white/12">
-            {NOT.map((item) => (
+            {FIT.map((item) => (
               <div
                 key={item.title}
                 className="border border-white/12 px-5 py-8 sm:px-8 md:border-0"

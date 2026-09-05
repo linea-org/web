@@ -85,7 +85,9 @@ export function SiteHeader() {
         <div className="flex min-w-0 items-center gap-8">
           <Link href="/" className="flex items-center gap-2.5">
             <Logo />
-            <span className="text-[15px] font-medium tracking-tight">Linea</span>
+            <span className="text-[17px] leading-none font-medium tracking-tight">
+              Linea
+            </span>
           </Link>
           <nav
             className="hidden items-center gap-6 text-sm text-muted lg:flex"

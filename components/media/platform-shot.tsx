@@ -1,7 +1,4 @@
-"use client";
-
-import Image from "next/image";
-import { useState } from "react";
+import { getImageProps } from "next/image";
 import { SHOT_SIZE } from "@/lib/shots";
 
 export type ShotTone = "neutral" | "warm" | "cool";
@@ -15,7 +12,7 @@ const TONE_CLASS: Record<ShotTone, string> = {
 export function PlatformShot({
   src,
   alt,
-  priority = false,
+  eager = false,
   sizes,
   fill = false,
   tone = "neutral",
@@ -23,33 +20,38 @@ export function PlatformShot({
 }: {
   src: string;
   alt: string;
-  priority?: boolean;
+  eager?: boolean;
   sizes?: string;
   fill?: boolean;
   tone?: ShotTone;
   className?: string;
 }) {
-  const [loaded, setLoaded] = useState(false);
+  const { props } = getImageProps({
+    src,
+    alt,
+    width: SHOT_SIZE.width,
+    height: SHOT_SIZE.height,
+    sizes,
+    loading: eager ? "eager" : "lazy",
+    fetchPriority: eager ? "high" : undefined,
+  });
+  const { alt: imageAlt, ...imageProps } = props;
 
   return (
     <div
       className={`lp-grain lp-shot ${TONE_CLASS[tone]} ${fill ? "absolute inset-0" : "relative"} ${className}`}
     >
       <div className="flex h-full w-full items-center justify-center">
-        <Image
-          src={src}
-          alt={alt}
-          width={SHOT_SIZE.width}
-          height={SHOT_SIZE.height}
-          priority={priority}
-          loading={priority ? "eager" : "lazy"}
-          sizes={sizes}
-          onLoad={() => setLoaded(true)}
+        {/* getImageProps keeps responsive optimization without client state. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          {...imageProps}
+          alt={imageAlt}
           className={`${
             fill
               ? "max-h-full w-auto max-w-full object-contain"
               : "h-auto w-full"
-          } transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
+          }`}
         />
       </div>
     </div>

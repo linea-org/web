@@ -7,7 +7,7 @@ export const contentType = ogContentType;
 export default function Image() {
   return createOgImage({
     eyebrow: "Careers",
-    title: "No open roles yet.",
-    description: "Linea Labs is early. There are no open roles posted yet.",
+    title: "We are building the first team.",
+    description: "Learn about careers and future opportunities at Linea Labs.",
   });
 }

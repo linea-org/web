@@ -7,8 +7,8 @@ export const contentType = ogContentType;
 export default function Image() {
   return createOgImage({
     eyebrow: "Research",
-    title: "What has to be true for replay to exist.",
+    title: "Engineering reliable agents, one layer at a time.",
     description:
-      "Notes and theses on checkpoints, step-level replay, and the work a framework leaves on you.",
+      "Technical perspectives on durable execution, checkpoints, step-level replay, and memory for production agents.",
   });
 }

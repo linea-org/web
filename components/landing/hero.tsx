@@ -1,5 +1,4 @@
 import { Band, Cross } from "@/components/landing/frame";
-import { GitHubIcon } from "@/components/landing/github-icon";
 import { PlatformShot } from "@/components/media/platform-shot";
 import { Button, Container } from "@/components/landing/ui";
 import { PLATFORM_URL } from "@/lib/docs";
@@ -7,16 +6,16 @@ import { SHOTS } from "@/lib/shots";
 
 const PILLARS = [
   {
-    title: "Runtime",
-    copy: "You write the graph. We execute it with checkpoints, retries, and crash resume already on the host.",
+    title: "Durable runtime",
+    copy: "Run workflows with automatic retries, step-level checkpoints, and recovery from the last successful step.",
   },
   {
-    title: "Replay",
-    copy: "When a node fails, run that node again against the input it originally saw. The rest of the graph stays put.",
+    title: "Step-level replay",
+    copy: "Update and replay one step from its original input without repeating the work that already succeeded.",
   },
   {
-    title: "Memory",
-    copy: "Facts and documents live with the run, so the next trigger can read what the last one learned.",
+    title: "Persistent memory",
+    copy: "Carry facts across runs and give every workflow access to searchable workspace knowledge.",
   },
 ] as const;
 
@@ -26,35 +25,30 @@ export function Hero() {
       <Band>
         <Container className="py-16 text-center sm:py-20">
           <p className="flex justify-center">
-            <span className="inline-flex items-center gap-1.5 border border-white/12 py-1 pr-2 pl-1 text-[11px] font-medium tracking-tight text-white">
-              <span className="inline-flex size-4 items-center justify-center bg-white">
-                <GitHubIcon className="size-2.5 text-black" />
-              </span>
-              Backed by open source contributors
+            <span className="inline-flex items-center border border-white/12 px-2.5 py-1 text-[11px] font-medium tracking-tight text-white">
+              The agent runtime for production
             </span>
           </p>
-          <p className="mt-3 text-sm text-muted">
-            For people who would otherwise operate this layer themselves.
-          </p>
           <h1 className="mx-auto mt-4 text-[2.25rem] leading-[1.08] font-medium tracking-[-0.04em] sm:text-5xl lg:whitespace-nowrap lg:text-[clamp(2.5rem,4.8vw,3.75rem)]">
-            The hosted ops layer for agents.
+            Build agents that keep running.
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-muted">
-            You write the graph. We host the run, checkpoint every step, and
-            let you replay only the one that failed.
+            Design, deploy, and improve agent workflows in one platform.
+            Linea handles durable execution, replay, memory, approvals, and
+            observability.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>
               Start building
             </Button>
             <Button href="/runtime" variant="secondary" shortcut="a">
-              See it in action
+              Explore the platform
             </Button>
           </div>
         </Container>
       </Band>
 
-      <Band wash>
+      <Band grain>
         <div className="grid gap-3 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-white/12">
           {PILLARS.map((pillar) => (
             <div
@@ -78,7 +72,7 @@ export function Hero() {
             <PlatformShot
               src={SHOTS.dashboard}
               alt="Linea dashboard with workflows, signals, and recent executions"
-              priority
+              eager
               sizes="(min-width: 80rem) 80rem, 100vw"
             />
           </div>

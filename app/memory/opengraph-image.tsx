@@ -1,4 +1,4 @@
-import { createOgImage, ogContentType, ogSize } from "@/lib/og";
+import { createContentOgImage, ogContentType, ogSize } from "@/lib/og";
 import { getProduct } from "@/lib/product";
 
 const product = getProduct("memory");
@@ -8,9 +8,10 @@ export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return createOgImage({
+  return createContentOgImage({
     eyebrow: product.name,
     title: product.title,
     description: product.description,
+    image: product.image,
   });
 }

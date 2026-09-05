@@ -29,19 +29,21 @@ export function Frame({ children }: { children: ReactNode }) {
 export function Band({
   children,
   wash = false,
+  grain = false,
   hatch = false,
   marks = true,
   sticky = false,
 }: {
   children: ReactNode;
   wash?: boolean;
+  grain?: boolean;
   hatch?: boolean;
   marks?: boolean;
   sticky?: boolean;
 }) {
   return (
     <div
-      className={`border-b border-white/12 ${sticky ? "sticky top-0 z-40 bg-background" : "relative"} ${wash ? "lp-wash lp-grain" : ""} ${hatch ? "lp-hatch" : ""}`}
+      className={`border-b border-white/12 ${sticky ? "sticky top-0 z-40 bg-background" : "relative"} ${wash ? "lp-wash" : ""} ${wash || grain ? "lp-grain" : ""} ${hatch ? "lp-hatch" : ""}`}
     >
       {marks ? (
         <>

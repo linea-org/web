@@ -1,31 +1,23 @@
-export type AudiencePerson = {
-  name: string;
+export type AudienceGroup = {
+  label: string;
   title: string;
-  role: string;
-  image: string;
   copy: string;
 };
 
-export const AUDIENCE: AudiencePerson[] = [
+export const AUDIENCE: AudienceGroup[] = [
   {
-    name: "Mira",
-    title: "Founder",
-    role: "Would have written this herself",
-    image: "/ref/avatar-founder.jpg",
-    copy: "You already know how to write the agent loop. What you do not want is another weekend on workers, retries, and a store you will have to keep.",
+    label: "Product teams",
+    title: "Move from prototype to production",
+    copy: "Ship customer-facing agents without turning reliability, memory, and observability into a separate infrastructure project.",
   },
   {
-    name: "Noah",
-    title: "Platform engineer",
-    role: "Tired of the full re-run",
-    image: "/ref/avatar-engineer.jpg",
-    copy: "Changing one prompt and paying for the whole graph again is a real cost. You want to name the broken step and run that node against the input it already saw.",
+    label: "AI engineers",
+    title: "Iterate with the original context",
+    copy: "Inspect each execution, find the step that needs work, and replay it from the exact input it received the first time.",
   },
   {
-    name: "Leila",
-    title: "On a framework",
-    role: "Still has to operate the run",
-    image: "/ref/avatar-team.jpg",
-    copy: "The framework solved the loop. You still host the process, store the facts, and sandbox the code node. Linea is that second half.",
+    label: "Platform teams",
+    title: "Standardize how agents run",
+    copy: "Give every team one managed runtime for checkpoints, retries, approvals, sandboxed code, and persistent memory.",
   },
 ];

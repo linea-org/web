@@ -7,7 +7,8 @@ export const contentType = ogContentType;
 export default function Image() {
   return createOgImage({
     eyebrow: "Docs",
-    title: "How to author a graph and replay a step.",
-    description: "How to author a graph, run it, and replay a single step.",
+    title: "Build and operate workflows with Linea.",
+    description:
+      "Learn how to build, deploy, observe, and replay agent workflows with Linea.",
   });
 }

@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { ExternalIcon } from "@/components/landing/external-icon";
 import { GitHubIcon } from "@/components/landing/github-icon";
@@ -10,48 +7,35 @@ import { GITHUB_URL } from "@/lib/socials";
 import { NAV } from "@/lib/nav";
 
 export function MobileNav() {
-  const [open, setOpen] = useState(false);
-
   return (
-    <div className="lg:hidden">
-      <button
-        type="button"
-        className="lp-btn lp-btn-secondary inline-flex size-9 items-center justify-center border border-white/25 text-white"
-        aria-expanded={open}
-        aria-controls="mobile-nav"
-        onClick={() => setOpen((value) => !value)}
+    <details className="group lg:hidden">
+      <summary
+        className="lp-btn lp-btn-secondary inline-flex size-9 cursor-pointer list-none items-center justify-center border border-white/25 text-white [&::-webkit-details-marker]:hidden"
       >
-        <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
-        <svg aria-hidden viewBox="0 0 16 16" className="size-4">
-          {open ? (
-            <path
-              d="M3.5 3.5 12.5 12.5M12.5 3.5 3.5 12.5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.25"
-              strokeLinecap="square"
-            />
-          ) : (
-            <path
-              d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.25"
-              strokeLinecap="square"
-            />
-          )}
+        <span className="sr-only">Toggle menu</span>
+        <svg aria-hidden viewBox="0 0 16 16" className="size-4 group-open:hidden">
+          <path
+            d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeLinecap="square"
+          />
         </svg>
-      </button>
-      {open ? (
-        <div
-          id="mobile-nav"
-          className="absolute inset-x-0 top-full z-30 border-b border-white/12 bg-background"
-          onClick={(event) => {
-            if ((event.target as HTMLElement).closest("a")) {
-              setOpen(false);
-            }
-          }}
-        >
+        <svg aria-hidden viewBox="0 0 16 16" className="hidden size-4 group-open:block">
+          <path
+            d="M3.5 3.5 12.5 12.5M12.5 3.5 3.5 12.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeLinecap="square"
+          />
+        </svg>
+      </summary>
+      <div
+        id="mobile-nav"
+        className="absolute inset-x-0 top-full z-30 border-b border-white/12 bg-background"
+      >
           <nav className="divide-y divide-white/12 text-sm" aria-label="Mobile">
             {NAV.map((item) => {
               switch (item.kind) {
@@ -124,8 +108,7 @@ export function MobileNav() {
               Start building
             </Button>
           </div>
-        </div>
-      ) : null}
-    </div>
+      </div>
+    </details>
   );
 }

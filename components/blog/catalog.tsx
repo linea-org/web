@@ -15,7 +15,7 @@ export function BlogCatalog({ posts }: { posts: BlogMeta[] }) {
 
   return (
     <div className="grid lg:grid-cols-[minmax(0,1fr)_16rem] lg:divide-x lg:divide-white/12">
-      <div className="max-h-[32rem] overflow-y-auto border-t border-white/12">
+      <div className="border-t border-white/12 lg:max-h-[32rem] lg:overflow-y-auto">
         {visible.length === 0 ? (
           <p className="px-5 py-10 text-sm text-muted sm:px-8">
             No posts in this tag yet.
@@ -28,12 +28,16 @@ export function BlogCatalog({ posts }: { posts: BlogMeta[] }) {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="flex min-w-0 gap-3 border-b border-white/12 px-5 py-6 last:border-b-0 sm:gap-6 sm:px-8 sm:py-7"
+                className="flex min-w-0 flex-col gap-4 border-b border-white/12 px-5 py-6 last:border-b-0 sm:flex-row sm:gap-6 sm:px-8 sm:py-7"
               >
-                <div className="relative h-16 w-24 shrink-0 overflow-hidden border border-white/12 sm:h-24 sm:w-36 lg:h-28 lg:w-44">
-                  <PlatformShot src={post.image} alt="" fill />
+                <div className="overflow-hidden border border-white/12 sm:w-36 sm:shrink-0 lg:w-44">
+                  <PlatformShot
+                    src={post.image}
+                    alt=""
+                    sizes="(min-width: 1024px) 11rem, (min-width: 640px) 9rem, 100vw"
+                  />
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                   <div className="min-w-0 sm:max-w-md">
                     <div className="flex items-start gap-2">
                       {primary ? (
@@ -50,14 +54,14 @@ export function BlogCatalog({ posts }: { posts: BlogMeta[] }) {
                       {post.excerpt}
                     </p>
                   </div>
-                  <div className="flex shrink-0 flex-col items-start gap-1.5 sm:items-end">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 sm:shrink-0 sm:flex-col sm:items-end">
                     <p className="text-xs text-muted">
                       {formatPostDate(post.date)}
                     </p>
                     <p className="text-xs text-muted">{post.author}</p>
                     {primary ? (
                       <span
-                        className={`mt-2 border px-1.5 py-0.5 text-[10px] font-medium tracking-[0.12em] uppercase ${tagBadge(primary)}`}
+                        className={`border px-1.5 py-0.5 text-[10px] font-medium tracking-[0.12em] uppercase sm:mt-2 ${tagBadge(primary)}`}
                       >
                         {primary}
                       </span>

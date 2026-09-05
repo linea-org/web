@@ -9,7 +9,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Blog",
   description:
-    "How we think about checkpoints, replay, and the work a framework leaves on you.",
+    "Practical notes on reliable execution, step-level replay, memory, and building agents for production.",
   path: "/blog",
 });
 

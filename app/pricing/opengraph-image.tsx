@@ -7,8 +7,8 @@ export const contentType = ogContentType;
 export default function Image() {
   return createOgImage({
     eyebrow: "Pricing",
-    title: "No prices yet.",
+    title: "Simple pricing is on the way.",
     description:
-      "Linea pricing is coming soon. We will price usage when the bill is real.",
+      "Linea is free during early access. Transparent usage-based pricing is coming soon.",
   });
 }

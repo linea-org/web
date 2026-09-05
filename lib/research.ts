@@ -26,7 +26,7 @@ export const RESEARCH: ResearchNote[] = [
     title: "Memory is not a side quest",
     date: "2026-07-28",
     kind: "Note",
-    copy: "Facts have to survive the run. If the store is yours to operate, you are still doing the ops half.",
+    copy: "Persistent memory gives future runs access to what earlier executions learned, without a separate store for every workflow.",
   },
   {
     href: "/blog/sandbox-the-code-node",

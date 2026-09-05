@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { extname, resolve, sep } from "node:path";
 import type { CSSProperties, ReactNode } from "react";
 
 export const ogSize = { width: 1200, height: 630 };
@@ -7,6 +9,7 @@ export const ogContentType = "image/png";
 const BORDER = "rgba(255,255,255,0.12)";
 const MUTED = "#a3a3a3";
 const CROSS = "rgba(255,255,255,0.35)";
+const PUBLIC_ROOT = resolve(process.cwd(), "public");
 
 const interMedium = fetch(
   "https://cdn.jsdelivr.net/fontsource/fonts/inter@5.2.5/latin-500-normal.woff",
@@ -100,6 +103,78 @@ function OgFrame({ children }: { children: ReactNode }) {
   );
 }
 
+function OgBrand() {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          fontSize: 24,
+          fontWeight: 500,
+          letterSpacing: "-0.03em",
+        }}
+      >
+        Linea
+      </div>
+      <div
+        style={{
+          display: "flex",
+          fontSize: 20,
+          color: MUTED,
+          letterSpacing: "-0.02em",
+        }}
+      >
+        getlinea.app
+      </div>
+    </div>
+  );
+}
+
+async function publicImageDataUrl(image: string): Promise<string | null> {
+  const file = resolve(PUBLIC_ROOT, image.replace(/^\/+/, ""));
+  if (!file.startsWith(`${PUBLIC_ROOT}${sep}`)) {
+    return null;
+  }
+
+  const mime =
+    {
+      ".jpg": "image/jpeg",
+      ".jpeg": "image/jpeg",
+      ".png": "image/png",
+      ".webp": "image/webp",
+    }[extname(file).toLowerCase()] ?? null;
+
+  if (!mime) {
+    return null;
+  }
+
+  try {
+    const data = await readFile(file, "base64");
+    return `data:${mime};base64,${data}`;
+  } catch {
+    return null;
+  }
+}
+
+function imageResponseOptions(inter: ArrayBuffer | null) {
+  return {
+    ...ogSize,
+    ...(inter
+      ? {
+          fonts: [
+            { name: "Inter", data: inter, style: "normal" as const, weight: 500 as const },
+          ],
+        }
+      : {}),
+  };
+}
+
 export async function createOgImage({
   eyebrow,
   title,
@@ -127,34 +202,7 @@ export async function createOgImage({
               "radial-gradient(ellipse 90% 140% at 50% 0%, rgba(255,255,255,0.05), transparent 62%)",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                fontSize: 24,
-                fontWeight: 500,
-                letterSpacing: "-0.03em",
-              }}
-            >
-              Linea
-            </div>
-            <div
-              style={{
-                display: "flex",
-                fontSize: 20,
-                color: MUTED,
-                letterSpacing: "-0.02em",
-              }}
-            >
-              getlinea.app
-            </div>
-          </div>
+          <OgBrand />
           <div
             style={{
               display: "flex",
@@ -205,11 +253,135 @@ export async function createOgImage({
         </div>
       </OgFrame>
     ),
-    {
-      ...ogSize,
-      fonts: inter
-        ? [{ name: "Inter", data: inter, style: "normal", weight: 500 }]
-        : [],
-    },
+    imageResponseOptions(inter),
+  );
+}
+
+export async function createContentOgImage({
+  eyebrow,
+  title,
+  description,
+  image,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  image: string;
+}) {
+  const imageSrc = await publicImageDataUrl(image);
+  if (!imageSrc) {
+    return createOgImage({ eyebrow, title, description });
+  }
+
+  const inter = await interMedium;
+  const long = title.length > 46;
+  const showEyebrow = eyebrow.toLowerCase() !== "linea";
+
+  return new ImageResponse(
+    (
+      <OgFrame>
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            position: "relative",
+            overflow: "hidden",
+            background: "#050505",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageSrc}
+            alt=""
+            width={1200}
+            height={630}
+            style={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+          />
+          <div
+            style={{
+              display: "flex",
+              position: "absolute",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              backgroundImage:
+                "linear-gradient(90deg, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.88) 38%, rgba(0,0,0,0.38) 72%, rgba(0,0,0,0.12) 100%), linear-gradient(0deg, rgba(0,0,0,0.72) 0%, transparent 55%)",
+            }}
+          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              height: "100%",
+              position: "relative",
+              padding: "44px 64px 48px",
+            }}
+          >
+            <OgBrand />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                flex: 1,
+                justifyContent: "flex-end",
+                maxWidth: 700,
+              }}
+            >
+              {showEyebrow ? (
+                <div
+                  style={{
+                    display: "flex",
+                    fontSize: 21,
+                    color: "#d4d4d4",
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  {eyebrow}
+                </div>
+              ) : null}
+              <div
+                style={{
+                  display: "flex",
+                  fontSize: long ? 44 : 52,
+                  fontWeight: 500,
+                  letterSpacing: "-0.035em",
+                  lineHeight: 1.08,
+                  marginTop: showEyebrow ? 14 : 0,
+                }}
+              >
+                {title}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  fontSize: 20,
+                  color: "#d4d4d4",
+                  letterSpacing: "-0.02em",
+                  lineHeight: 1.4,
+                  marginTop: 18,
+                  maxWidth: 650,
+                }}
+              >
+                {description}
+              </div>
+            </div>
+          </div>
+        </div>
+      </OgFrame>
+    ),
+    imageResponseOptions(inter),
   );
 }

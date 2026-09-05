@@ -2,6 +2,7 @@ import {
   Children,
   isValidElement,
   type ComponentPropsWithoutRef,
+  type ReactNode,
 } from "react";
 import Link from "next/link";
 import { CopyCode } from "@/components/code/copy-code";
@@ -50,6 +51,37 @@ export function MdImage({
   );
 }
 
+function hasMdImage(node: ReactNode): boolean {
+  return Children.toArray(node).some((child) => {
+    if (!isValidElement(child)) {
+      return false;
+    }
+
+    if (child.type === MdImage || child.type === "img") {
+      return true;
+    }
+
+    if (
+      typeof child.props === "object" &&
+      child.props &&
+      "src" in child.props &&
+      typeof child.props.src === "string"
+    ) {
+      return true;
+    }
+
+    if (
+      typeof child.props === "object" &&
+      child.props &&
+      "children" in child.props
+    ) {
+      return hasMdImage(child.props.children as ReactNode);
+    }
+
+    return false;
+  });
+}
+
 export const mdxComponents = {
   h2: (props: ComponentPropsWithoutRef<"h2">) => (
     <h2
@@ -60,9 +92,14 @@ export const mdxComponents = {
   h3: (props: ComponentPropsWithoutRef<"h3">) => (
     <h3 className="mt-8 text-lg font-medium tracking-tight" {...props} />
   ),
-  p: (props: ComponentPropsWithoutRef<"p">) => (
-    <p className="mt-4 text-sm leading-7 text-muted first:mt-0" {...props} />
-  ),
+  p: ({ children, ...props }: ComponentPropsWithoutRef<"p">) =>
+    hasMdImage(children) ? (
+      <>{children}</>
+    ) : (
+      <p className="mt-4 text-sm leading-7 text-muted first:mt-0" {...props}>
+        {children}
+      </p>
+    ),
   a: ({ href = "", children, ...props }: ComponentPropsWithoutRef<"a">) => {
     const className =
       "text-white underline decoration-white/25 underline-offset-4 hover:decoration-white";

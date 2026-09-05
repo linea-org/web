@@ -1,5 +1,10 @@
 import { getPost, postExists } from "@/lib/blog";
-import { createOgImage, ogContentType, ogSize } from "@/lib/og";
+import {
+  createContentOgImage,
+  createOgImage,
+  ogContentType,
+  ogSize,
+} from "@/lib/og";
 
 export const alt = "Note · Linea Labs";
 export const size = ogSize;
@@ -20,9 +25,13 @@ export default async function Image({
   }
 
   const { meta } = getPost(slug);
-  return createOgImage({
+  const content = {
     eyebrow: meta.author,
     title: meta.title,
     description: meta.excerpt,
-  });
+  };
+
+  return meta.image
+    ? createContentOgImage({ ...content, image: meta.image })
+    : createOgImage(content);
 }

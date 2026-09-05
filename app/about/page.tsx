@@ -11,22 +11,22 @@ import { SHOTS } from "@/lib/shots";
 export const metadata = pageMeta({
   title: "About",
   description:
-    "Linea Labs is a small team building Linea, a hosted runtime for agent graphs.",
+    "Linea Labs is building the platform for reliable, production-ready agent workflows.",
   path: "/about",
 });
 
 const SAID = [
   {
-    title: "We are early",
-    copy: "There is no customer wall and no invented price list. If a page would require us to pretend, we leave it blank.",
+    title: "Built for real workflows",
+    copy: "Agents need more than a successful demo. Linea brings execution, recovery, memory, approvals, and visibility into one production platform.",
   },
   {
-    title: "Replay is the reason this exists",
-    copy: "Fixing one step without re-running the graph requires a checkpoint. A checkpoint requires a host that actually ran the graph.",
+    title: "Improve without starting over",
+    copy: "Every node captures its input and output so teams can understand what happened and replay the exact step they want to refine.",
   },
   {
-    title: "Builder and SDK are the same graph",
-    copy: "The canvas and the file in git are two editors. They write one document. The run does not care which view you used.",
+    title: "One definition everywhere",
+    copy: "The visual builder and TypeScript SDK create the same workflow, giving technical and non-technical collaborators a shared source of truth.",
   },
 ] as const;
 
@@ -42,7 +42,7 @@ export default function AboutPage() {
                   src={SHOTS.builder}
                   alt="Linea graph canvas in the builder"
                   fill
-                  priority
+                  eager
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   tone="cool"
                 />
@@ -51,11 +51,11 @@ export default function AboutPage() {
             <Container className="flex flex-col justify-center py-8 sm:py-10">
               <p className="text-sm text-muted">About</p>
               <h1 className="mt-3 max-w-xl text-3xl font-medium tracking-tight sm:text-4xl">
-                Linea Labs builds Linea.
+                We are building the runtime for production agents.
               </h1>
               <p className="mt-4 max-w-md text-sm leading-6 text-muted">
-                Linea is the product: a hosted runtime for agent graphs. Linea
-                Labs is the small team shipping that host.
+                Linea helps teams design, deploy, and improve reliable agent
+                workflows without assembling the operational layer themselves.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>
@@ -77,17 +77,17 @@ export default function AboutPage() {
                 Linea Labs
               </h2>
               <p className="mt-3 text-sm leading-6 text-muted">
-                A small team. We will post roles when there is real work to
-                hire for. Until then this page stays empty on purpose.
+                A focused team working on the infrastructure that turns agent
+                prototypes into durable, observable products.
               </p>
             </article>
             <article className="border border-white/12 px-5 py-8 sm:border-0 sm:px-8">
               <p className="text-sm text-muted">The product</p>
               <h2 className="mt-3 text-xl font-medium tracking-tight">Linea</h2>
               <p className="mt-3 text-sm leading-6 text-muted">
-                You design a graph once. We run it, keep a checkpoint after
-                each node, store memory across runs, and let you replay a
-                single step. The builder and the SDK write the same document.
+                A single platform to build workflows, run them on managed
+                infrastructure, preserve context, and improve individual steps
+                with replay.
               </p>
             </article>
           </div>
@@ -113,7 +113,7 @@ export default function AboutPage() {
           <Container className="py-8 sm:py-9">
             <p className="text-sm text-muted">The product</p>
             <h2 className="mt-3 text-2xl font-medium tracking-tight sm:text-3xl">
-              Three surfaces, one host.
+              One platform, three foundations.
             </h2>
           </Container>
           <div className="grid gap-3 border-t border-white/12 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-white/12">

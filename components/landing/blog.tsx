@@ -13,11 +13,11 @@ export function Blog() {
         <Container className="flex flex-col items-start gap-5 py-10 sm:py-12 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">
-              Writing from the team
+              From the Linea team
             </h2>
             <p className="mt-3 text-sm leading-6 text-muted">
-              How we think about checkpoints, replay, and the work a
-              framework leaves on you.
+              Practical notes on reliable execution, step-level replay,
+              memory, and building agents for production.
             </p>
           </div>
           <Link

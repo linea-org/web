@@ -4,7 +4,7 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
   title: "Docs",
-  description: "How to author a graph, run it, and replay a single step.",
+  description: "Learn how to build, deploy, observe, and replay agent workflows with Linea.",
   path: "/docs",
 });
 

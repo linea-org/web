@@ -6,7 +6,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Pricing",
   description:
-    "Linea pricing is coming soon. We will price usage when the bill is real.",
+    "Linea is free during early access. Transparent usage-based pricing is coming soon.",
   path: "/pricing",
 });
 
@@ -15,11 +15,11 @@ export default function PricingPage() {
     <SiteChrome>
       <SparseMain>
         <h1 className="max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
-          No prices yet.
+          Simple pricing is on the way.
         </h1>
         <p className="mt-5 max-w-xl text-sm leading-6 text-muted sm:text-base">
-          The product is free while we build. When usage has a real bill,
-          the numbers go here. No invented tiers in the meantime.
+          Linea is free to use during early access. We will publish clear,
+          usage-based pricing before introducing paid plans.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Band } from "@/components/landing/frame";
 import { Container } from "@/components/landing/ui";
 import { AUDIENCE } from "@/lib/audience";
@@ -9,32 +8,24 @@ export function Proof() {
       <section id="audience">
         <Container className="py-16">
           <p className="text-sm text-muted">Who it is for</p>
-          <h2 className="mt-3 max-w-2xl text-3xl font-medium tracking-tight sm:text-4xl">
-            Built for people who already know how they would do this.
+          <h2 className="mt-3 max-w-4xl text-3xl font-medium tracking-tight sm:text-4xl">
+            Built for teams shipping agents to production.
           </h2>
+          <p className="mt-4 max-w-3xl text-sm leading-6 text-muted">
+            Linea gives product, AI, and platform teams a shared path from
+            workflow design to reliable execution.
+          </p>
         </Container>
         <div className="grid gap-3 border-t border-white/12 p-3 md:grid-cols-3 md:gap-1.5 md:p-0">
           {AUDIENCE.map((item) => (
             <article
-              key={item.name}
-              className="relative border border-white/12 px-5 py-7 sm:px-8 md:border-x md:border-y-0 lp-grain lp-wash"
+              key={item.label}
+              className="relative border border-white/12 px-5 py-7 sm:px-8 md:border-x md:border-y-0 lp-grain"
             >
-              <div className="flex items-center gap-3">
-                <Image
-                  src={item.image}
-                  alt=""
-                  width={32}
-                  height={32}
-                  loading="lazy"
-                  className="size-8 object-cover"
-                />
-                <div>
-                  <h3 className="text-sm font-medium">{item.name}</h3>
-                  <p className="text-xs text-muted">
-                    {item.title} · {item.role}
-                  </p>
-                </div>
-              </div>
+              <p className="text-sm text-muted">{item.label}</p>
+              <h3 className="mt-3 text-lg font-medium tracking-tight">
+                {item.title}
+              </h3>
               <p className="mt-4 text-sm leading-6 text-muted">{item.copy}</p>
             </article>
           ))}

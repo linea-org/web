@@ -1,14 +1,25 @@
-import { createOgImage, ogContentType, ogSize } from "@/lib/og";
+import { listPosts } from "@/lib/blog";
+import {
+  createContentOgImage,
+  createOgImage,
+  ogContentType,
+  ogSize,
+} from "@/lib/og";
 
 export const alt = "Blog · Linea Labs";
 export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return createOgImage({
+  const image = listPosts()[0]?.image;
+  const content = {
     eyebrow: "Blog",
     title: "Notes from Linea Labs.",
     description:
-      "How we think about checkpoints, replay, and the work a framework leaves on you.",
-  });
+      "Practical notes on reliable execution, step-level replay, memory, and building agents for production.",
+  };
+
+  return image
+    ? createContentOgImage({ ...content, image })
+    : createOgImage(content);
 }

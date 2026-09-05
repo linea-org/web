@@ -30,7 +30,7 @@ function Header({ product }: { product: Product }) {
             src={product.image}
             alt={product.imageAlt}
             fill
-            priority
+            eager
             sizes="(min-width: 1024px) 50vw, 100vw"
             tone={shotTone(product.slug)}
           />
@@ -63,7 +63,7 @@ function Steps({ items }: { items: { title: string; copy: string }[] }) {
       {items.map((item, index) => (
         <div key={item.title}>
           <p className="text-sm tabular-nums text-muted">
-            {String(index + 1).padStart(2, "0")}
+            {String(index + 1).padStart(2, "0")}.
           </p>
           <h3 className="mt-2 text-base font-medium tracking-tight">
             {item.title}
@@ -193,7 +193,7 @@ function NotReplay({ product }: { product: Product }) {
   return (
     <Band marks={false}>
       <Container className="py-10 sm:py-12">
-        <p className="text-sm text-muted">Not this</p>
+        <p className="text-sm text-muted">Designed for precision</p>
         <h2 className="mt-3 max-w-xl text-2xl font-medium tracking-tight sm:text-3xl">
           {block.title}
         </h2>
@@ -218,7 +218,7 @@ function Body({ product }: { product: Product }) {
     case "replay":
       return (
         <>
-          <How product={product} label="The break" />
+          <How product={product} label="How it works" />
           <Example product={product} />
           <Compare product={product} />
           <NotReplay product={product} />

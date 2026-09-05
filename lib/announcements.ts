@@ -8,21 +8,21 @@ export const ANNOUNCEMENTS: Announcement[] = [
   {
     href: "/replay",
     label: "Step-level replay",
-    copy: "run one node again. Leave the rest of the graph alone.",
+    copy: "replay one node from its original input without rerunning the workflow.",
   },
   {
     href: "/memory",
     label: "Memory",
-    copy: "facts that survive the run, without a store you have to keep.",
+    copy: "carry facts and workspace knowledge across every execution.",
   },
   {
     href: "/runtime",
     label: "Runtime",
-    copy: "the host stays up after the trigger. Checkpoints come with the run.",
+    copy: "deploy workflows with checkpoints, retries, and automatic recovery.",
   },
   {
     href: "/research",
     label: "Research",
-    copy: "notes on checkpoints, replay, and the work a framework leaves on you.",
+    copy: "technical notes on reliable agent execution and iteration.",
   },
 ];

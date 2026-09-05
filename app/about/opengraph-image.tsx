@@ -1,14 +1,16 @@
-import { createOgImage, ogContentType, ogSize } from "@/lib/og";
+import { createContentOgImage, ogContentType, ogSize } from "@/lib/og";
+import { SHOTS } from "@/lib/shots";
 
 export const alt = "About · Linea Labs";
 export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return createOgImage({
+  return createContentOgImage({
     eyebrow: "About",
-    title: "Linea Labs builds Linea.",
+    title: "The runtime for production agents.",
     description:
-      "Linea Labs is a small team building Linea, a hosted runtime for agent graphs.",
+      "Linea Labs is building the platform for reliable, production-ready agent workflows.",
+    image: SHOTS.builder,
   });
 }

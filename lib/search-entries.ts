@@ -1,6 +1,5 @@
 import { listPosts } from "@/lib/blog";
 import { DOCS_URL } from "@/lib/docs";
-import { FAQS } from "@/lib/faq";
 import { PRODUCTS } from "@/lib/product";
 import type { SearchEntry } from "@/lib/search";
 
@@ -49,14 +48,6 @@ export function getSearchEntries(): SearchEntry[] {
         title: post.title,
         hint: post.excerpt,
         group: "Writing",
-      }),
-    ),
-    ...FAQS.map((item) =>
-      withId({
-        href: "/faq",
-        title: item.q,
-        hint: "FAQ",
-        group: "Questions",
       }),
     ),
   ];

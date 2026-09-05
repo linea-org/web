@@ -88,10 +88,11 @@ export function SiteFooter() {
             <div className="max-w-sm lg:shrink-0">
               <p className="text-sm text-white">Linea Labs</p>
               <p className="mt-3 text-sm text-muted">
-                A hosted runtime for agent graphs.
+                The platform for production agent workflows.
               </p>
               <p className="mt-6 text-sm leading-6 text-muted">
-                You write the logic that is unique to the problem.{" "}
+                Build visually or in TypeScript, then deploy to a managed
+                runtime with checkpoints, memory, and replay.{" "}
                 <a
                   href={PLATFORM_URL}
                   className={linkClass}
@@ -111,13 +112,6 @@ export function SiteFooter() {
                   <ExternalIcon />
                 </a>
                 .
-              </p>
-              <p className="mt-4 text-sm leading-6 text-muted">
-                Step-level{" "}
-                <Link href="/replay" className={linkClass}>
-                  replay
-                </Link>{" "}
-                is the wedge: fix one step without re-running the graph.
               </p>
             </div>
             <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4">

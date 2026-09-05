@@ -39,7 +39,7 @@ function ResearchCards({ items }: { items: ResearchNote[] }) {
 export const metadata = pageMeta({
   title: "Research",
   description:
-    "Notes and theses on checkpoints, step-level replay, and the work a framework leaves on you.",
+    "Technical perspectives on durable execution, checkpoints, step-level replay, and memory for production agents.",
   path: "/research",
 });
 
@@ -51,12 +51,11 @@ export default function ResearchPage() {
           <Container className="py-16 sm:py-24">
             <p className="text-sm text-muted">Research</p>
             <h1 className="mt-3 max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
-              What has to be true for replay to exist.
+              Engineering reliable agents, one layer at a time.
             </h1>
             <p className="mt-5 max-w-xl text-sm leading-6 text-muted sm:text-base">
-              Linea is early, so this is not a journal. It is the set of claims
-              we are willing to defend: a checkpoint is a real input, memory
-              belongs on the host, and a framework does not ship the run.
+              Technical perspectives from the Linea team on durable execution,
+              captured context, step-level replay, and memory across runs.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href="/blog" shortcut="b" externalIcon={false}>
@@ -75,7 +74,7 @@ export default function ResearchPage() {
               Thesis
             </h2>
             <p className="mt-2 max-w-xl text-sm leading-6 text-muted">
-              The claim the rest of the work sits on.
+              Our point of view on the infrastructure production agents need.
             </p>
           </Container>
           <ResearchCards
@@ -89,7 +88,7 @@ export default function ResearchPage() {
               Notes
             </h2>
             <p className="mt-2 max-w-xl text-sm leading-6 text-muted">
-              Shorter pieces that follow from that claim.
+              Focused explorations of the systems behind reliable workflows.
             </p>
           </Container>
           <ResearchCards

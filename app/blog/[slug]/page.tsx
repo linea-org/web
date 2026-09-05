@@ -110,13 +110,12 @@ export default async function PostPage({ params }: PostPageProps) {
             </Link>
           </div>
           <div className="grid lg:grid-cols-2">
-            <div className="lp-hatch border-b border-white/12 p-1.5 lg:order-2 lg:border-b-0 lg:border-l">
-              <div className="relative aspect-[4/3] overflow-hidden border border-white/12 lg:aspect-auto lg:min-h-80 lg:h-full">
+            <div className="lp-hatch border-b border-white/12 p-1.5 lg:order-2 lg:self-start lg:border-b-0 lg:border-l">
+              <div className="overflow-hidden border border-white/12">
                 <PlatformShot
                   src={meta.image}
                   alt=""
-                  fill
-                  priority
+                  eager
                   sizes="(min-width: 1024px) 50vw, 100vw"
                 />
               </div>

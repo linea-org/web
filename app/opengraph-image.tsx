@@ -1,14 +1,16 @@
-import { createOgImage, ogContentType, ogSize } from "@/lib/og";
+import { createContentOgImage, ogContentType, ogSize } from "@/lib/og";
+import { SHOTS } from "@/lib/shots";
 import { SITE_DESCRIPTION } from "@/lib/site";
 
-export const alt = "Linea · The hosted ops layer for agents";
+export const alt = "Linea · Build agents that keep running";
 export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return createOgImage({
+  return createContentOgImage({
     eyebrow: "Linea",
-    title: "The hosted ops layer for agents.",
+    title: "Build agents that keep running.",
     description: SITE_DESCRIPTION,
+    image: SHOTS.dashboard,
   });
 }

@@ -1,9 +1,4 @@
-export const SEARCH_GROUPS = [
-  "Product",
-  "Resources",
-  "Writing",
-  "Questions",
-] as const;
+export const SEARCH_GROUPS = ["Product", "Resources", "Writing"] as const;
 
 export type SearchGroup = (typeof SEARCH_GROUPS)[number];
 

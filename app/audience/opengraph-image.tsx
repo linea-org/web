@@ -7,8 +7,8 @@ export const contentType = ogContentType;
 export default function Image() {
   return createOgImage({
     eyebrow: "Who it is for",
-    title: "For people who already know how they would do this.",
+    title: "One platform for every team shipping agents.",
     description:
-      "Linea is for founders, platform engineers, and teams who already know how they would operate an agent graph, and would rather not.",
+      "Build, run, and improve production agent workflows across product, AI, and platform teams.",
   });
 }
