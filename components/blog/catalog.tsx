@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { tagBadge, tagDot } from "@/components/blog/tag-style";
+import { PlatformShot } from "@/components/media/platform-shot";
 import { formatPostDate, type BlogMeta } from "@/lib/blog-meta";
 
 export function BlogCatalog({ posts }: { posts: BlogMeta[] }) {
@@ -31,13 +31,7 @@ export function BlogCatalog({ posts }: { posts: BlogMeta[] }) {
                 className="flex min-w-0 gap-3 border-b border-white/12 px-5 py-6 last:border-b-0 sm:gap-6 sm:px-8 sm:py-7"
               >
                 <div className="relative h-16 w-24 shrink-0 overflow-hidden border border-white/12 sm:h-24 sm:w-36 lg:h-28 lg:w-44">
-                  <Image
-                    src={post.image}
-                    alt=""
-                    width={352}
-                    height={224}
-                    className="h-full w-full object-cover"
-                  />
+                  <PlatformShot src={post.image} alt="" fill />
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="min-w-0 sm:max-w-md">

@@ -1,23 +1,38 @@
-import Image from "next/image";
 import { CodeBlock } from "@/components/product/code-block";
 import { Band } from "@/components/landing/frame";
 import { SiteChrome } from "@/components/landing/site-chrome";
 import { Button, Container } from "@/components/landing/ui";
+import { PlatformShot, type ShotTone } from "@/components/media/platform-shot";
 import { DOCS_URL, PLATFORM_URL } from "@/lib/docs";
-import type { Product } from "@/lib/product";
+import type { Product, ProductSlug } from "@/lib/product";
+
+function shotTone(slug: ProductSlug): ShotTone {
+  switch (slug) {
+    case "runtime":
+      return "cool";
+    case "replay":
+      return "warm";
+    case "memory":
+      return "neutral";
+    default: {
+      const _never: never = slug;
+      return _never;
+    }
+  }
+}
 
 function Header({ product }: { product: Product }) {
   return (
     <Band marks={false}>
       <div className="grid lg:grid-cols-2">
         <div className="relative aspect-[4/3] border-b border-white/12 lg:order-2 lg:aspect-auto lg:h-full lg:min-h-80 lg:border-b-0 lg:border-l">
-          <Image
+          <PlatformShot
             src={product.image}
             alt={product.imageAlt}
             fill
-            className="object-cover object-center"
-            sizes="(min-width: 1024px) 50vw, 100vw"
             priority
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            tone={shotTone(product.slug)}
           />
         </div>
         <Container className="flex flex-col justify-start py-10 sm:py-14">

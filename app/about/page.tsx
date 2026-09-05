@@ -1,11 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Band } from "@/components/landing/frame";
 import { SiteChrome } from "@/components/landing/site-chrome";
 import { Button, Container } from "@/components/landing/ui";
+import { PlatformShot } from "@/components/media/platform-shot";
 import { PLATFORM_URL } from "@/lib/docs";
 import { PRODUCTS } from "@/lib/product";
 import { pageMeta } from "@/lib/seo";
+import { SHOTS } from "@/lib/shots";
 
 export const metadata = pageMeta({
   title: "About",
@@ -37,13 +38,13 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2">
             <div className="lp-hatch border-b border-white/12 p-1.5 lg:order-2 lg:border-b-0 lg:border-l">
               <div className="relative aspect-[3/2] overflow-hidden border border-white/12 lg:aspect-auto lg:min-h-72 lg:h-full">
-                <Image
-                  src="/ref/linea-about.jpg"
-                  alt="Linea graph canvas and checkpoint inspector"
+                <PlatformShot
+                  src={SHOTS.builder}
+                  alt="Linea graph canvas in the builder"
                   fill
-                  className="object-cover object-center"
-                  sizes="(min-width: 1024px) 50vw, 100vw"
                   priority
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  tone="cool"
                 />
               </div>
             </div>

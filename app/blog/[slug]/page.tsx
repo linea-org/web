@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -8,6 +7,7 @@ import { remarkCodeSwitcher } from "@/lib/remark-code-switcher";
 import { AuthorLink } from "@/components/blog/author-link";
 import { mdxComponents } from "@/components/blog/mdx";
 import { tagBadge } from "@/components/blog/tag-style";
+import { PlatformShot } from "@/components/media/platform-shot";
 import { Band } from "@/components/landing/frame";
 import { SiteChrome } from "@/components/landing/site-chrome";
 import { Container } from "@/components/landing/ui";
@@ -112,13 +112,12 @@ export default async function PostPage({ params }: PostPageProps) {
           <div className="grid lg:grid-cols-2">
             <div className="lp-hatch border-b border-white/12 p-1.5 lg:order-2 lg:border-b-0 lg:border-l">
               <div className="relative aspect-[4/3] overflow-hidden border border-white/12 lg:aspect-auto lg:min-h-80 lg:h-full">
-                <Image
+                <PlatformShot
                   src={meta.image}
                   alt=""
                   fill
-                  className="object-cover object-center"
-                  sizes="(min-width: 1024px) 50vw, 100vw"
                   priority
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                 />
               </div>
             </div>

@@ -68,6 +68,7 @@ export default function AudiencePage() {
                   alt=""
                   width={40}
                   height={40}
+                  loading="lazy"
                   className="mt-4 size-10 object-cover"
                 />
                 <h2 className="mt-3 text-xl font-medium tracking-tight">

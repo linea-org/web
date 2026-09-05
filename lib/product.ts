@@ -49,8 +49,8 @@ export const PRODUCTS: Product[] = [
       "A hosted runtime with checkpoints, retries, crash resume, and a sandboxed code node. Builder and SDK write the same graph.",
     excerpt:
       "Author on a canvas or in TypeScript. Start from a schedule, a webhook, or your own code. Crash safety, retries, and resume are part of the host.",
-    image: "/ref/linea-runtime.jpg",
-    imageAlt: "Linea runtime console with checkpointed runs",
+    image: "/linea/linea-builder.png",
+    imageAlt: "Linea builder with a document summarization graph",
     how: {
       title: "After the trigger, something has to stay up",
       lead: "Cron, a webhook, and client.run() are solved problems. The runtime is what happens next: workers, retries, a boxed code node, and a record of every step.",
@@ -144,8 +144,8 @@ export const recovery = graph({
       "Replay one node against the exact input it saw, without re-running the rest of the graph.",
     excerpt:
       "Each node leaves a checkpoint: the exact payload it received. You can change a prompt on step four and run that node again without paying for steps one through three.",
-    image: "/ref/linea-replay.jpg",
-    imageAlt: "Linea replay inspector on a failed step",
+    image: "/linea/linea-signals.png",
+    imageAlt: "Linea monitoring view with open signals",
     how: {
       title: "One run, then the one node that broke",
       lead: "Invoice recovery ran. Fetch worked. Reason worked. draft_reply wrote a bad email. Replay that node. You should not have to pay for fetch and reason again.",
@@ -254,8 +254,8 @@ export const recovery = graph({
       "Agent facts and workspace knowledge, without a store and retrieval pipeline you have to operate.",
     excerpt:
       "Agents can remember facts from last time and search a workspace knowledge base. You do not have to stand up a store and a retrieval pipeline for every graph.",
-    image: "/ref/linea-memory.jpg",
-    imageAlt: "Linea memory workspace with facts and knowledge",
+    image: "/linea/linea-evals.png",
+    imageAlt: "Linea evals for a published workflow",
     how: {
       title: "The graph asks. The host keeps the store.",
       lead: "Memory is not a longer prompt. It is a fact that has to live until the next trigger, and a knowledge base a node can search without you shipping a retrieval stack.",

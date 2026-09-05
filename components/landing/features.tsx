@@ -1,5 +1,6 @@
-import Image from "next/image";
 import { Band, Cross, Separator } from "@/components/landing/frame";
+import { PlatformShot } from "@/components/media/platform-shot";
+import { SHOTS } from "@/lib/shots";
 
 const STEPS = [
   {
@@ -25,24 +26,27 @@ const FEATURES = [
     index: "01",
     title: "You design the graph. We keep it running.",
     copy: "Author on a canvas or in TypeScript. Start from a schedule, a webhook, or your own code. Crash safety, retries, and resume are part of the host, not a side project.",
-    image: "/ref/linea-runtime.jpg",
-    alt: "Linea runtime console with checkpointed runs",
+    image: SHOTS.builder,
+    alt: "Linea builder with a document summarization graph",
+    tone: "cool" as const,
   },
   {
     id: "replay",
     index: "02",
     title: "Fix one step, not the whole run.",
     copy: "Each node leaves a checkpoint: the exact payload it received. You can change a prompt on step four and run that node again without paying for steps one through three.",
-    image: "/ref/linea-replay.jpg",
-    alt: "Linea replay inspector on a failed step",
+    image: SHOTS.signals,
+    alt: "Linea monitoring view with open signals",
+    tone: "warm" as const,
   },
   {
     id: "memory",
     index: "03",
     title: "Memory that survives the run.",
     copy: "Agents can remember facts from last time and search a workspace knowledge base. You do not have to stand up a store and a retrieval pipeline for every graph.",
-    image: "/ref/linea-memory.jpg",
-    alt: "Linea memory workspace with facts and knowledge",
+    image: SHOTS.evals,
+    alt: "Linea evals for a published workflow",
+    tone: "neutral" as const,
   },
 ] as const;
 
@@ -101,12 +105,11 @@ export function Features() {
                 )}
                 <Cross className="-bottom-px left-0 -translate-x-1/2 translate-y-1/2" />
                 <Cross className="-bottom-px right-0 translate-x-1/2 translate-y-1/2" />
-                <Image
+                <PlatformShot
                   src={feature.image}
                   alt={feature.alt}
-                  width={1200}
-                  height={800}
-                  className="h-auto w-full"
+                  tone={feature.tone}
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                 />
               </div>
             </article>

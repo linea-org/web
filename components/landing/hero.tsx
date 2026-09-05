@@ -1,8 +1,9 @@
-import Image from "next/image";
 import { Band, Cross } from "@/components/landing/frame";
 import { GitHubIcon } from "@/components/landing/github-icon";
+import { PlatformShot } from "@/components/media/platform-shot";
 import { Button, Container } from "@/components/landing/ui";
 import { PLATFORM_URL } from "@/lib/docs";
+import { SHOTS } from "@/lib/shots";
 
 const PILLARS = [
   {
@@ -74,13 +75,11 @@ export function Hero() {
       <Band hatch>
         <div className="p-3">
           <div className="relative border border-white/12">
-            <Image
-              src="/linea-dashboard.png"
+            <PlatformShot
+              src={SHOTS.dashboard}
               alt="Linea dashboard with workflows, signals, and recent executions"
-              width={2880}
-              height={1884}
               priority
-              className="h-auto w-full object-cover object-top"
+              sizes="(min-width: 80rem) 80rem, 100vw"
             />
           </div>
         </div>

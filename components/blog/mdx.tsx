@@ -3,9 +3,9 @@ import {
   isValidElement,
   type ComponentPropsWithoutRef,
 } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { CopyCode } from "@/components/code/copy-code";
+import { PlatformShot } from "@/components/media/platform-shot";
 import { SwitchableCode } from "@/components/code/switchable-code";
 import { textFrom } from "@/components/code/text-from";
 import { highlightCode } from "@/lib/highlight";
@@ -44,16 +44,8 @@ export function MdImage({
   }
 
   return (
-    <span className="lp-hatch my-6 block border border-white/12 p-1.5">
-      <span className="relative block overflow-hidden border border-white/12">
-        <Image
-          src={src}
-          alt={alt}
-          width={1200}
-          height={720}
-          className="h-auto w-full object-cover"
-        />
-      </span>
+    <span className="my-6 block border border-white/12">
+      <PlatformShot src={src} alt={alt} />
     </span>
   );
 }

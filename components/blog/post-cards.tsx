@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Logo } from "@/components/landing/logo";
+import { PlatformShot } from "@/components/media/platform-shot";
 import { formatPostDate, type BlogMeta } from "@/lib/blog-meta";
 
 export function PostCards({
@@ -19,14 +19,8 @@ export function PostCards({
           className={`relative flex flex-col ${framed ? "border border-white/12" : ""}`}
         >
           <div className="lp-hatch border-b border-white/12 p-1.5">
-            <div className="relative overflow-hidden border border-white/12">
-              <Image
-                src={post.image}
-                alt=""
-                width={800}
-                height={480}
-                className="h-40 w-full object-cover"
-              />
+            <div className="relative h-40 overflow-hidden border border-white/12">
+              <PlatformShot src={post.image} alt="" fill />
             </div>
           </div>
           <div className="flex flex-1 flex-col px-5 py-5 sm:px-6">

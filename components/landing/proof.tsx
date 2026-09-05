@@ -25,6 +25,7 @@ export function Proof() {
                   alt=""
                   width={32}
                   height={32}
+                  loading="lazy"
                   className="size-8 object-cover"
                 />
                 <div>

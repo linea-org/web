@@ -3,7 +3,7 @@ title: Why replay needs the checkpoint
 date: "2026-08-18"
 author: Linea Labs
 excerpt: You cannot re-run step four without the exact input it saw. That input only exists if the host executed the run.
-image: /ref/linea-runtime.jpg
+image: /linea/linea-signals.png
 tags:
   - Replay
   - Runtime
@@ -15,7 +15,7 @@ That payload is not in your prompt file. It is the output of the steps before it
 
 This is why replay sits on the host, and why we treat it as the wedge. The rest of Linea (workers, memory, a boxed code node) exists so that this record is there when you need it.
 
-![Replay inspector on a failed step](/ref/linea-replay.jpg)
+![Monitoring view with open signals](/linea/linea-signals.png)
 
 ## What the checkpoint holds
 

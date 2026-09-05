@@ -67,6 +67,24 @@ a[aria-disabled="true"] {
     rgb(255 255 255 / 0.018);
 }
 
+.lp-shot {
+  background:
+    radial-gradient(
+      ellipse 80% 70% at 50% 18%,
+      var(--shot-glow, rgb(255 255 255 / 0.07)),
+      transparent 58%
+    ),
+    rgb(255 255 255 / 0.025);
+}
+
+.lp-shot-warm {
+  --shot-glow: rgb(255 156 64 / 0.16);
+}
+
+.lp-shot-cool {
+  --shot-glow: rgb(130 168 255 / 0.12);
+}
+
 .lp-hatch {
   background-image: repeating-linear-gradient(
     -45deg,
