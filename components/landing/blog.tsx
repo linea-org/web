@@ -8,7 +8,7 @@ export function Blog() {
   const posts = listPosts().slice(0, 3);
 
   return (
-    <Band marks={false}>
+    <Band marks={false} className="lp-defer">
       <section id="blog">
         <Container className="flex flex-col items-start gap-5 py-10 sm:py-12 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">

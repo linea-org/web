@@ -33,6 +33,7 @@ export function Band({
   hatch = false,
   marks = true,
   sticky = false,
+  className = "",
 }: {
   children: ReactNode;
   wash?: boolean;
@@ -40,10 +41,11 @@ export function Band({
   hatch?: boolean;
   marks?: boolean;
   sticky?: boolean;
+  className?: string;
 }) {
   return (
     <div
-      className={`border-b border-white/12 ${sticky ? "sticky top-0 z-40 bg-background" : "relative"} ${wash ? "lp-wash" : ""} ${wash || grain ? "lp-grain" : ""} ${hatch ? "lp-hatch" : ""}`}
+      className={`border-b border-white/12 ${sticky ? "sticky top-0 z-40 bg-background" : "relative"} ${wash ? "lp-wash" : ""} ${wash || grain ? "lp-grain" : ""} ${hatch ? "lp-hatch" : ""} ${className}`}
     >
       {marks ? (
         <>

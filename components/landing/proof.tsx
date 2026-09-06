@@ -4,7 +4,7 @@ import { AUDIENCE } from "@/lib/audience";
 
 export function Proof() {
   return (
-    <Band marks={false}>
+    <Band marks={false} className="lp-defer">
       <section id="audience">
         <Container className="py-16">
           <p className="text-sm text-muted">Who it is for</p>

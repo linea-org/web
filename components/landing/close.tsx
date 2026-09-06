@@ -4,7 +4,7 @@ import { DOCS_URL, PLATFORM_URL } from "@/lib/docs";
 
 export function Close() {
   return (
-    <Band hatch>
+    <Band hatch className="lp-defer">
       <section id="start" className="p-3">
         <div className="relative border border-white/12 bg-background px-5 py-16 text-center sm:px-10 sm:py-24">
           <p className="text-sm text-muted">Start building with Linea</p>

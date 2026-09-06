@@ -32,6 +32,7 @@ export function PlatformShot({
     width: SHOT_SIZE.width,
     height: SHOT_SIZE.height,
     sizes,
+    quality: 70,
     loading: eager ? "eager" : "lazy",
     fetchPriority: eager ? "high" : undefined,
   });

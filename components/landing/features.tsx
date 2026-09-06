@@ -72,7 +72,7 @@ export function Features() {
         </div>
       </Band>
       <Separator marks={false} bottomLeft />
-      <Band>
+      <Band className="lp-defer">
       <div className="grid gap-3 p-3 lg:gap-0 lg:p-0 lg:divide-y lg:divide-white/12">
         {FEATURES.map((feature, index) => {
           const flip = index % 2 === 1;

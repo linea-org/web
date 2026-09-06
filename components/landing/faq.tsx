@@ -4,7 +4,7 @@ import { FAQS } from "@/lib/faq";
 
 export function Faq() {
   return (
-    <Band>
+    <Band className="lp-defer">
       <section id="faq">
         <Container className="py-16">
           <p className="text-sm text-muted">Questions</p>
