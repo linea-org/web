@@ -16,7 +16,7 @@ export default function Image() {
     eyebrow: "Blog",
     title: "Notes from Linea Labs.",
     description:
-      "Practical notes on reliable execution, step-level replay, memory, and building agents for production.",
+      "Notes on executing the graph, holding the checkpoint, and operating production agents.",
   };
 
   return image

@@ -43,39 +43,39 @@ export const PRODUCTS: Product[] = [
     slug: "runtime",
     href: "/runtime",
     name: "Runtime",
-    hint: "Reliable agent execution",
-    title: "Reliable execution for every agent workflow.",
+    hint: "The host that runs the graph",
+    title: "The host that runs the agent graph.",
     description:
-      "Build and deploy agent workflows on managed infrastructure with checkpoints, retries, automatic recovery, and sandboxed code.",
+      "Linea executes the workflow behind your agent: checkpoints, retries, recovery, and a sandboxed code node. You ship the agent. We run the graph.",
     excerpt:
-      "Design visually or define workflows in TypeScript, then start them from your app, a webhook, or a schedule. Linea keeps every execution durable and observable.",
+      "Author the graph on the canvas or in TypeScript. Start an execution from your app, a webhook, or a schedule. The host writes a checkpoint after every node.",
     image: "/linea/linea-builder.png",
     imageAlt: "Linea builder with a document summarization graph",
     how: {
-      title: "From trigger to completed run",
-      lead: "Deploy a workflow once and let Linea manage what happens next: execution, retries, checkpoints, custom code, and a complete record of every step.",
+      title: "From trigger to a finished execution",
+      lead: "The agent is what you ship. The workflow is the versioned graph behind it. Linea executes that graph and keeps the record of every step.",
       steps: [
         {
-          title: "One workflow, two ways to build",
-          copy: "Use the visual builder for fast collaboration or the TypeScript SDK for code-first development. Both create the same workflow definition.",
+          title: "One graph, two surfaces",
+          copy: "The builder and the TypeScript SDK emit the same workflow definition. An agent may use several graphs. Those are still one product.",
         },
         {
-          title: "Start from anywhere",
-          copy: "Trigger a run from a schedule, an HTTP webhook, or directly from your application using the SDK.",
+          title: "Start an execution",
+          copy: "A conversation is one user thread. An execution is one run of the graph — from a schedule, a webhook, or your own code.",
         },
         {
-          title: "Recover automatically",
-          copy: "Linea checkpoints each completed node. If an execution is interrupted, it can resume from the latest successful step.",
+          title: "Recover from the checkpoint",
+          copy: "Each completed node writes a checkpoint. If the process dies, the next worker resumes from the last successful step.",
         },
         {
-          title: "Run custom code safely",
-          copy: "Add business logic with a sandboxed code node without exposing the rest of the runtime to untrusted execution.",
+          title: "Sandbox the code node",
+          copy: "Last-mile logic drops into a boxed function. It can fail without taking the host down, and it can be replayed like any other node.",
         },
       ],
     },
     example: {
-      title: "Define the workflow in your codebase",
-      copy: "Create a graph with the SDK and keep it alongside the rest of your application. Open the same workflow in the builder whenever a visual view is useful.",
+      title: "Define the graph in your codebase",
+      copy: "The SDK writes the same workflow the builder draws. Keep the file next to the agent you ship. Open the canvas when a visual view helps.",
       lang: "ts",
       code: `import { graph, http, model } from "@linea/sdk";
 
@@ -89,14 +89,14 @@ export const recovery = graph({
 });`,
     },
     compare: {
-      title: "Ship without building the runtime yourself",
-      lead: "Keep ownership of your agent logic while Linea manages the infrastructure required to execute it reliably.",
+      title: "Ship the agent. Do not operate the host.",
+      lead: "Keep the prompts, tools, and business logic. Linea executes the graph and holds the control plane around the run.",
       columns: ["Self-managed stack", "Linea Runtime"],
       rows: [
         {
           label: "Where the process lives",
           left: "Workers and queues you operate",
-          right: "Managed with the workflow",
+          right: "The host that runs the graph",
         },
         {
           label: "A crash mid-run",
@@ -121,7 +121,7 @@ export const recovery = graph({
         items: [
           "The prompts, models, tools, and business logic",
           "The nodes and transitions unique to your product",
-          "The events that should start each workflow",
+          "The events that should start each execution",
         ],
       },
       right: {
@@ -138,21 +138,21 @@ export const recovery = graph({
     slug: "replay",
     href: "/replay",
     name: "Replay",
-    hint: "Debug a single step",
-    title: "Replay the step that needs another pass.",
+    hint: "One step, original input",
+    title: "Replay the step that failed.",
     description:
-      "Update and replay one node from its original input without rerunning the rest of the workflow.",
+      "Because Linea executed the graph, it holds the checkpoint. Replay one node against the exact input it saw — no deploy, no full re-run.",
     excerpt:
-      "Every node records the payload it received. Change a prompt, model, or tool and replay that step with the same context while completed upstream work stays untouched.",
+      "An observability tool can show the failure. It never ran the graph, so it has no checkpoint to replay from. Linea does.",
     image: "/linea/linea-signals.png",
     imageAlt: "Linea monitoring view with open signals",
     how: {
-      title: "Return to the exact point you want to improve",
-      lead: "When the final response in a workflow misses the mark, keep the successful retrieval and reasoning steps. Update the response node and replay only that step.",
+      title: "The fix loop starts at the checkpoint",
+      lead: "When a node misses, keep the steps that already succeeded. Change the prompt or model on that node and replay it against the payload it originally received.",
       steps: [
         {
           title: "Capture the execution",
-          copy: "As the workflow runs, Linea records the input and output for each node, including the memory and tool results available at that moment.",
+          copy: "As the graph runs, Linea records the input and output for each node, including the memory and tool results in scope at that moment.",
         },
         {
           title: "Find the step to change",
@@ -231,7 +231,7 @@ export const recovery = graph({
       items: [
         {
           title: "Target a single node",
-          copy: "Choose the exact step you want to run again instead of queuing the full workflow.",
+          copy: "Choose the exact step you want to run again instead of queuing a new execution of the whole graph.",
         },
         {
           title: "Keep the same input",
@@ -248,35 +248,35 @@ export const recovery = graph({
     slug: "memory",
     href: "/memory",
     name: "Memory",
-    hint: "Context across runs",
-    title: "Give every run the context it needs.",
+    hint: "Facts that survive the run",
+    title: "Memory that survives the run.",
     description:
-      "Persist agent facts across runs and search workspace knowledge without operating a separate memory and retrieval service.",
+      "Facts and workspace knowledge live on the host. The next execution can read what the last one learned, without a store you operate.",
     excerpt:
-      "Let workflows remember important facts, recall them on the next execution, and search shared workspace knowledge whenever a node needs more context.",
+      "The graph asks for memory. The host keeps it. remember, recall, and search are calls on the run — not a weekend of schema design.",
     image: "/linea/linea-evals.png",
     imageAlt: "Linea evals for a published workflow",
     how: {
-      title: "Persistent context, available when workflows need it",
-      lead: "Store structured facts for future runs and give every workflow a consistent way to search shared knowledge from the managed runtime.",
+      title: "Persistent context, available on the next execution",
+      lead: "Store structured facts for future runs and give every graph a consistent way to search shared knowledge from the host.",
       steps: [
         {
           title: "Remember structured facts",
-          copy: "Save durable information such as a customer plan or account state as records that workflows can use again.",
+          copy: "Save durable information such as a customer plan or account state as records the next execution can read.",
         },
         {
           title: "Recall context on the next run",
-          copy: "A future execution can retrieve what an earlier run learned, giving the agent continuity across sessions and triggers.",
+          copy: "A later execution can retrieve what an earlier one learned, so the agent has continuity across conversations and triggers.",
         },
         {
           title: "Search workspace knowledge",
-          copy: "Let any workflow retrieve relevant policies, product information, or operating guidance through one hosted search path.",
+          copy: "Any graph can retrieve policies or product guidance through one hosted search path.",
         },
       ],
     },
     example: {
       title: "Remember, recall, and search",
-      copy: "Access the same managed memory from workflows created in the builder or defined with the SDK.",
+      copy: "The same memory from the builder and the SDK. One store for the agent, not one store per graph.",
       lang: "ts",
       code: `await memory.remember("billing", {
   plan: "annual",
@@ -292,7 +292,7 @@ const policy = await memory.search(
     },
     compare: {
       title: "Add memory without operating another service",
-      lead: "Linea provides a consistent storage and retrieval layer for facts and workspace knowledge across all of your workflows.",
+      lead: "Linea keeps facts and workspace knowledge on the host, so every graph behind the agent reads the same store.",
       columns: ["Self-managed memory", "Linea Memory"],
       rows: [
         {
@@ -302,7 +302,7 @@ const policy = await memory.search(
         },
         {
           label: "How a node reads them",
-          left: "Custom integration for each workflow",
+          left: "Custom integration for each graph",
           right: "Shared remember, recall, and search APIs",
         },
         {

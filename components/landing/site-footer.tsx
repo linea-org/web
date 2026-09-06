@@ -88,11 +88,11 @@ export function SiteFooter() {
             <div className="max-w-sm lg:shrink-0">
               <p className="text-sm text-white">Linea Labs</p>
               <p className="mt-3 text-sm text-muted">
-                The platform for production agent workflows.
+                The runtime and control plane for production agents.
               </p>
               <p className="mt-6 text-sm leading-6 text-muted">
-                Build visually or in TypeScript, then deploy to a managed
-                runtime with checkpoints, memory, and replay.{" "}
+                You ship the agent. Linea executes the graph and keeps the
+                checkpoint, the signal, and the fix loop.{" "}
                 <a
                   href={PLATFORM_URL}
                   className={linkClass}

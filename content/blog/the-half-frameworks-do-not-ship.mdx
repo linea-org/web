@@ -13,7 +13,7 @@ LangGraph, and tools like it, solved a real problem: how to write the agent loop
 
 The ops half is still on you. You host the process. You retry the crash. You store what the agent learned. You sandbox the code node. You keep the input so you can replay one step. None of that falls out of a good graph library.
 
-We did not set out to write another way to express the loop. We set out to host the run.
+We did not set out to write another way to express the loop, and we did not set out to ship another workflow-automation tool. We set out to host the run and keep the control plane around it: the checkpoint, the signal, the case you freeze from a failure.
 
 ![Linea dashboard with workflows and executions](/linea/linea-dashboard.png)
 

@@ -5,18 +5,18 @@ import { SHOTS } from "@/lib/shots";
 const STEPS = [
   {
     index: "01",
-    title: "Build your workflow",
-    copy: "Design on the canvas or define it in TypeScript. Both create the same deployable graph.",
+    title: "Author the graph",
+    copy: "Draw it in the builder or write it in the SDK. Both emit the same workflow definition — the executable graph behind the agent.",
   },
   {
     index: "02",
-    title: "Deploy with confidence",
-    copy: "Start runs from your app, a webhook, or a schedule. Linea manages execution and recovery.",
+    title: "Linea executes it",
+    copy: "The host runs the graph, retries on failure, and writes a checkpoint after every node. That record is what replay reads from.",
   },
   {
     index: "03",
-    title: "Improve every run",
-    copy: "Inspect each step, resolve signals, and replay only the work that needs another pass.",
+    title: "Operate the agent",
+    copy: "Signals, approvals, and the fix loop sit on the same data model. This is a control plane, not another automation tool.",
   },
 ] as const;
 
@@ -24,8 +24,8 @@ const FEATURES = [
   {
     id: "product",
     index: "01",
-    title: "Reliable execution, built in.",
-    copy: "Run multi-step agents without building a separate queue and recovery layer. Every step is checkpointed, failures are retried, and interrupted runs resume from the last successful node.",
+    title: "The host runs the graph.",
+    copy: "You write the agent. We execute the workflow: deterministic steps, tool calls, waits, and approvals. Crash safety, retries, and resume are part of the host, not a side project.",
     image: SHOTS.builder,
     alt: "Linea builder with a document summarization graph",
     tone: "cool" as const,
@@ -33,8 +33,8 @@ const FEATURES = [
   {
     id: "replay",
     index: "02",
-    title: "Debug with the original context.",
-    copy: "See the input and output for every node. When a prompt, model, or tool needs a change, replay that step from the payload it originally received—without rerunning upstream work.",
+    title: "Replay the step that failed.",
+    copy: "Because we executed the run, we hold the checkpoint. Change a prompt or model on step four and run that node again against the input it originally saw. Nothing upstream has to move.",
     image: SHOTS.signals,
     alt: "Linea monitoring view with open signals",
     tone: "warm" as const,
@@ -42,8 +42,8 @@ const FEATURES = [
   {
     id: "memory",
     index: "03",
-    title: "Context that carries forward.",
-    copy: "Persist facts between executions and search shared workspace knowledge from any workflow. Give agents continuity without maintaining a separate memory and retrieval service.",
+    title: "Memory that survives the run.",
+    copy: "Facts and workspace knowledge live on the host. The next execution can read what the last one learned, without a store and a retrieval pipeline for every graph.",
     image: SHOTS.evals,
     alt: "Linea evals for a published workflow",
     tone: "neutral" as const,

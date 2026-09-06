@@ -9,11 +9,12 @@ export function Proof() {
         <Container className="py-16">
           <p className="text-sm text-muted">Who it is for</p>
           <h2 className="mt-3 max-w-4xl text-3xl font-medium tracking-tight sm:text-4xl">
-            Built for teams shipping agents to production.
+            Built for people who would otherwise operate this layer themselves.
           </h2>
           <p className="mt-4 max-w-3xl text-sm leading-6 text-muted">
-            Linea gives product, AI, and platform teams a shared path from
-            workflow design to reliable execution.
+            Technical builders first. You write the agent. We execute the
+            graph and keep the records that let you diagnose, replay, and
+            ship a fix.
           </p>
         </Container>
         <div className="grid gap-3 border-t border-white/12 p-3 md:grid-cols-3 md:gap-1.5 md:p-0">

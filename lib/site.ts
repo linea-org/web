@@ -3,7 +3,7 @@ export const SITE_URL =
 
 export const SITE_NAME = "Linea";
 
-export const SITE_TITLE = "Linea · Build agents that keep running";
+export const SITE_TITLE = "Linea · Build and operate production agents";
 
 export const SITE_DESCRIPTION =
-  "Build, deploy, and improve production agent workflows with durable execution, step-level replay, persistent memory, approvals, and observability.";
+  "An agentic runtime and control plane. You ship the agent. Linea executes the graph, holds the checkpoint, and gives you the loop to diagnose, replay, and ship a fix.";

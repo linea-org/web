@@ -8,22 +8,22 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Who it is for",
   description:
-    "Linea helps product, AI, and platform teams build, run, and improve production agent workflows.",
+    "Linea is for technical builders who would otherwise assemble the ops layer themselves: runtime, replay, memory, and the records around the run.",
   path: "/audience",
 });
 
 const FIT = [
   {
-    title: "Use the tools you prefer",
-    copy: "Build visually when collaboration matters, or define the same workflow in TypeScript when code belongs in the repository.",
+    title: "Author on either surface",
+    copy: "The canvas and the TypeScript SDK emit the same workflow definition. Pick the editor. Do not pick a second product.",
   },
   {
-    title: "Bring your agent logic",
-    copy: "Linea is the execution layer around your prompts, model calls, tools, and business logic—not a requirement to rebuild them.",
+    title: "Bring the agent logic",
+    copy: "Prompts, tools, and business logic stay yours. Linea executes the graph and holds the checkpoint. That is the control plane, not a rewrite of your loop.",
   },
   {
-    title: "Start small, then publish",
-    copy: "Test a workflow in the builder, inspect each step, and publish it to the hosted runtime when it is ready for real traffic.",
+    title: "Publish into the fix loop",
+    copy: "A published version is an immutable graph. Replay a failing step, freeze the case, publish again, and check you did not break what used to pass.",
   },
 ] as const;
 
@@ -35,11 +35,11 @@ export default function AudiencePage() {
           <Container className="py-16 sm:py-24">
             <p className="text-sm text-muted">Who it is for</p>
             <h1 className="mt-3 max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
-              One platform for every team shipping agents.
+              For people who would otherwise operate this layer themselves.
             </h1>
             <p className="mt-5 max-w-xl text-sm leading-6 text-muted sm:text-base">
-              Design together in the builder, work in TypeScript with the SDK,
-              and run the same workflow on managed infrastructure.
+              Technical builders first. You ship the agent. We execute the
+              graph. End users meet the agent you deploy, not Linea.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>
@@ -74,9 +74,9 @@ export default function AudiencePage() {
 
         <Band marks={false}>
           <Container className="py-10 sm:py-12">
-            <p className="text-sm text-muted">How teams work with Linea</p>
+            <p className="text-sm text-muted">How builders work with Linea</p>
             <h2 className="mt-3 max-w-xl text-2xl font-medium tracking-tight sm:text-3xl">
-              Fit Linea into the stack you already have.
+              Keep the logic. Give us the host.
             </h2>
           </Container>
           <div className="grid gap-3 border-t border-white/12 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-white/12">

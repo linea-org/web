@@ -7,8 +7,8 @@ export const contentType = ogContentType;
 export default function Image() {
   return createOgImage({
     eyebrow: "Research",
-    title: "Engineering reliable agents, one layer at a time.",
+    title: "The host, the checkpoint, and the loop after a failure.",
     description:
-      "Technical perspectives on durable execution, checkpoints, step-level replay, and memory for production agents.",
+      "Notes on executing the graph and operating production agents from those records.",
   });
 }

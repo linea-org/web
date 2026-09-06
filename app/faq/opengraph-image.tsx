@@ -9,6 +9,6 @@ export default function Image() {
     eyebrow: "FAQ",
     title: "Everything you need to know.",
     description:
-      "Answers about Linea's runtime, visual builder, TypeScript SDK, memory, checkpoints, and step-level replay.",
+      "What Linea is, why it is not a workflow-automation tool, and how the fix loop works.",
   });
 }

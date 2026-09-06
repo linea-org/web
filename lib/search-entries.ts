@@ -16,7 +16,7 @@ const RESOURCE_PAGES: Omit<SearchEntry, "id">[] = [
   {
     href: DOCS_URL,
     title: "Docs",
-    hint: "How to author and run a graph",
+    hint: "Author the graph. Run it on the host.",
     group: "Resources",
     external: true,
   },

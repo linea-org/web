@@ -39,7 +39,7 @@ function ResearchCards({ items }: { items: ResearchNote[] }) {
 export const metadata = pageMeta({
   title: "Research",
   description:
-    "Technical perspectives on durable execution, checkpoints, step-level replay, and memory for production agents.",
+    "Notes on the substrate production agents need: a host that executes the graph, a checkpoint, and a fix loop.",
   path: "/research",
 });
 
@@ -51,11 +51,11 @@ export default function ResearchPage() {
           <Container className="py-16 sm:py-24">
             <p className="text-sm text-muted">Research</p>
             <h1 className="mt-3 max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
-              Engineering reliable agents, one layer at a time.
+              The host, the checkpoint, and the loop after a failure.
             </h1>
             <p className="mt-5 max-w-xl text-sm leading-6 text-muted sm:text-base">
-              Technical perspectives from the Linea team on durable execution,
-              captured context, step-level replay, and memory across runs.
+              Notes from the Linea team on executing the graph, holding the
+              input each step saw, and operating the agent from those records.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href="/blog" shortcut="b" externalIcon={false}>
@@ -74,7 +74,8 @@ export default function ResearchPage() {
               Thesis
             </h2>
             <p className="mt-2 max-w-xl text-sm leading-6 text-muted">
-              Our point of view on the infrastructure production agents need.
+              Why Linea is a runtime and control plane, not another way to
+              draw a loop.
             </p>
           </Container>
           <ResearchCards
@@ -88,7 +89,7 @@ export default function ResearchPage() {
               Notes
             </h2>
             <p className="mt-2 max-w-xl text-sm leading-6 text-muted">
-              Focused explorations of the systems behind reliable workflows.
+              Focused notes on checkpoints, memory, and the code node.
             </p>
           </Container>
           <ResearchCards

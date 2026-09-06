@@ -7,8 +7,8 @@ export const contentType = ogContentType;
 export default function Image() {
   return createOgImage({
     eyebrow: "Who it is for",
-    title: "One platform for every team shipping agents.",
+    title: "For people who would otherwise operate this layer themselves.",
     description:
-      "Build, run, and improve production agent workflows across product, AI, and platform teams.",
+      "Technical builders first. You ship the agent. We execute the graph.",
   });
 }

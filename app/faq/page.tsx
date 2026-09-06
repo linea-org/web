@@ -5,7 +5,8 @@ import { FaqJump } from "./jump";
 
 export const metadata = pageMeta({
   title: "FAQ",
-  description: "Answers about Linea's runtime, visual builder, TypeScript SDK, memory, checkpoints, and step-level replay.",
+  description:
+    "What Linea is, why it is not a workflow-automation tool, and how the host, checkpoint, and fix loop work.",
   path: "/faq",
 });
 

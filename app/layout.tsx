@@ -26,7 +26,8 @@ export const metadata: Metadata = {
   keywords: [
     "Linea",
     "agent runtime",
-    "workflow runtime",
+    "control plane",
+    "production agents",
     "step-level replay",
     "checkpoints",
     "agent memory",

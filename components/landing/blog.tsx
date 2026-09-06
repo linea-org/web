@@ -16,8 +16,8 @@ export function Blog() {
               From the Linea team
             </h2>
             <p className="mt-3 text-sm leading-6 text-muted">
-              Practical notes on reliable execution, step-level replay,
-              memory, and building agents for production.
+              Notes on the host, the checkpoint, and the loop after a
+              failure.
             </p>
           </div>
           <Link

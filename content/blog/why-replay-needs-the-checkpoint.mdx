@@ -13,7 +13,7 @@ Replay is not a retry button on the whole graph. It is a request to run one step
 
 That payload is not in your prompt file. It is the output of the steps before it, plus whatever memory and tool results were in scope. If the host did not execute the run, that record does not exist. A framework can model the loop. It cannot replay what it never stored.
 
-This is why replay sits on the host, and why we treat it as the wedge. The rest of Linea (workers, memory, a boxed code node) exists so that this record is there when you need it.
+This is why replay sits on the host. An observability tool can show the failure. It never ran the graph, so it has no checkpoint to replay from. The rest of Linea — workers, memory, a boxed code node — exists so that this record is there when you need it.
 
 ![Monitoring view with open signals](/linea/linea-signals.png)
 

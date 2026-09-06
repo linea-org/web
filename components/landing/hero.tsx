@@ -6,16 +6,16 @@ import { SHOTS } from "@/lib/shots";
 
 const PILLARS = [
   {
-    title: "Durable runtime",
-    copy: "Run workflows with automatic retries, step-level checkpoints, and recovery from the last successful step.",
+    title: "Durable execution",
+    copy: "Linea runs the graph. Every step is checkpointed, failures retry, and an interrupted execution resumes from the last successful node.",
   },
   {
-    title: "Step-level replay",
-    copy: "Update and replay one step from its original input without repeating the work that already succeeded.",
+    title: "The fix loop",
+    copy: "Replay the failing step against the exact input it saw. Freeze it as a case, publish, and check you did not break anything else.",
   },
   {
-    title: "Persistent memory",
-    copy: "Carry facts across runs and give every workflow access to searchable workspace knowledge.",
+    title: "Memory on the host",
+    copy: "Facts and workspace knowledge live with the run, so the next execution can read what the last one learned.",
   },
 ] as const;
 
@@ -26,16 +26,16 @@ export function Hero() {
         <Container className="py-16 text-center sm:py-20">
           <p className="flex justify-center">
             <span className="inline-flex items-center border border-white/12 px-2.5 py-1 text-[11px] font-medium tracking-tight text-white">
-              The agent runtime for production
+              The runtime and control plane for production agents
             </span>
           </p>
           <h1 className="mx-auto mt-4 text-[2.25rem] leading-[1.08] font-medium tracking-[-0.04em] sm:text-5xl lg:whitespace-nowrap lg:text-[clamp(2.5rem,4.8vw,3.75rem)]">
-            Build agents that keep running.
+            Build and operate production agents.
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-muted">
-            Design, deploy, and improve agent workflows in one platform.
-            Linea handles durable execution, replay, memory, approvals, and
-            observability.
+            You ship the agent. Linea executes the graph, holds the
+            checkpoint, and gives you the loop to diagnose a failure, replay
+            it, and publish a fix.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>

@@ -11,22 +11,22 @@ import { SHOTS } from "@/lib/shots";
 export const metadata = pageMeta({
   title: "About",
   description:
-    "Linea Labs is building the platform for reliable, production-ready agent workflows.",
+    "Linea Labs is building an agentic runtime and control plane for production agents.",
   path: "/about",
 });
 
 const SAID = [
   {
-    title: "Built for real workflows",
-    copy: "Agents need more than a successful demo. Linea brings execution, recovery, memory, approvals, and visibility into one production platform.",
+    title: "We execute the graph",
+    copy: "Not observe it, not orchestrate a call out to something else. Because Linea runs the workflow, it holds the checkpoint, the signal, and the case you freeze from a failure.",
   },
   {
-    title: "Improve without starting over",
-    copy: "Every node captures its input and output so teams can understand what happened and replay the exact step they want to refine.",
+    title: "The fix loop is on the host",
+    copy: "Replay the failing step against the input it saw. Publish a version. The suite checks the fix. An observability tool can show the break; it never ran the graph.",
   },
   {
-    title: "One definition everywhere",
-    copy: "The visual builder and TypeScript SDK create the same workflow, giving technical and non-technical collaborators a shared source of truth.",
+    title: "One graph, two surfaces",
+    copy: "The builder and the SDK emit the same workflow definition. An agent may use several graphs. We will not ship a second product for a second editor.",
   },
 ] as const;
 
@@ -51,11 +51,13 @@ export default function AboutPage() {
             <Container className="flex flex-col justify-center py-8 sm:py-10">
               <p className="text-sm text-muted">About</p>
               <h1 className="mt-3 max-w-xl text-3xl font-medium tracking-tight sm:text-4xl">
-                We are building the runtime for production agents.
+                We are building the runtime and control plane for production
+                agents.
               </h1>
               <p className="mt-4 max-w-md text-sm leading-6 text-muted">
-                Linea helps teams design, deploy, and improve reliable agent
-                workflows without assembling the operational layer themselves.
+                You ship the agent. Linea executes the graph and keeps the
+                records around the run. Workflow stays the name of that
+                graph, not the name of the product.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>
@@ -77,17 +79,18 @@ export default function AboutPage() {
                 Linea Labs
               </h2>
               <p className="mt-3 text-sm leading-6 text-muted">
-                A focused team working on the infrastructure that turns agent
-                prototypes into durable, observable products.
+                A small team building the substrate production agents need:
+                durable execution, memory, human-in-the-loop, and the fix
+                loop that sits on the same data model.
               </p>
             </article>
             <article className="border border-white/12 px-5 py-8 sm:border-0 sm:px-8">
               <p className="text-sm text-muted">The product</p>
               <h2 className="mt-3 text-xl font-medium tracking-tight">Linea</h2>
               <p className="mt-3 text-sm leading-6 text-muted">
-                A single platform to build workflows, run them on managed
-                infrastructure, preserve context, and improve individual steps
-                with replay.
+                An agentic runtime and control plane. Author the graph,
+                run it on the host, and operate the agent from the records
+                that execution wrote.
               </p>
             </article>
           </div>
@@ -113,7 +116,7 @@ export default function AboutPage() {
           <Container className="py-8 sm:py-9">
             <p className="text-sm text-muted">The product</p>
             <h2 className="mt-3 text-2xl font-medium tracking-tight sm:text-3xl">
-              One platform, three foundations.
+              Runtime, replay, and memory.
             </h2>
           </Container>
           <div className="grid gap-3 border-t border-white/12 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-white/12">

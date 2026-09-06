@@ -8,9 +8,9 @@ export const contentType = ogContentType;
 export default function Image() {
   return createContentOgImage({
     eyebrow: "About",
-    title: "The runtime for production agents.",
+    title: "The runtime and control plane for production agents.",
     description:
-      "Linea Labs is building the platform for reliable, production-ready agent workflows.",
+      "Linea Labs is building an agentic runtime: execute the graph, hold the checkpoint, operate the run.",
     image: SHOTS.builder,
   });
 }

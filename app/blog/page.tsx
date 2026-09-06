@@ -9,7 +9,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Blog",
   description:
-    "Practical notes on reliable execution, step-level replay, memory, and building agents for production.",
+    "Notes on executing the graph, holding the checkpoint, and operating production agents.",
   path: "/blog",
 });
 

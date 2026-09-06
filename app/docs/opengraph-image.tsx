@@ -7,8 +7,8 @@ export const contentType = ogContentType;
 export default function Image() {
   return createOgImage({
     eyebrow: "Docs",
-    title: "Build and operate workflows with Linea.",
+    title: "Author the graph. Run it on the host.",
     description:
-      "Learn how to build, deploy, observe, and replay agent workflows with Linea.",
+      "How to define a workflow, execute it, and operate the agent from the checkpoint.",
   });
 }

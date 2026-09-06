@@ -20,9 +20,9 @@ export const NAV: NavItem[] = [
     kind: "menu",
     label: "Product",
     items: [
-      { href: "/runtime", label: "Runtime", hint: "Reliable agent execution" },
-      { href: "/replay", label: "Replay", hint: "Debug a single step" },
-      { href: "/memory", label: "Memory", hint: "Context across runs" },
+      { href: "/runtime", label: "Runtime", hint: "The host that runs the graph" },
+      { href: "/replay", label: "Replay", hint: "One step, original input" },
+      { href: "/memory", label: "Memory", hint: "Facts that survive the run" },
     ],
   },
   {
@@ -32,7 +32,7 @@ export const NAV: NavItem[] = [
       { href: "/blog", label: "Blog", hint: "Writing from the team" },
       { href: "/research", label: "Research", hint: "Technical perspectives" },
       { href: "/faq", label: "FAQ", hint: "Common questions" },
-      { href: "/audience", label: "Teams", hint: "Who builds with Linea" },
+      { href: "/audience", label: "Who it is for", hint: "Technical builders first" },
     ],
   },
   { kind: "link", href: DOCS_URL, label: "Docs", external: true },
