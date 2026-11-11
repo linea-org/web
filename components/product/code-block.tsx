@@ -15,7 +15,7 @@ export async function CodeBlock({
   return (
     <CopyCode
       code={code}
-      className={`lp-code h-full overflow-x-auto bg-card ${framed ? "border border-white/12" : ""}`}
+      className={`lp-code h-full overflow-x-auto bg-card ${framed ? "border border-white/15" : ""}`}
     >
       <div className="h-full" dangerouslySetInnerHTML={{ __html: html }} />
     </CopyCode>

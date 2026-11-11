@@ -28,7 +28,7 @@ export function CopyCode({
       <button
         type="button"
         onClick={onCopy}
-        className="absolute top-2 right-2 z-10 border border-white/12 bg-background px-2 py-1 text-[11px] font-medium tracking-tight text-muted hover:border-white/25 hover:text-white"
+        className="absolute top-2 right-2 z-10 border border-black/[0.08] bg-background px-2 py-1 text-[11px] font-medium tracking-tight text-muted hover:border-black/20 hover:text-foreground"
       >
         {copied ? "Copied" : "Copy"}
       </button>

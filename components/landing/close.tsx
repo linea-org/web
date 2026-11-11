@@ -6,7 +6,7 @@ export function Close() {
   return (
     <Band hatch className="lp-defer">
       <section id="start" className="p-3">
-        <div className="relative border border-white/12 bg-background px-5 py-16 text-center sm:px-10 sm:py-24">
+        <div className="relative border border-black/[0.08] bg-background px-5 py-16 text-center sm:px-10 sm:py-24">
           <p className="text-sm text-muted">Start building with Linea</p>
           <h2 className="mx-auto mt-4 max-w-2xl text-3xl leading-[1.1] font-medium tracking-[-0.04em] sm:text-5xl">
             Build and operate production agents.

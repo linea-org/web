@@ -16,10 +16,10 @@ export function PostCards({
         <Link
           key={post.slug}
           href={`/blog/${post.slug}`}
-          className={`relative flex flex-col ${framed ? "border border-white/12" : ""}`}
+          className={`relative flex flex-col ${framed ? "border border-black/[0.08]" : ""}`}
         >
-          <div className="lp-hatch border-b border-white/12 p-1.5">
-            <div className="relative h-40 overflow-hidden border border-white/12">
+          <div className="lp-hatch border-b border-black/[0.08] p-1.5">
+            <div className="relative h-40 overflow-hidden border border-black/[0.08]">
               <PlatformShot src={post.image} alt="" fill />
             </div>
           </div>

@@ -23,9 +23,9 @@ function shotTone(slug: ProductSlug): ShotTone {
 
 function Header({ product }: { product: Product }) {
   return (
-    <Band marks={false}>
+    <Band>
       <div className="grid lg:grid-cols-2">
-        <div className="relative aspect-[4/3] border-b border-white/12 lg:order-2 lg:aspect-auto lg:h-full lg:min-h-80 lg:border-b-0 lg:border-l">
+        <div className="relative aspect-[4/3] border-b border-black/[0.08] lg:order-2 lg:aspect-auto lg:h-full lg:min-h-80 lg:border-b-0 lg:border-l">
           <PlatformShot
             src={product.image}
             alt={product.imageAlt}
@@ -83,7 +83,7 @@ function How({
   label: string;
 }) {
   return (
-    <Band marks={false}>
+    <Band>
       <Container className="py-10 sm:py-14">
         <p className="text-sm text-muted">{label}</p>
         <h2 className="mt-3 max-w-2xl text-2xl font-medium tracking-tight sm:text-3xl">
@@ -100,7 +100,7 @@ function How({
 
 async function Example({ product }: { product: Product }) {
   return (
-    <Band marks={false}>
+    <Band>
       <Container className="py-10 sm:py-12">
         <p className="text-sm text-muted">Example</p>
         <h2 className="mt-3 max-w-2xl text-2xl font-medium tracking-tight sm:text-3xl">
@@ -121,7 +121,7 @@ async function Example({ product }: { product: Product }) {
 
 function Compare({ product }: { product: Product }) {
   return (
-    <Band marks={false}>
+    <Band>
       <Container className="py-10 sm:py-12">
         <p className="text-sm text-muted">Compare</p>
         <h2 className="mt-3 max-w-xl text-2xl font-medium tracking-tight sm:text-3xl">
@@ -131,9 +131,9 @@ function Compare({ product }: { product: Product }) {
           {product.compare.lead}
         </p>
       </Container>
-      <div className="overflow-x-auto border-t border-white/12">
+      <div className="overflow-x-auto border-t border-black/[0.08]">
         <table className="w-full text-left text-sm">
-          <thead className="bg-white/[0.04]">
+          <thead className="bg-black/[0.04]">
             <tr>
               <th className="px-5 py-3 font-medium sm:px-8"> </th>
               <th className="px-5 py-3 font-medium sm:px-8">
@@ -146,7 +146,7 @@ function Compare({ product }: { product: Product }) {
           </thead>
           <tbody>
             {product.compare.rows.map((row) => (
-              <tr key={row.label} className="border-t border-white/12">
+              <tr key={row.label} className="border-t border-black/[0.08]">
                 <th className="px-5 py-3 font-medium sm:px-8">{row.label}</th>
                 <td className="px-5 py-3 text-muted sm:px-8">{row.left}</td>
                 <td className="px-5 py-3 text-muted sm:px-8">{row.right}</td>
@@ -161,7 +161,7 @@ function Compare({ product }: { product: Product }) {
 
 function Split({ product }: { product: Product }) {
   return (
-    <Band marks={false}>
+    <Band>
       <Container className="grid gap-10 py-10 sm:grid-cols-2 sm:gap-16 sm:py-14">
         <div>
           <p className="text-sm text-muted">{product.split.left.title}</p>
@@ -191,7 +191,7 @@ function NotReplay({ product }: { product: Product }) {
   }
 
   return (
-    <Band marks={false}>
+    <Band>
       <Container className="py-10 sm:py-12">
         <p className="text-sm text-muted">Designed for precision</p>
         <h2 className="mt-3 max-w-xl text-2xl font-medium tracking-tight sm:text-3xl">

@@ -10,7 +10,7 @@ export function MobileNav() {
   return (
     <details className="group lg:hidden">
       <summary
-        className="lp-btn lp-btn-secondary inline-flex size-9 cursor-pointer list-none items-center justify-center border border-white/25 text-white [&::-webkit-details-marker]:hidden"
+        className="lp-btn lp-btn-secondary inline-flex size-9 cursor-pointer list-none items-center justify-center border border-black/15 text-foreground [&::-webkit-details-marker]:hidden"
       >
         <span className="sr-only">Toggle menu</span>
         <svg aria-hidden viewBox="0 0 16 16" className="size-4 group-open:hidden">
@@ -34,9 +34,9 @@ export function MobileNav() {
       </summary>
       <div
         id="mobile-nav"
-        className="absolute inset-x-0 top-full z-30 border-b border-white/12 bg-background"
+        className="absolute inset-x-0 top-full z-30 border-b border-black/[0.08] bg-background"
       >
-          <nav className="divide-y divide-white/12 text-sm" aria-label="Mobile">
+          <nav className="divide-y divide-black/[0.08] text-sm" aria-label="Mobile">
             {NAV.map((item) => {
               switch (item.kind) {
                 case "link":
@@ -45,7 +45,7 @@ export function MobileNav() {
                       <a
                         key={item.href}
                         href={item.href}
-                        className="flex items-center justify-between px-5 py-3.5 hover:bg-white/[0.04] hover:text-white sm:px-8"
+                        className="flex items-center justify-between px-5 py-3.5 hover:bg-black/[0.04] hover:text-foreground sm:px-8"
                         target="_blank"
                         rel="noreferrer"
                       >
@@ -59,7 +59,7 @@ export function MobileNav() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="block px-5 py-3.5 hover:bg-white/[0.04] hover:text-white sm:px-8"
+                      className="block px-5 py-3.5 hover:bg-black/[0.04] hover:text-foreground sm:px-8"
                     >
                       {item.label}
                     </Link>
@@ -74,7 +74,7 @@ export function MobileNav() {
                         <Link
                           key={entry.href}
                           href={entry.href}
-                          className="block px-5 py-3 hover:bg-white/[0.04] hover:text-white sm:px-8"
+                          className="block px-5 py-3 hover:bg-black/[0.04] hover:text-foreground sm:px-8"
                         >
                           <span className="block text-foreground">
                             {entry.label}
@@ -93,7 +93,7 @@ export function MobileNav() {
               }
             })}
           </nav>
-          <div className="flex flex-col gap-2 border-t border-white/12 px-5 py-4 sm:px-8">
+          <div className="flex flex-col gap-2 border-t border-black/[0.08] px-5 py-4 sm:px-8">
             <Button
               href={GITHUB_URL}
               variant="secondary"

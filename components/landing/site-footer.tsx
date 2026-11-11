@@ -46,7 +46,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
 ];
 
 const linkClass =
-  "text-white underline decoration-white/25 underline-offset-4 hover:decoration-white";
+  "text-foreground underline decoration-black/20 underline-offset-4 hover:decoration-foreground";
 
 function FooterItem({ link }: { link: FooterLink }) {
   const note = link.badge ? (
@@ -82,11 +82,11 @@ function FooterItem({ link }: { link: FooterLink }) {
 export function SiteFooter() {
   return (
     <>
-      <Band marks={false}>
+      <Band>
         <footer className="relative px-5 pt-16 pb-10 sm:px-8 sm:pt-20">
           <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-24">
             <div className="max-w-sm lg:shrink-0">
-              <p className="text-sm text-white">Linea Labs</p>
+              <p className="text-sm text-foreground">Linea Labs</p>
               <p className="mt-3 text-sm text-muted">
                 The runtime and control plane for production agents.
               </p>
@@ -117,7 +117,7 @@ export function SiteFooter() {
             <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4">
               {COLUMNS.map((column) => (
                 <div key={column.title} className="min-w-0">
-                  <p className="text-sm text-white">{column.title}</p>
+                  <p className="text-sm text-foreground">{column.title}</p>
                   <ul className="mt-6 space-y-2.5">
                     {column.links.map((link) => (
                       <li key={link.href + link.label}>
@@ -131,7 +131,7 @@ export function SiteFooter() {
           </div>
         </footer>
       </Band>
-      <Band marks={false}>
+      <Band>
         <p className="px-5 py-2 text-center text-sm text-muted sm:px-8">
           Linea Labs © 2026
         </p>

@@ -31,7 +31,7 @@ export default function AudiencePage() {
   return (
     <SiteChrome>
       <main>
-        <Band marks={false}>
+        <Band>
           <Container className="py-16 sm:py-24">
             <p className="text-sm text-muted">Who it is for</p>
             <h1 className="mt-3 max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
@@ -52,12 +52,12 @@ export default function AudiencePage() {
           </Container>
         </Band>
 
-        <Band marks={false}>
-          <div className="grid gap-3 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-white/12">
+        <Band>
+          <div className="grid gap-3 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-black/[0.08]">
             {AUDIENCE.map((item, index) => (
               <article
                 key={item.label}
-                className="border border-white/12 px-5 py-8 sm:px-8 md:border-0"
+                className="border border-black/[0.08] px-5 py-8 sm:px-8 md:border-0"
               >
                 <p className="text-sm tabular-nums text-muted">
                   {String(index + 1).padStart(2, "0")}.
@@ -72,18 +72,18 @@ export default function AudiencePage() {
           </div>
         </Band>
 
-        <Band marks={false}>
+        <Band>
           <Container className="py-10 sm:py-12">
             <p className="text-sm text-muted">How builders work with Linea</p>
             <h2 className="mt-3 max-w-xl text-2xl font-medium tracking-tight sm:text-3xl">
               Keep the logic. Give us the host.
             </h2>
           </Container>
-          <div className="grid gap-3 border-t border-white/12 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-white/12">
+          <div className="grid gap-3 border-t border-black/[0.08] p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-black/[0.08]">
             {FIT.map((item) => (
               <div
                 key={item.title}
-                className="border border-white/12 px-5 py-8 sm:px-8 md:border-0"
+                className="border border-black/[0.08] px-5 py-8 sm:px-8 md:border-0"
               >
                 <h3 className="text-base font-medium tracking-tight">
                   {item.title}

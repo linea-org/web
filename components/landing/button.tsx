@@ -11,9 +11,9 @@ function buttonClass(variant: ButtonVariant, iconOnly: boolean): string {
   if (iconOnly) {
     switch (variant) {
       case "primary":
-        return "lp-btn lp-btn-primary group inline-flex size-9 shrink-0 items-center justify-center border border-white bg-white text-black";
+        return "lp-btn lp-btn-primary group inline-flex size-9 shrink-0 items-center justify-center border border-foreground bg-foreground text-white";
       case "secondary":
-        return "lp-btn lp-btn-secondary group inline-flex size-9 shrink-0 items-center justify-center border border-white/25 bg-background text-white";
+        return "lp-btn lp-btn-secondary group inline-flex size-9 shrink-0 items-center justify-center border border-black/15 bg-background text-foreground";
       default: {
         const _never: never = variant;
         return _never;
@@ -23,9 +23,9 @@ function buttonClass(variant: ButtonVariant, iconOnly: boolean): string {
 
   switch (variant) {
     case "primary":
-      return `${BUTTON_BASE} lp-btn-primary border-white bg-white text-black`;
+      return `${BUTTON_BASE} lp-btn-primary border-foreground bg-foreground text-white`;
     case "secondary":
-      return `${BUTTON_BASE} lp-btn-secondary border-white/25 bg-background text-white`;
+      return `${BUTTON_BASE} lp-btn-secondary border-black/15 bg-background text-foreground`;
     default: {
       const _never: never = variant;
       return _never;

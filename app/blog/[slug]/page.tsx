@@ -87,11 +87,11 @@ export default async function PostPage({ params }: PostPageProps) {
         })}
       />
       <main>
-        <Band marks={false}>
-          <div className="border-b border-white/12 px-5 py-3 sm:px-8">
+        <Band>
+          <div className="border-b border-black/[0.08] px-5 py-3 sm:px-8">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-white"
+              className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground"
             >
               <svg
                 aria-hidden
@@ -110,8 +110,8 @@ export default async function PostPage({ params }: PostPageProps) {
             </Link>
           </div>
           <div className="grid lg:grid-cols-2">
-            <div className="lp-hatch border-b border-white/12 p-1.5 lg:order-2 lg:self-start lg:border-b-0 lg:border-l">
-              <div className="overflow-hidden border border-white/12">
+            <div className="lp-hatch border-b border-black/[0.08] p-1.5 lg:order-2 lg:self-start lg:border-b-0 lg:border-l">
+              <div className="overflow-hidden border border-black/[0.08]">
                 <PlatformShot
                   src={meta.image}
                   alt=""
@@ -136,8 +136,8 @@ export default async function PostPage({ params }: PostPageProps) {
             </Container>
           </div>
         </Band>
-        <Band marks={false}>
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_16rem] lg:divide-x lg:divide-white/12">
+        <Band>
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_16rem] lg:divide-x lg:divide-black/[0.08]">
             <Container className="min-w-0 py-8">
               <MDXRemote
                 source={content}
@@ -149,10 +149,10 @@ export default async function PostPage({ params }: PostPageProps) {
                 }}
               />
             </Container>
-            <aside className="self-start border-t border-white/12 px-5 py-8 sm:px-8 lg:sticky lg:top-20 lg:border-t-0">
+            <aside className="self-start border-t border-black/[0.08] px-5 py-8 sm:px-8 lg:sticky lg:top-20 lg:border-t-0">
               {meta.tags.length > 0 ? (
                 <div>
-                  <p className="text-sm text-white">Tags</p>
+                  <p className="text-sm text-foreground">Tags</p>
                   <ul className="mt-4 flex flex-wrap gap-2">
                     {meta.tags.map((item) => (
                       <li key={item}>
@@ -168,13 +168,13 @@ export default async function PostPage({ params }: PostPageProps) {
               ) : null}
               {related.length > 0 ? (
                 <div className={meta.tags.length > 0 ? "mt-8" : ""}>
-                  <p className="text-sm text-white">More from the blog</p>
+                  <p className="text-sm text-foreground">More from the blog</p>
                   <ul className="mt-4 space-y-4">
                     {related.map((post) => (
                       <li key={post.slug}>
                         <Link
                           href={`/blog/${post.slug}`}
-                          className="block text-sm leading-6 text-muted hover:text-white"
+                          className="block text-sm leading-6 text-muted hover:text-foreground"
                         >
                           {post.title}
                           <span className="mt-0.5 block text-xs text-muted">

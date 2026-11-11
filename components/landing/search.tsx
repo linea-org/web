@@ -51,7 +51,7 @@ export function Search({ entries }: { entries: SearchEntry[] }) {
     <>
       <button
         type="button"
-        className="lp-btn lp-btn-secondary inline-flex size-9 items-center justify-center border border-white/25 text-white"
+        className="lp-btn lp-btn-secondary inline-flex size-9 items-center justify-center border border-black/15 text-foreground"
         aria-label="Search"
         aria-keyshortcuts="Control+k"
         onClick={() => setOpen(true)}

@@ -10,7 +10,7 @@ function ResearchCards({ items }: { items: ResearchNote[] }) {
   const lastRowStart = items.length - (items.length % 2 === 0 ? 2 : 1);
 
   return (
-    <div className="grid gap-3 border-t border-white/12 p-3 md:grid-cols-2 md:gap-0 md:p-0">
+    <div className="grid gap-3 border-t border-black/[0.08] p-3 md:grid-cols-2 md:gap-0 md:p-0">
       {items.map((item, index) => {
         const left = index % 2 === 0;
         const lastRow = index >= lastRowStart;
@@ -19,7 +19,7 @@ function ResearchCards({ items }: { items: ResearchNote[] }) {
           <Link
             key={item.href}
             href={item.href}
-            className={`border border-white/12 px-5 py-8 hover:text-white sm:px-8 md:border-x-0 md:border-t-0 ${left ? "md:border-r" : ""} ${lastRow ? "md:border-b-0" : ""}`}
+            className={`border border-black/[0.08] px-5 py-8 hover:text-foreground sm:px-8 md:border-x-0 md:border-t-0 ${left ? "md:border-r" : ""} ${lastRow ? "md:border-b-0" : ""}`}
           >
             <p className="text-sm text-muted">
               {item.kind}
@@ -47,7 +47,7 @@ export default function ResearchPage() {
   return (
     <SiteChrome>
       <main>
-        <Band marks={false}>
+        <Band>
           <Container className="py-16 sm:py-24">
             <p className="text-sm text-muted">Research</p>
             <h1 className="mt-3 max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
@@ -68,7 +68,7 @@ export default function ResearchPage() {
           </Container>
         </Band>
 
-        <Band marks={false}>
+        <Band>
           <Container className="py-8 sm:py-10">
             <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
               Thesis
@@ -83,7 +83,7 @@ export default function ResearchPage() {
           />
         </Band>
 
-        <Band marks={false}>
+        <Band>
           <Container className="py-8 sm:py-10">
             <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
               Notes

@@ -12,7 +12,7 @@ export function Faq() {
             Everything you need to know.
           </h2>
         </Container>
-        <div className="divide-y divide-white/12 border-t border-white/12">
+        <div className="divide-y divide-black/[0.08] border-t border-black/[0.08]">
           {FAQS.map((item) => (
             <details key={item.q} className="group">
               <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left text-base font-medium tracking-tight sm:px-8 [&::-webkit-details-marker]:hidden">
@@ -31,7 +31,7 @@ export function Faq() {
                   />
                 </svg>
               </summary>
-              <p className="mx-5 mb-4 border-x border-white/12 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-muted sm:mx-8">
+              <p className="mx-5 mb-4 border-x border-black/[0.08] bg-black/[0.04] px-4 py-3 text-sm leading-6 text-muted sm:mx-8">
                 {item.a}
               </p>
             </details>

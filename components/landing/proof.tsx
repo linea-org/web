@@ -4,7 +4,7 @@ import { AUDIENCE } from "@/lib/audience";
 
 export function Proof() {
   return (
-    <Band marks={false} className="lp-defer">
+    <Band className="lp-defer">
       <section id="audience">
         <Container className="py-16">
           <p className="text-sm text-muted">Who it is for</p>
@@ -17,11 +17,11 @@ export function Proof() {
             ship a fix.
           </p>
         </Container>
-        <div className="grid gap-3 border-t border-white/12 p-3 md:grid-cols-3 md:gap-1.5 md:p-0">
+        <div className="grid gap-3 border-t border-black/[0.08] p-3 md:grid-cols-3 md:gap-1.5 md:p-0">
           {AUDIENCE.map((item) => (
             <article
               key={item.label}
-              className="relative border border-white/12 px-5 py-7 sm:px-8 md:border-x md:border-y-0 lp-grain"
+              className="relative border border-black/[0.08] px-5 py-7 sm:px-8 md:border-x md:border-y-0 lp-grain"
             >
               <p className="text-sm text-muted">{item.label}</p>
               <h3 className="mt-3 text-lg font-medium tracking-tight">

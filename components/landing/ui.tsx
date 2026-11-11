@@ -15,16 +15,10 @@ export function Container({
   return <div className={`px-5 sm:px-8 ${className}`}>{children}</div>;
 }
 
-export function SparseMain({
-  children,
-  marks = false,
-}: {
-  children: ReactNode;
-  marks?: boolean;
-}) {
+export function SparseMain({ children }: { children: ReactNode }) {
   return (
     <main>
-      <Band marks={marks}>
+      <Band>
         <Container className="flex min-h-[75vh] flex-col items-center justify-center py-16 text-center sm:py-24">
           <Logo size={48} className="mb-8" />
           {children}

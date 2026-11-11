@@ -26,7 +26,7 @@ export async function Pre({
   return (
     <CopyCode
       code={code}
-      className="lp-code my-6 overflow-x-auto border border-white/12 bg-card"
+      className="lp-code my-6 overflow-x-auto border border-white/15 bg-card"
     >
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </CopyCode>
@@ -45,7 +45,7 @@ export function MdImage({
   }
 
   return (
-    <span className="my-6 block border border-white/12">
+    <span className="my-6 block border border-black/[0.08]">
       <PlatformShot src={src} alt={alt} />
     </span>
   );
@@ -102,7 +102,7 @@ export const mdxComponents = {
     ),
   a: ({ href = "", children, ...props }: ComponentPropsWithoutRef<"a">) => {
     const className =
-      "text-white underline decoration-white/25 underline-offset-4 hover:decoration-white";
+      "text-foreground underline decoration-black/20 underline-offset-4 hover:decoration-foreground";
 
     if (href.startsWith("/")) {
       return (
@@ -136,17 +136,17 @@ export const mdxComponents = {
   img: MdImage,
   CodeSwitcher: SwitchableCode,
   table: (props: ComponentPropsWithoutRef<"table">) => (
-    <div className="my-6 overflow-x-auto border border-white/12">
+    <div className="my-6 overflow-x-auto border border-black/[0.08]">
       <table className="w-full text-left text-sm" {...props} />
     </div>
   ),
   thead: (props: ComponentPropsWithoutRef<"thead">) => (
-    <thead className="bg-white/[0.04]" {...props} />
+    <thead className="bg-black/[0.04]" {...props} />
   ),
   th: (props: ComponentPropsWithoutRef<"th">) => (
-    <th className="border-b border-white/12 px-4 py-2.5 font-medium" {...props} />
+    <th className="border-b border-black/[0.08] px-4 py-2.5 font-medium" {...props} />
   ),
   td: (props: ComponentPropsWithoutRef<"td">) => (
-    <td className="border-b border-white/12 px-4 py-2.5 text-muted" {...props} />
+    <td className="border-b border-black/[0.08] px-4 py-2.5 text-muted" {...props} />
   ),
 };

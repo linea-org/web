@@ -22,11 +22,11 @@ export function SiteChrome({
         {children}
         {cta ? (
           <>
-            <Separator marks={false} />
+            <Separator />
             <PageCta />
           </>
         ) : null}
-        {rule ? <Separator marks={false} /> : null}
+        {rule ? <Separator /> : null}
         <SiteFooter />
       </div>
     </Frame>

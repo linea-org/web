@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
-  --muted: #a3a3a3;
-  --border: rgb(255 255 255 / 0.12);
+  --background: #f9f9f9;
+  --foreground: #262626;
+  --muted: #737373;
+  --border: #ededed;
   --card: #0a0a0a;
 }
 
@@ -18,11 +18,11 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
@@ -67,9 +67,7 @@ a[aria-disabled="true"] {
 }
 
 .lp-wash {
-  background:
-    radial-gradient(ellipse 90% 140% at 50% 0%, rgb(255 255 255 / 0.028), transparent 58%),
-    rgb(255 255 255 / 0.008);
+  background: rgb(0 0 0 / 0.02);
 }
 
 .lp-shot {
@@ -94,7 +92,7 @@ a[aria-disabled="true"] {
   background-image: repeating-linear-gradient(
     -45deg,
     transparent 0 7px,
-    rgb(255 255 255 / 0.09) 7px 8px
+    rgb(0 0 0 / 0.06) 7px 8px
   );
 }
 
@@ -152,11 +150,11 @@ a[aria-disabled="true"] {
 }
 
 .lp-btn-primary::before {
-  background: rgb(0 0 0 / 0.1);
+  background: rgb(255 255 255 / 0.14);
 }
 
 .lp-btn-secondary::before {
-  background: rgb(255 255 255 / 0.16);
+  background: rgb(0 0 0 / 0.06);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -169,7 +167,7 @@ a[aria-disabled="true"] {
 .lp-search {
   width: min(32rem, calc(100vw - 2rem));
   margin: auto;
-  border: 1px solid rgb(255 255 255 / 0.12);
+  border: 1px solid rgb(0 0 0 / 0.08);
   background: var(--background);
   color: inherit;
   padding: 0;

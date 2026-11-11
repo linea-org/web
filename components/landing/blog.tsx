@@ -8,7 +8,7 @@ export function Blog() {
   const posts = listPosts().slice(0, 3);
 
   return (
-    <Band marks={false} className="lp-defer">
+    <Band className="lp-defer">
       <section id="blog">
         <Container className="flex flex-col items-start gap-5 py-10 sm:py-12 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
@@ -22,7 +22,7 @@ export function Blog() {
           </div>
           <Link
             href="/blog"
-            className="lp-btn lp-btn-secondary inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md border border-white/25 px-3 text-sm font-medium tracking-tight"
+            className="lp-btn lp-btn-secondary inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md border border-black/15 px-3 text-sm font-medium tracking-tight"
           >
             View Blog
             <svg

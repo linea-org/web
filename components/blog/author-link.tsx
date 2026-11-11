@@ -28,7 +28,7 @@ export function AuthorLink({
   return (
     <a
       href={profile.url}
-      className="inline-flex items-center gap-2 hover:text-white"
+      className="inline-flex items-center gap-2 hover:text-foreground"
       target="_blank"
       rel="noreferrer"
     >

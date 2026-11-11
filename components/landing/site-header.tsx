@@ -18,7 +18,7 @@ function NavEntry({ item }: { item: NavItem }) {
         return (
           <a
             href={item.href}
-            className="inline-flex items-center gap-1.5 hover:text-white"
+            className="inline-flex items-center gap-1.5 hover:text-foreground"
             target="_blank"
             rel="noreferrer"
           >
@@ -29,7 +29,7 @@ function NavEntry({ item }: { item: NavItem }) {
       }
 
       return (
-        <Link href={item.href} className="hover:text-white">
+        <Link href={item.href} className="hover:text-foreground">
           {item.label}
         </Link>
       );
@@ -38,7 +38,7 @@ function NavEntry({ item }: { item: NavItem }) {
         <div className="group relative">
           <button
             type="button"
-            className="inline-flex items-center gap-1 hover:text-white"
+            className="inline-flex items-center gap-1 hover:text-foreground"
           >
             {item.label}
             <svg aria-hidden viewBox="0 0 12 12" className="size-3">
@@ -52,13 +52,13 @@ function NavEntry({ item }: { item: NavItem }) {
             </svg>
           </button>
           <div className="invisible absolute top-full left-0 z-20 pt-1.5 opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-            <div className="relative min-w-56 border border-white/12 bg-background">
-              <div className="divide-y divide-white/12">
+            <div className="relative min-w-56 border border-black/[0.08] bg-background">
+              <div className="divide-y divide-black/[0.08]">
                 {item.items.map((entry) => (
                   <Link
                     key={entry.href + entry.label}
                     href={entry.href}
-                    className="block px-3.5 py-2.5 hover:bg-white/[0.04] hover:text-white"
+                    className="block px-3.5 py-2.5 hover:bg-black/[0.04] hover:text-foreground"
                   >
                     <span className="block text-sm text-foreground">
                       {entry.label}
@@ -80,7 +80,7 @@ function NavEntry({ item }: { item: NavItem }) {
 
 export function SiteHeader() {
   return (
-    <Band sticky>
+    <Band sticky rule={false}>
       <header className="relative flex h-14 items-center justify-between px-5 sm:px-8">
         <div className="flex min-w-0 items-center gap-8">
           <Link href="/" className="flex items-center gap-2.5">

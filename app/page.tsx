@@ -16,9 +16,9 @@ export default function Home() {
       <main>
         <Hero />
         <Features />
-        <Separator marks={false} />
+        <Separator />
         <Proof />
-        <Separator marks={false} />
+        <Separator />
         <Blog />
         <Faq />
         <Close />

@@ -21,7 +21,7 @@ export default function BlogPage() {
   return (
     <SiteChrome>
       <main>
-        <Band marks={false}>
+        <Band>
           <Container className="py-8 sm:py-10">
             <p className="text-sm text-muted">From the team</p>
             <h1 className="mt-3 max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
@@ -32,8 +32,8 @@ export default function BlogPage() {
             <PostCards posts={featured} />
           </Container>
         </Band>
-        <Separator marks={false} />
-        <Band marks={false}>
+        <Separator />
+        <Band>
           <Container className="flex items-center py-8 sm:py-10">
             <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
               Read the latest

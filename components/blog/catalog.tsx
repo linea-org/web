@@ -14,8 +14,8 @@ export function BlogCatalog({ posts }: { posts: BlogMeta[] }) {
     : posts;
 
   return (
-    <div className="grid lg:grid-cols-[minmax(0,1fr)_16rem] lg:divide-x lg:divide-white/12">
-      <div className="border-t border-white/12 lg:max-h-[32rem] lg:overflow-y-auto">
+    <div className="grid lg:grid-cols-[minmax(0,1fr)_16rem] lg:divide-x lg:divide-black/[0.08]">
+      <div className="border-t border-black/[0.08] lg:max-h-[32rem] lg:overflow-y-auto">
         {visible.length === 0 ? (
           <p className="px-5 py-10 text-sm text-muted sm:px-8">
             No posts in this tag yet.
@@ -28,9 +28,9 @@ export function BlogCatalog({ posts }: { posts: BlogMeta[] }) {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="flex min-w-0 flex-col gap-4 border-b border-white/12 px-5 py-6 last:border-b-0 sm:flex-row sm:gap-6 sm:px-8 sm:py-7"
+                className="flex min-w-0 flex-col gap-4 border-b border-black/[0.08] px-5 py-6 last:border-b-0 sm:flex-row sm:gap-6 sm:px-8 sm:py-7"
               >
-                <div className="overflow-hidden border border-white/12 sm:w-36 sm:shrink-0 lg:w-44">
+                <div className="overflow-hidden border border-black/[0.08] sm:w-36 sm:shrink-0 lg:w-44">
                   <PlatformShot
                     src={post.image}
                     alt=""
@@ -73,12 +73,12 @@ export function BlogCatalog({ posts }: { posts: BlogMeta[] }) {
           })
         )}
       </div>
-      <aside className="border-t border-white/12 px-5 py-6 sm:px-8">
+      <aside className="border-t border-black/[0.08] px-5 py-6 sm:px-8">
         <ul className="space-y-3">
           <li>
             <button
               type="button"
-              className={`flex w-full items-center justify-between text-sm ${tag === null ? "text-white" : "text-muted hover:text-white"}`}
+              className={`flex w-full items-center justify-between text-sm ${tag === null ? "text-foreground" : "text-muted hover:text-foreground"}`}
               onClick={() => setTag(null)}
             >
               All
@@ -94,7 +94,7 @@ export function BlogCatalog({ posts }: { posts: BlogMeta[] }) {
               <li key={item}>
                 <button
                   type="button"
-                  className={`flex w-full items-center justify-between gap-3 text-sm ${tag === item ? "text-white" : "text-muted hover:text-white"}`}
+                  className={`flex w-full items-center justify-between gap-3 text-sm ${tag === item ? "text-foreground" : "text-muted hover:text-foreground"}`}
                   onClick={() => setTag(item)}
                 >
                   <span className="inline-flex items-center gap-2">

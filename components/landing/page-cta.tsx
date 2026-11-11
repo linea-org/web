@@ -4,7 +4,7 @@ import { DOCS_URL, PLATFORM_URL } from "@/lib/docs";
 
 export function PageCta() {
   return (
-    <Band marks={false}>
+    <Band>
       <Container className="flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between sm:py-12">
         <h2 className="max-w-lg text-2xl font-medium tracking-tight sm:text-3xl">
           You write the agent.

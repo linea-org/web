@@ -1,4 +1,4 @@
-import { Band, Cross, Separator } from "@/components/landing/frame";
+import { Band, Separator } from "@/components/landing/frame";
 import { PlatformShot } from "@/components/media/platform-shot";
 import { SHOTS } from "@/lib/shots";
 
@@ -54,13 +54,11 @@ export function Features() {
   return (
     <>
       <Band>
-        <Cross className="top-0 left-0 -translate-x-1/2 -translate-y-1/2" />
-        <Cross className="top-0 right-0 translate-x-1/2 -translate-y-1/2" />
-        <div className="grid gap-3 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-white/12">
+        <div className="grid gap-3 p-3 md:grid-cols-3 md:gap-0 md:p-0 md:divide-x md:divide-black/[0.08]">
           {STEPS.map((step) => (
             <div
               key={step.index}
-              className="border border-white/12 px-5 py-7 sm:px-8 md:border-0"
+              className="border border-black/[0.08] px-5 py-7 sm:px-8 md:border-0"
             >
               <h2 className="text-base font-medium tracking-tight">
                 <span className="tabular-nums">{step.index}.</span>{" "}
@@ -71,9 +69,9 @@ export function Features() {
           ))}
         </div>
       </Band>
-      <Separator marks={false} bottomLeft />
+      <Separator />
       <Band className="lp-defer">
-      <div className="grid gap-3 p-3 lg:gap-0 lg:p-0 lg:divide-y lg:divide-white/12">
+      <div className="grid gap-3 p-3 lg:gap-0 lg:p-0 lg:divide-y lg:divide-black/[0.08]">
         {FEATURES.map((feature, index) => {
           const flip = index % 2 === 1;
 
@@ -81,7 +79,7 @@ export function Features() {
             <article
               key={feature.id}
               id={feature.id}
-              className="grid border border-white/12 lg:grid-cols-2 lg:border-0"
+              className="grid border border-black/[0.08] lg:grid-cols-2 lg:border-0"
             >
               <div
                 className={`flex flex-col justify-center px-5 py-10 sm:px-8 lg:py-16 ${flip ? "lg:order-2" : ""}`}
@@ -95,16 +93,8 @@ export function Features() {
                 </p>
               </div>
               <div
-                className={`relative border-white/12 ${flip ? "border-b lg:border-b-0 lg:border-r" : "border-t lg:border-t-0 lg:border-l"}`}
+                className={`border-black/[0.08] ${flip ? "border-b lg:border-b-0 lg:border-r" : "border-t lg:border-t-0 lg:border-l"}`}
               >
-                {flip || index === 0 ? (
-                  <Cross className="-top-px left-0 -translate-x-1/2 -translate-y-1/2" />
-                ) : null}
-                {flip ? null : (
-                  <Cross className="-top-px right-0 translate-x-1/2 -translate-y-1/2" />
-                )}
-                <Cross className="-bottom-px left-0 -translate-x-1/2 translate-y-1/2" />
-                <Cross className="-bottom-px right-0 translate-x-1/2 translate-y-1/2" />
                 <PlatformShot
                   src={feature.image}
                   alt={feature.alt}

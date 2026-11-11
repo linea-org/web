@@ -91,7 +91,7 @@ export function SearchPanel({
       }}
       onKeyDown={onDialogKey}
     >
-      <div className="border-b border-white/12 px-3 py-2.5">
+      <div className="border-b border-black/[0.08] px-3 py-2.5">
         <input
           ref={inputRef}
           type="search"
@@ -103,7 +103,7 @@ export function SearchPanel({
           placeholder="Search resources"
           aria-controls={listId}
           aria-autocomplete="list"
-          className="w-full bg-transparent text-sm tracking-tight text-white outline-none placeholder:text-muted"
+          className="w-full bg-transparent text-sm tracking-tight text-foreground outline-none placeholder:text-muted"
         />
       </div>
       <div id={listId} role="listbox" className="max-h-80 overflow-y-auto py-2">
@@ -136,7 +136,7 @@ export function SearchPanel({
                       aria-selected={selected}
                       target={entry.external ? "_blank" : undefined}
                       rel={entry.external ? "noreferrer" : undefined}
-                      className={`flex items-start justify-between gap-3 px-1.5 py-2 text-left ${selected ? "bg-white/[0.06] text-white" : "text-foreground hover:bg-white/[0.04] hover:text-white"}`}
+                      className={`flex items-start justify-between gap-3 px-1.5 py-2 text-left ${selected ? "bg-black/[0.06] text-foreground" : "text-foreground hover:bg-black/[0.04] hover:text-foreground"}`}
                       onMouseEnter={() => setActive(index)}
                       onClick={hide}
                     >
