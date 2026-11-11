@@ -1,18 +1,21 @@
 import type { ReactNode } from "react";
 import { Announcement } from "@/components/landing/announcement";
-import { Frame, Separator } from "@/components/landing/frame";
+import { Frame } from "@/components/landing/frame";
 import { PageCta } from "@/components/landing/page-cta";
 import { SiteFooter } from "@/components/landing/site-footer";
 import { SiteHeader } from "@/components/landing/site-header";
+import { Story } from "@/components/landing/story";
 
+/**
+ * Every page ends the same way: optional centered CTA, the newsletter card,
+ * then the footer card 12px below it, as on the landing page.
+ */
 export function SiteChrome({
   children,
   cta = true,
-  rule = true,
 }: {
   children: ReactNode;
   cta?: boolean;
-  rule?: boolean;
 }) {
   return (
     <Frame>
@@ -20,13 +23,8 @@ export function SiteChrome({
         <Announcement />
         <SiteHeader />
         {children}
-        {cta ? (
-          <>
-            <Separator />
-            <PageCta />
-          </>
-        ) : null}
-        {rule ? <Separator /> : null}
+        {cta ? <PageCta /> : null}
+        <Story />
         <SiteFooter />
       </div>
     </Frame>

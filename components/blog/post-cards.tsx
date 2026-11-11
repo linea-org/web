@@ -5,28 +5,34 @@ import { formatPostDate, type BlogMeta } from "@/lib/blog-meta";
 
 export function PostCards({
   posts,
-  framed = true,
+  eager = false,
 }: {
   posts: BlogMeta[];
-  framed?: boolean;
+  eager?: boolean;
 }) {
   return (
-    <div className="grid gap-3 md:grid-cols-3 md:gap-1.5">
+    <div className="grid gap-3 md:grid-cols-3">
       {posts.map((post) => (
         <Link
           key={post.slug}
           href={`/blog/${post.slug}`}
-          className={`relative flex flex-col ${framed ? "border border-black/[0.08]" : ""}`}
+          className="group relative flex flex-col overflow-hidden rounded-[10px] border border-white/10 bg-white/[0.03] transition-colors hover:border-white/20 motion-reduce:transition-none"
         >
-          <div className="lp-hatch border-b border-black/[0.08] p-1.5">
-            <div className="relative h-40 overflow-hidden border border-black/[0.08]">
-              <PlatformShot src={post.image} alt="" fill />
+          <div className="p-2">
+            <div className="relative aspect-[1627/967] overflow-hidden rounded-[8px] bg-white/[0.03]">
+              <PlatformShot
+                src={post.image}
+                alt=""
+                fill
+                eager={eager}
+                sizes="(min-width: 768px) 26rem, 100vw"
+              />
             </div>
           </div>
-          <div className="flex flex-1 flex-col px-5 py-5 sm:px-6">
+          <div className="flex flex-1 flex-col px-4 pt-3 pb-4 sm:px-5">
             <h3 className="text-base font-medium tracking-tight">{post.title}</h3>
-            <p className="mt-2 text-sm leading-6 text-muted">{post.excerpt}</p>
-            <div className="mt-auto flex items-center justify-between gap-3 pt-5">
+            <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-muted">{post.excerpt}</p>
+            <div className="mt-auto flex items-center justify-between gap-3 pt-4">
               <div className="flex items-center gap-2">
                 <Logo size={24} />
                 <p className="text-sm">{post.author}</p>

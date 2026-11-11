@@ -14,7 +14,6 @@ export function Band({
   children,
   wash = false,
   grain = false,
-  hatch = false,
   sticky = false,
   rule = true,
   className = "",
@@ -22,20 +21,15 @@ export function Band({
   children: ReactNode;
   wash?: boolean;
   grain?: boolean;
-  hatch?: boolean;
   sticky?: boolean;
   rule?: boolean;
   className?: string;
 }) {
   return (
     <div
-      className={`${rule ? "border-b border-black/[0.08]" : ""} ${sticky ? "sticky top-0 z-40 bg-background" : "relative"} ${wash ? "lp-wash" : ""} ${wash || grain ? "lp-grain" : ""} ${hatch ? "lp-hatch" : ""} ${className}`}
+      className={`${rule ? "border-b border-white/10" : ""} ${sticky ? "sticky top-0 z-40 isolate before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-black/80 before:backdrop-blur-md" : "relative"} ${wash ? "lp-wash" : ""} ${wash || grain ? "lp-grain" : ""} ${className}`}
     >
       {children}
     </div>
   );
-}
-
-export function Separator() {
-  return <div className="lp-hatch relative h-3 border-b border-black/[0.08]" />;
 }

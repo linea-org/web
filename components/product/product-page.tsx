@@ -1,206 +1,177 @@
 import { CodeBlock } from "@/components/product/code-block";
-import { Band } from "@/components/landing/frame";
+import { FramedShot } from "@/components/landing/framed-shot";
+import {
+  CARD,
+  CARD_PAD,
+  CheckList,
+  PageHero,
+  Section,
+  SectionHeading,
+  StepCards,
+} from "@/components/landing/section";
 import { SiteChrome } from "@/components/landing/site-chrome";
-import { Button, Container } from "@/components/landing/ui";
-import { PlatformShot, type ShotTone } from "@/components/media/platform-shot";
+import { Button, HEADING_GAP } from "@/components/landing/ui";
 import { DOCS_URL, PLATFORM_URL } from "@/lib/docs";
-import type { Product, ProductSlug } from "@/lib/product";
-
-function shotTone(slug: ProductSlug): ShotTone {
-  switch (slug) {
-    case "runtime":
-      return "cool";
-    case "replay":
-      return "warm";
-    case "memory":
-      return "neutral";
-    default: {
-      const _never: never = slug;
-      return _never;
-    }
-  }
-}
+import type { Product } from "@/lib/product";
 
 function Header({ product }: { product: Product }) {
   return (
-    <Band>
-      <div className="grid lg:grid-cols-2">
-        <div className="relative aspect-[4/3] border-b border-black/[0.08] lg:order-2 lg:aspect-auto lg:h-full lg:min-h-80 lg:border-b-0 lg:border-l">
-          <PlatformShot
-            src={product.image}
-            alt={product.imageAlt}
-            fill
-            eager
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            tone={shotTone(product.slug)}
-          />
-        </div>
-        <Container className="flex flex-col justify-start py-10 sm:py-14">
-          <p className="text-sm text-muted">{product.name}</p>
-          <h1 className="mt-3 max-w-2xl text-3xl font-medium tracking-tight sm:text-4xl">
-            {product.title}
-          </h1>
-          <p className="mt-4 max-w-xl text-sm leading-7 text-muted">
-            {product.excerpt}
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>
-              Start building
-            </Button>
-            <Button href={DOCS_URL} variant="secondary" shortcut="d">
-              Read the docs
-            </Button>
-          </div>
-        </Container>
+    <PageHero
+      eyebrow={product.name}
+      title={product.title}
+      lead={product.excerpt}
+      actions={
+        <>
+          <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>
+            Start building
+          </Button>
+          <Button href={DOCS_URL} variant="secondary" shortcut="d">
+            Read the docs
+          </Button>
+        </>
+      }
+    >
+      <FramedShot
+        src={product.image}
+        alt={product.imageAlt}
+        eager
+        sizes="(min-width: 80rem) 80rem, 100vw"
+      />
+    </PageHero>
+  );
+}
+
+function How({ product }: { product: Product }) {
+  return (
+    <Section id="how">
+      <SectionHeading
+        eyebrow="How it works"
+        title={product.how.title}
+        lead={product.how.lead}
+      />
+      <div className={HEADING_GAP}>
+        <StepCards items={product.how.steps} />
       </div>
-    </Band>
-  );
-}
-
-function Steps({ items }: { items: { title: string; copy: string }[] }) {
-  return (
-    <div className="mt-10 grid gap-x-16 gap-y-8 sm:grid-cols-2">
-      {items.map((item, index) => (
-        <div key={item.title}>
-          <p className="text-sm tabular-nums text-muted">
-            {String(index + 1).padStart(2, "0")}.
-          </p>
-          <h3 className="mt-2 text-base font-medium tracking-tight">
-            {item.title}
-          </h3>
-          <p className="mt-2 text-sm leading-6 text-muted">{item.copy}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function How({
-  product,
-  label,
-}: {
-  product: Product;
-  label: string;
-}) {
-  return (
-    <Band>
-      <Container className="py-10 sm:py-14">
-        <p className="text-sm text-muted">{label}</p>
-        <h2 className="mt-3 max-w-2xl text-2xl font-medium tracking-tight sm:text-3xl">
-          {product.how.title}
-        </h2>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-muted">
-          {product.how.lead}
-        </p>
-        <Steps items={product.how.steps} />
-      </Container>
-    </Band>
+    </Section>
   );
 }
 
 async function Example({ product }: { product: Product }) {
   return (
-    <Band>
-      <Container className="py-10 sm:py-12">
-        <p className="text-sm text-muted">Example</p>
-        <h2 className="mt-3 max-w-2xl text-2xl font-medium tracking-tight sm:text-3xl">
-          {product.example.title}
-        </h2>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-muted">
-          {product.example.copy}
-        </p>
-      </Container>
-      <CodeBlock
-        code={product.example.code}
-        lang={product.example.lang}
-        framed={false}
-      />
-    </Band>
+    <Section id="example">
+      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <SectionHeading
+          align="left"
+          eyebrow="Example"
+          title={product.example.title}
+          lead={product.example.copy}
+        />
+        <CodeBlock code={product.example.code} lang={product.example.lang} />
+      </div>
+    </Section>
   );
 }
 
 function Compare({ product }: { product: Product }) {
   return (
-    <Band>
-      <Container className="py-10 sm:py-12">
-        <p className="text-sm text-muted">Compare</p>
-        <h2 className="mt-3 max-w-xl text-2xl font-medium tracking-tight sm:text-3xl">
-          {product.compare.title}
-        </h2>
-        <p className="mt-3 max-w-xl text-sm leading-6 text-muted">
-          {product.compare.lead}
-        </p>
-      </Container>
-      <div className="overflow-x-auto border-t border-black/[0.08]">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-black/[0.04]">
-            <tr>
-              <th className="px-5 py-3 font-medium sm:px-8"> </th>
-              <th className="px-5 py-3 font-medium sm:px-8">
+    <Section id="compare">
+      <SectionHeading
+        eyebrow="Compare"
+        title={product.compare.title}
+        lead={product.compare.lead}
+      />
+      <div className={`${HEADING_GAP} ${CARD} overflow-x-auto`}>
+        <table className="w-full min-w-[36rem] text-left text-sm">
+          <thead>
+            <tr className="border-b border-white/10">
+              <th className="w-1/4 px-5 py-4 font-medium sm:px-6">
+                <span className="sr-only">Aspect</span>
+              </th>
+              <th className="px-5 py-4 font-medium text-muted sm:px-6">
                 {product.compare.columns[0]}
               </th>
-              <th className="px-5 py-3 font-medium sm:px-8">
+              <th className="px-5 py-4 font-medium text-[#9dbde4] sm:px-6">
                 {product.compare.columns[1]}
               </th>
             </tr>
           </thead>
           <tbody>
             {product.compare.rows.map((row) => (
-              <tr key={row.label} className="border-t border-black/[0.08]">
-                <th className="px-5 py-3 font-medium sm:px-8">{row.label}</th>
-                <td className="px-5 py-3 text-muted sm:px-8">{row.left}</td>
-                <td className="px-5 py-3 text-muted sm:px-8">{row.right}</td>
+              <tr
+                key={row.label}
+                className="border-b border-white/10 last:border-b-0"
+              >
+                <th className="px-5 py-4 font-medium sm:px-6">{row.label}</th>
+                <td className="px-5 py-4 text-muted sm:px-6">{row.left}</td>
+                <td className="px-5 py-4 sm:px-6">{row.right}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </Band>
+    </Section>
   );
 }
 
 function Split({ product }: { product: Product }) {
+  const { left, right } = product.split;
+
   return (
-    <Band>
-      <Container className="grid gap-10 py-10 sm:grid-cols-2 sm:gap-16 sm:py-14">
-        <div>
-          <p className="text-sm text-muted">{product.split.left.title}</p>
-          <ul className="mt-5 list-disc space-y-3 pl-5 text-sm leading-6 text-muted">
-            {product.split.left.items.map((item) => (
-              <li key={item}>{item}</li>
+    <Section id="split">
+      <SectionHeading
+        eyebrow="Who does what"
+        title="You keep the logic. Linea keeps the host."
+      />
+      <div className={`${HEADING_GAP} grid gap-3 md:grid-cols-2`}>
+        <div className={`${CARD} ${CARD_PAD}`}>
+          <p className="text-sm font-medium tracking-tight text-muted">
+            {left.title}
+          </p>
+          <ul className="mt-5 space-y-3">
+            {left.items.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 text-sm leading-5 text-muted"
+              >
+                <span
+                  aria-hidden
+                  className="mt-1.5 size-1.5 shrink-0 rounded-full bg-white/30"
+                />
+                {item}
+              </li>
             ))}
           </ul>
         </div>
-        <div>
-          <p className="text-sm text-muted">{product.split.right.title}</p>
-          <ul className="mt-5 list-disc space-y-3 pl-5 text-sm leading-6 text-muted">
-            {product.split.right.items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+        <div
+          className={`rounded-[10px] border border-[#9dbde4]/25 bg-[#9dbde4]/[0.06] ${CARD_PAD}`}
+        >
+          <p className="text-sm font-medium tracking-tight text-[#9dbde4]">
+            {right.title}
+          </p>
+          <CheckList items={right.items} className="mt-5" />
         </div>
-      </Container>
-    </Band>
+      </div>
+    </Section>
   );
 }
 
-function NotReplay({ product }: { product: Product }) {
+function Precision({ product }: { product: Product }) {
   const block = product.not;
   if (!block) {
     return null;
   }
 
   return (
-    <Band>
-      <Container className="py-10 sm:py-12">
-        <p className="text-sm text-muted">Designed for precision</p>
-        <h2 className="mt-3 max-w-xl text-2xl font-medium tracking-tight sm:text-3xl">
-          {block.title}
-        </h2>
-        <p className="mt-3 max-w-xl text-sm leading-6 text-muted">{block.lead}</p>
-        <Steps items={block.items} />
-      </Container>
-    </Band>
+    <Section id="precision">
+      <SectionHeading
+        eyebrow="Designed for precision"
+        title={block.title}
+        lead={block.lead}
+      />
+      <div className={HEADING_GAP}>
+        <StepCards items={block.items} />
+      </div>
+    </Section>
   );
 }
 
@@ -209,7 +180,7 @@ function Body({ product }: { product: Product }) {
     case "runtime":
       return (
         <>
-          <How product={product} label="How it works" />
+          <How product={product} />
           <Example product={product} />
           <Compare product={product} />
           <Split product={product} />
@@ -218,10 +189,10 @@ function Body({ product }: { product: Product }) {
     case "replay":
       return (
         <>
-          <How product={product} label="How it works" />
+          <How product={product} />
           <Example product={product} />
           <Compare product={product} />
-          <NotReplay product={product} />
+          <Precision product={product} />
         </>
       );
     case "memory":
@@ -229,7 +200,7 @@ function Body({ product }: { product: Product }) {
         <>
           <Split product={product} />
           <Example product={product} />
-          <How product={product} label="How it works" />
+          <How product={product} />
           <Compare product={product} />
         </>
       );

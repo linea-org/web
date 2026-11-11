@@ -15,8 +15,6 @@ That payload is not in your prompt file. It is the output of the steps before it
 
 This is why replay sits on the host. An observability tool can show the failure. It never ran the graph, so it has no checkpoint to replay from. The rest of Linea — workers, memory, a boxed code node — exists so that this record is there when you need it.
 
-![Monitoring view with open signals](/linea/linea-signals.png)
-
 ## What the checkpoint holds
 
 A checkpoint is the exact input a node saw, written when the host ran it. Replay loads that record and calls the node again. Nothing upstream has to move.

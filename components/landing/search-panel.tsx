@@ -7,14 +7,29 @@ import {
   useRef,
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
 } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ExternalIcon } from "@/components/landing/external-icon";
+import {
+  MagnifierIcon,
+  ReturnIcon,
+  SearchResultIcon,
+} from "@/components/landing/search-icon";
 import {
   filterSearchEntries,
   SEARCH_GROUPS,
   type SearchEntry,
 } from "@/lib/search";
+
+function Kbd({ children }: { children: ReactNode }) {
+  return (
+    <kbd className="inline-flex h-5 min-w-5 items-center justify-center rounded-[5px] border border-white/10 bg-white/[0.04] px-1 font-sans text-[11px] leading-none text-muted">
+      {children}
+    </kbd>
+  );
+}
 
 export function SearchPanel({
   entries,
@@ -23,8 +38,10 @@ export function SearchPanel({
   entries: SearchEntry[];
   onClose: () => void;
 }) {
+  const router = useRouter();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const listId = useId();
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
@@ -32,6 +49,7 @@ export function SearchPanel({
     () => filterSearchEntries(entries, query),
     [entries, query],
   );
+  const activeId = results[active] ? `${listId}-${active}` : undefined;
 
   function hide() {
     dialogRef.current?.close();
@@ -42,6 +60,20 @@ export function SearchPanel({
     dialogRef.current?.showModal();
     inputRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    const list = listRef.current;
+    const row = activeId ? document.getElementById(activeId) : null;
+    if (!list || !row) {
+      return;
+    }
+    // Scroll only the list; scrollIntoView can also move the page behind the modal.
+    if (row.offsetTop < list.scrollTop) {
+      list.scrollTop = row.offsetTop - 8;
+    } else if (row.offsetTop + row.offsetHeight > list.scrollTop + list.clientHeight) {
+      list.scrollTop = row.offsetTop + row.offsetHeight - list.clientHeight + 8;
+    }
+  }, [activeId]);
 
   function onDialogKey(event: ReactKeyboardEvent<HTMLDialogElement>) {
     if (results.length === 0) {
@@ -68,7 +100,7 @@ export function SearchPanel({
           window.open(entry.href, "_blank", "noreferrer");
           return;
         }
-        window.location.assign(entry.href);
+        router.push(entry.href);
         return;
       }
       default:
@@ -91,24 +123,47 @@ export function SearchPanel({
       }}
       onKeyDown={onDialogKey}
     >
-      <div className="border-b border-black/[0.08] px-3 py-2.5">
+      <div className="flex items-center gap-3 border-b border-white/10 px-4">
+        <MagnifierIcon className="size-4 text-muted" />
         <input
           ref={inputRef}
-          type="search"
+          type="text"
+          role="combobox"
           value={query}
           onChange={(event) => {
             setQuery(event.target.value);
             setActive(0);
           }}
           placeholder="Search resources"
+          aria-label="Search resources"
           aria-controls={listId}
+          aria-expanded={results.length > 0}
           aria-autocomplete="list"
-          className="w-full bg-transparent text-sm tracking-tight text-foreground outline-none placeholder:text-muted"
+          aria-activedescendant={activeId}
+          autoComplete="off"
+          spellCheck={false}
+          className="h-14 min-w-0 flex-1 bg-transparent text-[15px] tracking-tight text-foreground outline-none placeholder:text-muted"
         />
+        <button
+          type="button"
+          onClick={hide}
+          aria-label="Close search"
+          className="inline-flex h-6 items-center rounded-md border border-white/10 px-1.5 text-xs text-muted transition-colors hover:border-white/20 hover:text-foreground"
+        >
+          Esc
+        </button>
       </div>
-      <div id={listId} role="listbox" className="max-h-80 overflow-y-auto py-2">
+      <div
+        ref={listRef}
+        id={listId}
+        role="listbox"
+        aria-label="Results"
+        className="lp-search-list relative max-h-[min(26rem,55dvh)] min-h-0 overflow-y-auto p-2"
+      >
         {results.length === 0 ? (
-          <p className="px-3 py-6 text-sm text-muted">Nothing matches.</p>
+          <p className="px-3 py-10 text-center text-sm text-muted">
+            No results for &ldquo;{query.trim()}&rdquo;
+          </p>
         ) : (
           SEARCH_GROUPS.map((group) => {
             const items = results.filter((entry) => entry.group === group);
@@ -118,8 +173,16 @@ export function SearchPanel({
             }
 
             return (
-              <div key={group} className="px-2 pb-2">
-                <p className="px-1.5 pt-1 pb-1 text-[11px] tracking-[0.12em] text-muted uppercase">
+              <div
+                key={group}
+                role="group"
+                aria-label={group}
+                className="pb-2 last:pb-0"
+              >
+                <p
+                  aria-hidden
+                  className="px-2.5 pt-2 pb-1.5 text-xs font-medium tracking-wide text-muted"
+                >
                   {group}
                 </p>
                 {items.map((entry) => {
@@ -134,23 +197,36 @@ export function SearchPanel({
                       href={entry.href}
                       role="option"
                       aria-selected={selected}
+                      tabIndex={-1}
                       target={entry.external ? "_blank" : undefined}
                       rel={entry.external ? "noreferrer" : undefined}
-                      className={`flex items-start justify-between gap-3 px-1.5 py-2 text-left ${selected ? "bg-black/[0.06] text-foreground" : "text-foreground hover:bg-black/[0.04] hover:text-foreground"}`}
-                      onMouseEnter={() => setActive(index)}
+                      className={`group/row flex items-center gap-3 rounded-[8px] px-2.5 py-2 transition-colors duration-100 ${selected ? "bg-white/[0.06]" : ""}`}
+                      // mousemove, not mouseenter: keyboard scrolling would otherwise steal the active row.
+                      onMouseMove={() => setActive(index)}
                       onClick={hide}
                     >
-                      <span className="min-w-0">
-                        <span className="block text-sm tracking-tight">
-                          {entry.title}
+                      <span
+                        className={`grid size-8 shrink-0 place-items-center rounded-md ring-1 transition-colors duration-100 ${selected ? "bg-white/[0.08] text-foreground ring-white/20" : "bg-white/[0.04] text-muted ring-white/10"}`}
+                      >
+                        <SearchResultIcon entry={entry} />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="flex items-center gap-1.5 text-sm font-medium tracking-tight text-foreground">
+                          <span className="truncate">{entry.title}</span>
+                          {entry.external ? (
+                            <ExternalIcon className="size-2.5 text-muted" />
+                          ) : null}
                         </span>
-                        <span className="mt-0.5 block truncate text-xs text-muted">
+                        <span className="block truncate text-sm text-muted">
                           {entry.hint}
                         </span>
                       </span>
-                      {entry.external ? (
-                        <ExternalIcon className="mt-1 size-2.5 text-muted" />
-                      ) : null}
+                      <span
+                        aria-hidden
+                        className={`grid size-6 shrink-0 place-items-center rounded-[5px] border border-white/10 bg-white/[0.04] text-muted ${selected ? "opacity-100" : "opacity-0"}`}
+                      >
+                        <ReturnIcon />
+                      </span>
                     </Link>
                   );
                 })}
@@ -158,6 +234,26 @@ export function SearchPanel({
             );
           })
         )}
+      </div>
+      <div
+        aria-hidden
+        className="hidden items-center gap-4 border-t border-white/10 px-4 py-2.5 text-xs text-muted sm:flex"
+      >
+        <span className="inline-flex items-center gap-1.5">
+          <Kbd>↑</Kbd>
+          <Kbd>↓</Kbd>
+          to navigate
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <Kbd>
+            <ReturnIcon className="size-2.5" />
+          </Kbd>
+          to open
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <Kbd>esc</Kbd>
+          to close
+        </span>
       </div>
     </dialog>
   );

@@ -1,8 +1,8 @@
 import { BlogCatalog } from "@/components/blog/catalog";
 import { PostCards } from "@/components/blog/post-cards";
-import { Band, Separator } from "@/components/landing/frame";
+import { PageHero, Section, SectionHeading } from "@/components/landing/section";
 import { SiteChrome } from "@/components/landing/site-chrome";
-import { Container } from "@/components/landing/ui";
+import { HEADING_GAP } from "@/components/landing/ui";
 import { listPosts } from "@/lib/blog";
 import { pageMeta } from "@/lib/seo";
 
@@ -19,28 +19,23 @@ export default function BlogPage() {
   const rest = posts.slice(3);
 
   return (
-    <SiteChrome>
+    <SiteChrome cta={false}>
       <main>
-        <Band>
-          <Container className="py-8 sm:py-10">
-            <p className="text-sm text-muted">From the team</p>
-            <h1 className="mt-3 max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
-              Featured
-            </h1>
-          </Container>
-          <Container className="pb-12 sm:pb-16">
-            <PostCards posts={featured} />
-          </Container>
-        </Band>
-        <Separator />
-        <Band>
-          <Container className="flex items-center py-8 sm:py-10">
-            <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
-              Read the latest
-            </h2>
-          </Container>
-          <BlogCatalog posts={rest} />
-        </Band>
+        <PageHero
+          eyebrow="Blog"
+          title="From the Linea team."
+          lead="Notes on the host, the checkpoint, and the loop after a failure."
+        >
+          <PostCards posts={featured} eager />
+        </PageHero>
+        {rest.length > 0 ? (
+          <Section id="latest">
+            <SectionHeading title="Read the latest" />
+            <div className={HEADING_GAP}>
+              <BlogCatalog posts={rest} />
+            </div>
+          </Section>
+        ) : null}
       </main>
     </SiteChrome>
   );

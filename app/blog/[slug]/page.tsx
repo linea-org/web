@@ -6,11 +6,21 @@ import remarkGfm from "remark-gfm";
 import { remarkCodeSwitcher } from "@/lib/remark-code-switcher";
 import { AuthorLink } from "@/components/blog/author-link";
 import { mdxComponents } from "@/components/blog/mdx";
-import { tagBadge } from "@/components/blog/tag-style";
-import { PlatformShot } from "@/components/media/platform-shot";
+import { PostCards } from "@/components/blog/post-cards";
+import { TAG_PILL, tagBadge } from "@/components/blog/tag-style";
 import { Band } from "@/components/landing/frame";
+import { FramedShot } from "@/components/landing/framed-shot";
+import {
+  ArrowLink,
+  Section,
+  SectionHeading,
+} from "@/components/landing/section";
 import { SiteChrome } from "@/components/landing/site-chrome";
-import { Container } from "@/components/landing/ui";
+import {
+  HEADING_GAP,
+  SECTION_PB,
+  SECTION_PT,
+} from "@/components/landing/ui";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   formatPostDate,
@@ -74,8 +84,10 @@ export default async function PostPage({ params }: PostPageProps) {
   const { meta, content } = getPost(slug);
   const related = relatedPosts(slug, meta.tags);
 
+  const date = formatPostDate(meta.date);
+
   return (
-    <SiteChrome>
+    <SiteChrome cta={false}>
       <JsonLd
         data={articleGraph({
           title: meta.title,
@@ -87,58 +99,68 @@ export default async function PostPage({ params }: PostPageProps) {
         })}
       />
       <main>
-        <Band>
-          <div className="border-b border-black/[0.08] px-5 py-3 sm:px-8">
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground"
+        <Band rule={false}>
+          <article className="px-5 sm:px-8">
+            <header
+              className={`mx-auto flex max-w-3xl flex-col items-center text-center ${SECTION_PT}`}
             >
-              <svg
-                aria-hidden
-                viewBox="0 0 16 16"
-                className="size-3.5 shrink-0"
+              <Link
+                href="/blog"
+                className="group inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] py-1 pr-3 pl-2 text-xs font-medium tracking-tight text-muted transition-colors hover:border-white/20 hover:text-foreground motion-reduce:transition-none"
               >
-                <path
-                  d="M10.3 3.2 5.7 8l4.6 4.8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.25"
-                  strokeLinecap="square"
-                />
-              </svg>
-              All blogs
-            </Link>
-          </div>
-          <div className="grid lg:grid-cols-2">
-            <div className="lp-hatch border-b border-black/[0.08] p-1.5 lg:order-2 lg:self-start lg:border-b-0 lg:border-l">
-              <div className="overflow-hidden border border-black/[0.08]">
-                <PlatformShot
-                  src={meta.image}
-                  alt=""
-                  eager
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                />
-              </div>
-            </div>
-            <Container className="flex flex-col justify-center py-10 sm:py-14">
-              <p className="text-sm text-muted">{formatPostDate(meta.date)}</p>
-              <h1 className="mt-3 max-w-xl text-3xl font-medium tracking-tight sm:text-4xl">
+                <svg
+                  aria-hidden
+                  viewBox="0 0 16 16"
+                  className="size-3.5 shrink-0 transition-transform group-hover:-translate-x-0.5 motion-reduce:transition-none"
+                >
+                  <path
+                    d="M10.3 3.2 5.7 8l4.6 4.8"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="square"
+                  />
+                </svg>
+                Blog
+              </Link>
+              <h1 className="mt-6 text-4xl leading-[1.05] font-medium tracking-[-0.045em] text-balance sm:text-5xl lg:text-[3.5rem]">
                 {meta.title}
               </h1>
               {meta.excerpt ? (
-                <p className="mt-4 max-w-md text-sm leading-6 text-muted">
+                <p className="mt-5 max-w-xl text-base leading-7 text-pretty text-muted sm:text-lg sm:leading-8">
                   {meta.excerpt}
                 </p>
               ) : null}
-              <div className="mt-5">
+              <div className="mt-7 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-sm text-muted">
                 <AuthorLink name={meta.author} showIcon />
+                <span aria-hidden className="h-4 w-px bg-white/15" />
+                <time dateTime={meta.date}>{date}</time>
+                {meta.tags.length > 0 ? (
+                  <>
+                    <span aria-hidden className="h-4 w-px bg-white/15" />
+                    <ul className="flex flex-wrap gap-1.5">
+                      {meta.tags.map((item) => (
+                        <li key={item}>
+                          <span className={`${TAG_PILL} ${tagBadge(item)}`}>
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : null}
               </div>
-            </Container>
-          </div>
-        </Band>
-        <Band>
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_16rem] lg:divide-x lg:divide-black/[0.08]">
-            <Container className="min-w-0 py-8">
+            </header>
+
+            <FramedShot
+              src={meta.image}
+              alt=""
+              eager
+              sizes="(min-width: 80rem) 80rem, 100vw"
+              className={HEADING_GAP}
+            />
+
+            <div className={`mx-auto max-w-2xl ${HEADING_GAP} ${SECTION_PB}`}>
               <MDXRemote
                 source={content}
                 components={mdxComponents}
@@ -148,47 +170,29 @@ export default async function PostPage({ params }: PostPageProps) {
                   },
                 }}
               />
-            </Container>
-            <aside className="self-start border-t border-black/[0.08] px-5 py-8 sm:px-8 lg:sticky lg:top-20 lg:border-t-0">
-              {meta.tags.length > 0 ? (
-                <div>
-                  <p className="text-sm text-foreground">Tags</p>
-                  <ul className="mt-4 flex flex-wrap gap-2">
-                    {meta.tags.map((item) => (
-                      <li key={item}>
-                        <span
-                          className={`border px-1.5 py-0.5 text-[10px] font-medium tracking-[0.12em] uppercase ${tagBadge(item)}`}
-                        >
-                          {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-              {related.length > 0 ? (
-                <div className={meta.tags.length > 0 ? "mt-8" : ""}>
-                  <p className="text-sm text-foreground">More from the blog</p>
-                  <ul className="mt-4 space-y-4">
-                    {related.map((post) => (
-                      <li key={post.slug}>
-                        <Link
-                          href={`/blog/${post.slug}`}
-                          className="block text-sm leading-6 text-muted hover:text-foreground"
-                        >
-                          {post.title}
-                          <span className="mt-0.5 block text-xs text-muted">
-                            {formatPostDate(post.date)}
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-            </aside>
-          </div>
+              <div
+                className={`${HEADING_GAP} flex items-center justify-between gap-4 border-t border-white/10 pt-6`}
+              >
+                <AuthorLink name={meta.author} />
+                <ArrowLink href="/blog" className="-mr-3">
+                  All posts
+                </ArrowLink>
+              </div>
+            </div>
+          </article>
         </Band>
+
+        {related.length > 0 ? (
+          <Section id="more">
+            <SectionHeading
+              title="Keep reading"
+              action={<ArrowLink href="/blog">View all posts</ArrowLink>}
+            />
+            <div className={HEADING_GAP}>
+              <PostCards posts={related.slice(0, 3)} />
+            </div>
+          </Section>
+        ) : null}
       </main>
     </SiteChrome>
   );

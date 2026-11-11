@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { ExternalIcon } from "@/components/landing/external-icon";
 import { GitHubIcon } from "@/components/landing/github-icon";
 import { Button } from "@/components/landing/button";
@@ -6,11 +9,54 @@ import { PLATFORM_URL } from "@/lib/docs";
 import { GITHUB_URL } from "@/lib/socials";
 import { NAV } from "@/lib/nav";
 
+const DESKTOP_QUERY = "(min-width: 64rem)";
+
+function setPageScrollLocked(locked: boolean) {
+  document.documentElement.style.overflow = locked ? "hidden" : "";
+}
+
 export function MobileNav() {
+  const detailsRef = useRef<HTMLDetailsElement>(null);
+  // The announcement bar sits above the sticky header, so the header's
+  // viewport offset varies with scroll; measure it each time the menu opens.
+  const [panelTop, setPanelTop] = useState(0);
+
+  const close = () => {
+    if (detailsRef.current) detailsRef.current.open = false;
+  };
+
+  const handleToggle = () => {
+    const details = detailsRef.current;
+    if (!details) return;
+
+    if (details.open) {
+      const header = details.closest("header");
+      setPanelTop(header?.getBoundingClientRect().bottom ?? 0);
+    }
+    setPageScrollLocked(details.open);
+  };
+
+  const handleNavClick = (event: MouseEvent<HTMLElement>) => {
+    if ((event.target as HTMLElement).closest("a")) close();
+  };
+
+  useEffect(() => {
+    const desktop = window.matchMedia(DESKTOP_QUERY);
+    const onChange = () => {
+      if (desktop.matches) close();
+    };
+    desktop.addEventListener("change", onChange);
+
+    return () => {
+      desktop.removeEventListener("change", onChange);
+      setPageScrollLocked(false);
+    };
+  }, []);
+
   return (
-    <details className="group lg:hidden">
+    <details ref={detailsRef} onToggle={handleToggle} className="group lg:hidden">
       <summary
-        className="lp-btn lp-btn-secondary inline-flex size-9 cursor-pointer list-none items-center justify-center border border-black/15 text-foreground [&::-webkit-details-marker]:hidden"
+        className="lp-btn lp-btn-secondary inline-flex size-9 cursor-pointer list-none items-center justify-center border border-white/20 text-foreground [&::-webkit-details-marker]:hidden"
       >
         <span className="sr-only">Toggle menu</span>
         <svg aria-hidden viewBox="0 0 16 16" className="size-4 group-open:hidden">
@@ -34,9 +80,14 @@ export function MobileNav() {
       </summary>
       <div
         id="mobile-nav"
-        className="absolute inset-x-0 top-full z-30 border-b border-black/[0.08] bg-background"
+        style={{ top: panelTop }}
+        onClick={handleNavClick}
+        className="fixed inset-x-0 bottom-0 z-30 flex flex-col border-t border-white/10 bg-background"
       >
-          <nav className="divide-y divide-black/[0.08] text-sm" aria-label="Mobile">
+          <nav
+            className="flex-1 divide-y divide-white/10 overflow-y-auto overscroll-contain text-sm"
+            aria-label="Mobile"
+          >
             {NAV.map((item) => {
               switch (item.kind) {
                 case "link":
@@ -45,7 +96,7 @@ export function MobileNav() {
                       <a
                         key={item.href}
                         href={item.href}
-                        className="flex items-center justify-between px-5 py-3.5 hover:bg-black/[0.04] hover:text-foreground sm:px-8"
+                        className="flex items-center justify-between px-5 py-3.5 hover:bg-white/[0.06] hover:text-foreground sm:px-8"
                         target="_blank"
                         rel="noreferrer"
                       >
@@ -59,7 +110,7 @@ export function MobileNav() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="block px-5 py-3.5 hover:bg-black/[0.04] hover:text-foreground sm:px-8"
+                      className="block px-5 py-3.5 hover:bg-white/[0.06] hover:text-foreground sm:px-8"
                     >
                       {item.label}
                     </Link>
@@ -74,7 +125,7 @@ export function MobileNav() {
                         <Link
                           key={entry.href}
                           href={entry.href}
-                          className="block px-5 py-3 hover:bg-black/[0.04] hover:text-foreground sm:px-8"
+                          className="block px-5 py-3 hover:bg-white/[0.06] hover:text-foreground sm:px-8"
                         >
                           <span className="block text-foreground">
                             {entry.label}
@@ -93,7 +144,7 @@ export function MobileNav() {
               }
             })}
           </nav>
-          <div className="flex flex-col gap-2 border-t border-black/[0.08] px-5 py-4 sm:px-8">
+          <div className="flex shrink-0 flex-col gap-2 border-t border-white/10 px-5 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-8">
             <Button
               href={GITHUB_URL}
               variant="secondary"

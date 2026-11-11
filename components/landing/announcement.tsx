@@ -23,10 +23,10 @@ export function Announcement() {
   }
 
   return (
-    <div className="px-3 pt-3 sm:px-5">
+    <div className="px-5 pt-3 sm:px-0">
       <Link
         href={item.href}
-        className="flex h-10 min-w-0 items-center justify-center rounded-[10px] bg-[#2563eb] px-4 text-center text-sm leading-5 text-white hover:bg-[#1d4ed8] sm:px-6"
+        className="lp-grain lp-grain-strong flex h-10 min-w-0 items-center justify-center overflow-hidden rounded-[10px] bg-[linear-gradient(90deg,#a64a21_0%,#cd6434_50%,#a64a21_100%)] px-4 text-center text-sm leading-5 text-white transition-[filter] hover:brightness-110 sm:px-6"
       >
         <span className="line-clamp-1">
           <span className="underline">{item.label}</span>

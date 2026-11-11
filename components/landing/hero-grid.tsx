@@ -1,6 +1,6 @@
 const CELL = 101;
 const COLUMNS = 13;
-const ROWS = 5;
+const ROWS = 6;
 
 const CELLS: { col: number; row: number }[] = [];
 
@@ -11,6 +11,7 @@ for (const row of [1, 2]) {
 for (const row of [3, 4]) {
   for (const col of [0, 1, 2, 10, 11, 12]) CELLS.push({ col, row });
 }
+for (const col of [0, 1, 2, 3, 9, 10, 11, 12]) CELLS.push({ col, row: 5 });
 
 const MARKS: { col: number; row: number; kind: "dot" | "square" }[] = [
   { col: 1, row: 0, kind: "dot" },
@@ -21,6 +22,8 @@ const MARKS: { col: number; row: number; kind: "dot" | "square" }[] = [
   { col: 12, row: 1, kind: "dot" },
   { col: 1, row: 4, kind: "dot" },
   { col: 11, row: 3, kind: "square" },
+  { col: 3, row: 5, kind: "square" },
+  { col: 10, row: 5, kind: "dot" },
 ];
 
 function Joint({ x, y }: { x: number; y: number }) {
@@ -34,7 +37,7 @@ function Joint({ x, y }: { x: number; y: number }) {
       viewBox="0 0 47 47"
       fill="none"
     >
-      <circle cx="23.5" cy="23.5" r="23" fill="#f9f9f9" stroke="#ededed" />
+      <circle cx="23.5" cy="23.5" r="23" fill="#000000" stroke="rgb(255 255 255 / 0.16)" />
       <path
         d="M24 18C24 21.3137 26.6863 24 30 24H34V25H30C26.6863 25 24 27.6863 24 31V35H23V31C23 27.6863 20.3137 25 17 25H13V24H17C20.3137 24 23 21.3137 23 18V14H24V18Z"
         fill="#2563eb"
@@ -70,8 +73,8 @@ export function HeroGrid() {
             key={`${mark.kind}-${mark.col}-${mark.row}`}
             className={
               mark.kind === "dot"
-                ? "absolute size-[3px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-black/20"
-                : "absolute size-[5px] -translate-x-1/2 -translate-y-1/2 bg-black/15"
+                ? "absolute size-[3px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/25"
+                : "absolute size-[5px] -translate-x-1/2 -translate-y-1/2 bg-white/20"
             }
             style={{
               left: mark.col * CELL + CELL / 2,

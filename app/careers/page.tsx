@@ -11,7 +11,7 @@ export const metadata = pageMeta({
 
 export default function CareersPage() {
   return (
-    <SiteChrome>
+    <SiteChrome cta={false}>
       <SparseMain>
         <h1 className="max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
           We are building the first team.

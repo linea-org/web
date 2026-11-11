@@ -8,12 +8,12 @@ const TAG_DOT: Record<string, string> = {
 };
 
 const TAG_BADGE: Record<string, string> = {
-  Replay: "border-orange-400/50 text-orange-400",
-  Runtime: "border-sky-400/50 text-sky-400",
-  SDK: "border-violet-400/50 text-violet-400",
-  Builder: "border-pink-400/50 text-pink-400",
-  Ops: "border-emerald-400/50 text-emerald-400",
-  Memory: "border-amber-400/50 text-amber-400",
+  Replay: "border-orange-400/40 text-orange-400",
+  Runtime: "border-sky-400/40 text-sky-400",
+  SDK: "border-violet-400/40 text-violet-400",
+  Builder: "border-pink-400/40 text-pink-400",
+  Ops: "border-emerald-400/40 text-emerald-400",
+  Memory: "border-amber-400/40 text-amber-400",
 };
 
 export function tagDot(tag: string): string {
@@ -23,3 +23,7 @@ export function tagDot(tag: string): string {
 export function tagBadge(tag: string): string {
   return TAG_BADGE[tag] ?? "border-white/25 text-muted";
 }
+
+/** Rounded tag pill; pair with `tagBadge` for the colour. */
+export const TAG_PILL =
+  "inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] leading-4 font-medium tracking-tight";

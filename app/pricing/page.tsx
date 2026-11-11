@@ -12,7 +12,7 @@ export const metadata = pageMeta({
 
 export default function PricingPage() {
   return (
-    <SiteChrome>
+    <SiteChrome cta={false}>
       <SparseMain>
         <h1 className="max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
           Simple pricing is on the way.

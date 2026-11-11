@@ -1,16 +1,23 @@
 import Link from "next/link";
 import { PostCards } from "@/components/blog/post-cards";
 import { Band } from "@/components/landing/frame";
-import { Container } from "@/components/landing/ui";
+import {
+  Container,
+  HEADING_GAP,
+  SECTION_PB,
+  SECTION_PT,
+} from "@/components/landing/ui";
 import { listPosts } from "@/lib/blog";
 
 export function Blog() {
   const posts = listPosts().slice(0, 3);
 
   return (
-    <Band className="lp-defer">
+    <Band rule={false} className="lp-defer">
       <section id="blog">
-        <Container className="flex flex-col items-start gap-5 py-10 sm:py-12 md:flex-row md:items-end md:justify-between">
+        <Container
+          className={`flex flex-col items-start gap-5 md:flex-row md:items-end md:justify-between ${SECTION_PT}`}
+        >
           <div className="max-w-xl">
             <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">
               From the Linea team
@@ -22,7 +29,7 @@ export function Blog() {
           </div>
           <Link
             href="/blog"
-            className="lp-btn lp-btn-secondary inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md border border-black/15 px-3 text-sm font-medium tracking-tight"
+            className="lp-btn lp-btn-secondary inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md border border-white/20 px-3 text-sm font-medium tracking-tight"
           >
             View Blog
             <svg
@@ -40,7 +47,7 @@ export function Blog() {
             </svg>
           </Link>
         </Container>
-        <div className="px-5 pb-8 sm:px-8 sm:pb-10">
+        <div className={`px-5 sm:px-8 ${HEADING_GAP} ${SECTION_PB}`}>
           <PostCards posts={posts} />
         </div>
       </section>

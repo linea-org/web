@@ -5,7 +5,8 @@ import {
   type ReactNode,
 } from "react";
 import Link from "next/link";
-import { CopyCode } from "@/components/code/copy-code";
+import { CodeSwitcher } from "@/components/code/code-switcher";
+import { langLabel } from "@/components/code/lang-label";
 import { PlatformShot } from "@/components/media/platform-shot";
 import { SwitchableCode } from "@/components/code/switchable-code";
 import { textFrom } from "@/components/code/text-from";
@@ -24,12 +25,10 @@ export async function Pre({
   const html = await highlightCode(code, lang);
 
   return (
-    <CopyCode
-      code={code}
-      className="lp-code my-6 overflow-x-auto border border-white/15 bg-card"
-    >
-      <div dangerouslySetInnerHTML={{ __html: html }} />
-    </CopyCode>
+    <CodeSwitcher
+      className="my-8"
+      options={[{ id: lang, label: langLabel(lang), code, html }]}
+    />
   );
 }
 
@@ -45,8 +44,8 @@ export function MdImage({
   }
 
   return (
-    <span className="my-6 block border border-black/[0.08]">
-      <PlatformShot src={src} alt={alt} />
+    <span className="my-8 block overflow-hidden rounded-[10px] ring-1 ring-white/10">
+      <PlatformShot src={src} alt={alt} sizes="(min-width: 768px) 42rem, 100vw" />
     </span>
   );
 }
@@ -85,24 +84,30 @@ function hasMdImage(node: ReactNode): boolean {
 export const mdxComponents = {
   h2: (props: ComponentPropsWithoutRef<"h2">) => (
     <h2
-      className="mt-10 text-xl font-medium tracking-tight first:mt-0"
+      className="mt-14 scroll-mt-24 text-2xl leading-tight font-medium tracking-[-0.03em] text-balance first:mt-0 sm:text-[1.75rem]"
       {...props}
     />
   ),
   h3: (props: ComponentPropsWithoutRef<"h3">) => (
-    <h3 className="mt-8 text-lg font-medium tracking-tight" {...props} />
+    <h3
+      className="mt-10 scroll-mt-24 text-lg font-medium tracking-tight sm:text-xl"
+      {...props}
+    />
   ),
   p: ({ children, ...props }: ComponentPropsWithoutRef<"p">) =>
     hasMdImage(children) ? (
       <>{children}</>
     ) : (
-      <p className="mt-4 text-sm leading-7 text-muted first:mt-0" {...props}>
+      <p
+        className="mt-5 text-base leading-8 text-pretty text-[#c9c9d1] first:mt-0"
+        {...props}
+      >
         {children}
       </p>
     ),
   a: ({ href = "", children, ...props }: ComponentPropsWithoutRef<"a">) => {
     const className =
-      "text-foreground underline decoration-black/20 underline-offset-4 hover:decoration-foreground";
+      "text-foreground underline decoration-white/30 underline-offset-4 hover:decoration-foreground";
 
     if (href.startsWith("/")) {
       return (
@@ -126,27 +131,52 @@ export const mdxComponents = {
     );
   },
   ul: (props: ComponentPropsWithoutRef<"ul">) => (
-    <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-muted" {...props} />
+    <ul
+      className="mt-5 list-disc space-y-2 pl-5 text-base leading-8 text-[#c9c9d1] marker:text-white/30"
+      {...props}
+    />
   ),
   ol: (props: ComponentPropsWithoutRef<"ol">) => (
-    <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm leading-7 text-muted" {...props} />
+    <ol
+      className="mt-5 list-decimal space-y-2 pl-5 text-base leading-8 text-[#c9c9d1] marker:text-white/40"
+      {...props}
+    />
   ),
-  li: (props: ComponentPropsWithoutRef<"li">) => <li {...props} />,
+  li: (props: ComponentPropsWithoutRef<"li">) => <li className="pl-1" {...props} />,
+  strong: (props: ComponentPropsWithoutRef<"strong">) => (
+    <strong className="font-medium text-foreground" {...props} />
+  ),
+  code: (props: ComponentPropsWithoutRef<"code">) => (
+    <code
+      className="rounded-[5px] bg-white/[0.07] px-1.5 py-0.5 font-mono text-[0.875em] text-foreground ring-1 ring-white/10"
+      {...props}
+    />
+  ),
+  blockquote: (props: ComponentPropsWithoutRef<"blockquote">) => (
+    <blockquote
+      className="my-8 border-l-2 border-[#9dbde4] pl-5 text-lg leading-8 text-foreground [&_p]:text-inherit"
+      {...props}
+    />
+  ),
+  hr: () => <hr className="my-12 border-white/10" />,
   pre: Pre,
   img: MdImage,
   CodeSwitcher: SwitchableCode,
   table: (props: ComponentPropsWithoutRef<"table">) => (
-    <div className="my-6 overflow-x-auto border border-black/[0.08]">
+    <div className="my-8 overflow-x-auto rounded-[10px] border border-white/10 bg-white/[0.02]">
       <table className="w-full text-left text-sm" {...props} />
     </div>
   ),
   thead: (props: ComponentPropsWithoutRef<"thead">) => (
-    <thead className="bg-black/[0.04]" {...props} />
+    <thead className="bg-white/[0.04]" {...props} />
   ),
   th: (props: ComponentPropsWithoutRef<"th">) => (
-    <th className="border-b border-black/[0.08] px-4 py-2.5 font-medium" {...props} />
+    <th className="border-b border-white/10 px-4 py-3 font-medium" {...props} />
   ),
   td: (props: ComponentPropsWithoutRef<"td">) => (
-    <td className="border-b border-black/[0.08] px-4 py-2.5 text-muted" {...props} />
+    <td
+      className="border-b border-white/10 px-4 py-3 text-muted [tr:last-child_&]:border-b-0"
+      {...props}
+    />
   ),
 };

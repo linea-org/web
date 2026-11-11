@@ -83,14 +83,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f9f9f9",
-  colorScheme: "light",
+  themeColor: "#000000",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full bg-background font-sans text-foreground">
+      <body className="min-h-full font-sans text-foreground">
         <JsonLd data={siteGraph()} />
         {children}
         <Analytics />

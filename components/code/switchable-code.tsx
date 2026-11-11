@@ -102,5 +102,5 @@ export async function SwitchableCode({
     })),
   );
 
-  return <CodeSwitcher options={options} />;
+  return <CodeSwitcher className="my-8" options={options} />;
 }
