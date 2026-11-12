@@ -31,7 +31,7 @@ function withId(entry: Omit<SearchEntry, "id">): SearchEntry {
   };
 }
 
-export function getSearchEntries(): SearchEntry[] {
+export async function getSearchEntries(): Promise<SearchEntry[]> {
   return [
     ...PRODUCTS.map((product) =>
       withId({
@@ -42,7 +42,7 @@ export function getSearchEntries(): SearchEntry[] {
       }),
     ),
     ...RESOURCE_PAGES.map(withId),
-    ...listPosts().map((post) =>
+    ...(await listPosts()).map((post) =>
       withId({
         href: `/blog/${post.slug}`,
         title: post.title,

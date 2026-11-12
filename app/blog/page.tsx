@@ -13,8 +13,8 @@ export const metadata = pageMeta({
   path: "/blog",
 });
 
-export default function BlogPage() {
-  const posts = listPosts();
+export default async function BlogPage() {
+  const posts = await listPosts();
   const featured = posts.slice(0, 3);
   const rest = posts.slice(3);
 

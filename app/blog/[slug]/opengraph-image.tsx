@@ -1,4 +1,4 @@
-import { getPost, postExists } from "@/lib/blog";
+import { getPost } from "@/lib/blog";
 import {
   createContentOgImage,
   createOgImage,
@@ -16,7 +16,8 @@ export default async function Image({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (!postExists(slug)) {
+  const post = await getPost(slug);
+  if (!post) {
     return createOgImage({
       eyebrow: "Note",
       title: "Linea Labs",
@@ -24,7 +25,7 @@ export default async function Image({
     });
   }
 
-  const { meta } = getPost(slug);
+  const { meta } = post;
   const content = {
     eyebrow: meta.author,
     title: meta.title,

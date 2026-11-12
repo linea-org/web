@@ -9,8 +9,8 @@ import {
 } from "@/components/landing/ui";
 import { listPosts } from "@/lib/blog";
 
-export function Blog() {
-  const posts = listPosts().slice(0, 3);
+export async function Blog() {
+  const posts = (await listPosts()).slice(0, 3);
 
   return (
     <Band rule={false} className="lp-defer">

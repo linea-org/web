@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/next";
 import { Inter } from "next/font/google";
+import { SiteAnalytics } from "@/components/seo/analytics";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteGraph } from "@/lib/schema";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
@@ -93,7 +93,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full font-sans text-foreground">
         <JsonLd data={siteGraph()} />
         {children}
-        <Analytics />
+        <SiteAnalytics />
       </body>
     </html>
   );

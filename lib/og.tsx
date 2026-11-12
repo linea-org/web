@@ -136,7 +136,36 @@ function OgBrand() {
   );
 }
 
+/** Sanity-hosted image, resized and flattened to JPEG so satori can decode it. */
+async function sanityImageDataUrl(image: string): Promise<string | null> {
+  try {
+    const url = new URL(image);
+    if (url.protocol !== "https:" || url.hostname !== "cdn.sanity.io") {
+      return null;
+    }
+
+    url.searchParams.set("w", "1200");
+    url.searchParams.set("h", "630");
+    url.searchParams.set("fit", "crop");
+    url.searchParams.set("fm", "jpg");
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = Buffer.from(await response.arrayBuffer()).toString("base64");
+    return `data:image/jpeg;base64,${data}`;
+  } catch {
+    return null;
+  }
+}
+
 async function publicImageDataUrl(image: string): Promise<string | null> {
+  if (/^https?:\/\//.test(image)) {
+    return sanityImageDataUrl(image);
+  }
+
   const file = resolve(PUBLIC_ROOT, image.replace(/^\/+/, ""));
   if (!file.startsWith(`${PUBLIC_ROOT}${sep}`)) {
     return null;

@@ -1,45 +1,63 @@
-import fs from "node:fs";
-import path from "node:path";
-import matter from "gray-matter";
+import { cache } from "react";
+import type { PortableTextProps } from "next-sanity";
+import { client, sanityConfigured } from "@/sanity/client";
 import type { BlogMeta } from "@/lib/blog-meta";
 
 export type { BlogMeta } from "@/lib/blog-meta";
 export { formatPostDate } from "@/lib/blog-meta";
 
-const BLOG_DIR = path.join(process.cwd(), "content/blog");
+/** Seconds a static page may serve old blog content before refreshing. */
+export const BLOG_REVALIDATE = 60;
 
-function readMeta(file: string): BlogMeta {
-  const slug = file.replace(/\.mdx$/, "");
-  const raw = fs.readFileSync(path.join(BLOG_DIR, file), "utf8");
-  const { data } = matter(raw);
+const META_FIELDS = /* groq */ `
+  "slug": slug.current,
+  title,
+  date,
+  "author": coalesce(author, "Linea Labs"),
+  "excerpt": coalesce(excerpt, ""),
+  "image": coalesce(image.asset->url, ""),
+  "tags": coalesce(tags, [])
+`;
 
-  return {
-    slug,
-    title: String(data.title ?? ""),
-    date: String(data.date ?? ""),
-    author: String(data.author ?? "Linea Labs"),
-    excerpt: String(data.excerpt ?? ""),
-    image: String(data.image ?? ""),
-    tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
-  };
+const LIST_QUERY = /* groq */ `*[_type == "post" && defined(slug.current)] | order(date desc) { ${META_FIELDS} }`;
+
+const POST_QUERY = /* groq */ `*[_type == "post" && slug.current == $slug][0] {
+  ${META_FIELDS},
+  body[]{
+    ...,
+    _type == "image" => { ..., "url": asset->url }
+  }
+}`;
+
+/** Portable Text body. Shape is defined by sanity/schema/post.ts. */
+export type PostBody = PortableTextProps["value"];
+
+async function fetchPosts<T>(
+  query: string,
+  params: Record<string, unknown> = {},
+): Promise<T> {
+  // Pages stay static and are rebuilt in the background at most once per
+  // BLOG_REVALIDATE seconds, so edits go live within that window.
+  return client.fetch<T>(query, params, {
+    next: { revalidate: BLOG_REVALIDATE },
+  });
 }
 
-export function listPosts(): BlogMeta[] {
-  const files = fs
-    .readdirSync(BLOG_DIR)
-    .filter((file) => file.endsWith(".mdx"));
+// De-dupes the several list calls made while rendering a single page.
+export const listPosts = cache(async (): Promise<BlogMeta[]> => {
+  if (!sanityConfigured) {
+    return [];
+  }
 
-  return files
-    .map(readMeta)
-    .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
-}
+  return fetchPosts<BlogMeta[]>(LIST_QUERY);
+});
 
-export function relatedPosts(
+export async function relatedPosts(
   slug: string,
   tags: string[],
   limit = 4,
-): BlogMeta[] {
-  const others = listPosts().filter((post) => post.slug !== slug);
+): Promise<BlogMeta[]> {
+  const others = (await listPosts()).filter((post) => post.slug !== slug);
   const tagSet = new Set(tags);
   const matching = others.filter((post) =>
     post.tags.some((tag) => tagSet.has(tag)),
@@ -50,25 +68,24 @@ export function relatedPosts(
   return [...matching, ...rest].slice(0, limit);
 }
 
-export function postExists(slug: string): boolean {
-  return fs.existsSync(path.join(BLOG_DIR, `${slug}.mdx`));
-}
+/** Returns null when the slug does not exist (callers should 404). */
+export const getPost = cache(
+  async (slug: string): Promise<{ meta: BlogMeta; body: PostBody } | null> => {
+    if (!sanityConfigured) {
+      return null;
+    }
 
-export function getPost(slug: string): { meta: BlogMeta; content: string } {
-  const file = path.join(BLOG_DIR, `${slug}.mdx`);
-  const raw = fs.readFileSync(file, "utf8");
-  const { data, content } = matter(raw);
+    const doc = await fetchPosts<(BlogMeta & { body?: PostBody }) | null>(
+      POST_QUERY,
+      { slug },
+    );
 
-  return {
-    meta: {
-      slug,
-      title: String(data.title ?? ""),
-      date: String(data.date ?? ""),
-      author: String(data.author ?? "Linea Labs"),
-      excerpt: String(data.excerpt ?? ""),
-      image: String(data.image ?? ""),
-      tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
-    },
-    content,
-  };
-}
+    if (!doc) {
+      return null;
+    }
+
+    const { body, ...meta } = doc;
+
+    return { meta, body: body ?? [] };
+  },
+);

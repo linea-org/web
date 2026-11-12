@@ -13,7 +13,7 @@ const STATIC = [
   "/pricing",
 ] as const;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const pages = STATIC.map((path) => ({
@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const posts = listPosts().map((post) => ({
+  const posts = (await listPosts()).map((post) => ({
     url: new URL(`/blog/${post.slug}`, SITE_URL).toString(),
     lastModified: new Date(post.date),
     changeFrequency: "monthly" as const,

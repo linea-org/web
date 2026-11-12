@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import remarkGfm from "remark-gfm";
-import { remarkCodeSwitcher } from "@/lib/remark-code-switcher";
 import { AuthorLink } from "@/components/blog/author-link";
-import { mdxComponents } from "@/components/blog/mdx";
+import { PostBodyContent } from "@/components/blog/portable-text";
 import { PostCards } from "@/components/blog/post-cards";
 import { TAG_PILL, tagBadge } from "@/components/blog/tag-style";
 import { Band } from "@/components/landing/frame";
@@ -26,7 +23,6 @@ import {
   formatPostDate,
   getPost,
   listPosts,
-  postExists,
   relatedPosts,
 } from "@/lib/blog";
 import { articleGraph } from "@/lib/schema";
@@ -36,23 +32,25 @@ type PostPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return listPosts().map((post) => ({ slug: post.slug }));
+export async function generateStaticParams() {
+  return (await listPosts()).map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  if (!postExists(slug)) {
+  const post = await getPost(slug);
+  if (!post) {
     return pageMeta({
       title: "Note",
       description: "A note from Linea Labs.",
       path: `/blog/${slug}`,
+      index: false,
     });
   }
 
-  const { meta } = getPost(slug);
+  const { meta } = post;
   const path = `/blog/${slug}`;
   const base = pageMeta({
     title: meta.title,
@@ -77,12 +75,13 @@ export async function generateMetadata({
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
-  if (!postExists(slug)) {
+  const post = await getPost(slug);
+  if (!post) {
     notFound();
   }
 
-  const { meta, content } = getPost(slug);
-  const related = relatedPosts(slug, meta.tags);
+  const { meta, body } = post;
+  const related = await relatedPosts(slug, meta.tags);
 
   const date = formatPostDate(meta.date);
 
@@ -161,15 +160,7 @@ export default async function PostPage({ params }: PostPageProps) {
             />
 
             <div className={`mx-auto max-w-2xl ${HEADING_GAP} ${SECTION_PB}`}>
-              <MDXRemote
-                source={content}
-                components={mdxComponents}
-                options={{
-                  mdxOptions: {
-                    remarkPlugins: [remarkGfm, remarkCodeSwitcher],
-                  },
-                }}
-              />
+              <PostBodyContent value={body} />
               <div
                 className={`${HEADING_GAP} flex items-center justify-between gap-4 border-t border-white/10 pt-6`}
               >

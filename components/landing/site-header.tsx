@@ -151,7 +151,7 @@ function NavEntry({ item }: { item: NavItem }) {
   }
 }
 
-export function SiteHeader() {
+export async function SiteHeader() {
   return (
     <Band sticky rule={false}>
       <header className="relative flex h-14 items-center justify-between px-5 sm:px-8">
@@ -175,7 +175,7 @@ export function SiteHeader() {
           </nav>
         </div>
         <div className="flex items-center gap-2">
-          <Search entries={getSearchEntries()} />
+          <Search entries={await getSearchEntries()} />
           <div className="hidden items-center gap-2 lg:flex">
             <Button
               href={GITHUB_URL}
