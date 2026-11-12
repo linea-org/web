@@ -6,12 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "import:blog": "tsx --env-file-if-exists=.env.local scripts/import-blog.ts"
+    "lint": "eslint"
   },
   "dependencies": {
     "@next/third-parties": "^16.4.6",
-    "@sanity/client": "^8.15.1",
     "@sanity/code-input": "^7.3.16",
     "@vercel/analytics": "^2.0.1",
     "next": "16.3.2",
@@ -24,21 +22,13 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/mdast": "^4.0.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.2",
-    "gray-matter": "^4.0.3",
-    "mdast-util-to-string": "^4.0.0",
-    "remark-gfm": "^4.0.1",
-    "remark-mdx": "^3.1.1",
-    "remark-parse": "^11.0.0",
     "tailwindcss": "^4",
-    "tsx": "^4.23.15",
-    "typescript": "^5",
-    "unified": "^11.0.5"
+    "typescript": "^5"
   },
   "packageManager": "pnpm@10.18.2"
 }
