@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
       {
         source: "/docs",
         destination: "https://docs.getlinea.app",
-        permanent: false,
+        permanent: true,
       },
     ];
   },

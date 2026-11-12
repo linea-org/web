@@ -10,7 +10,6 @@ const STATIC = [
   "/blog",
   "/research",
   "/careers",
-  "/faq",
   "/pricing",
 ] as const;
 

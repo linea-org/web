@@ -1,5 +1,5 @@
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://getlinea.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.getlinea.app";
 
 export const SITE_NAME = "Linea";
 
