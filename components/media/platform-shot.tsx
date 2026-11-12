@@ -15,6 +15,7 @@ export function PlatformShot({
   eager = false,
   sizes,
   fill = false,
+  fit = "contain",
   tone = "neutral",
   className = "",
 }: {
@@ -23,6 +24,8 @@ export function PlatformShot({
   eager?: boolean;
   sizes?: string;
   fill?: boolean;
+  /** With `fill`: letterbox the whole shot, or crop it to cover the frame from the top-left. */
+  fit?: "contain" | "cover";
   tone?: ShotTone;
   className?: string;
 }) {
@@ -40,7 +43,9 @@ export function PlatformShot({
 
   return (
     <div
-      className={`lp-grain lp-shot ${TONE_CLASS[tone]} ${fill ? "absolute inset-0" : "relative"} ${className}`}
+      // `.lp-grain` sets position: relative (for its ::after), which beat `absolute inset-0`;
+      // fill by size instead, so the shot really covers its frame.
+      className={`lp-grain lp-shot ${TONE_CLASS[tone]} ${fill ? "h-full w-full" : ""} ${className}`}
     >
       <div className="flex h-full w-full items-center justify-center">
         {/* getImageProps keeps responsive optimization without client state. */}
@@ -48,11 +53,13 @@ export function PlatformShot({
         <img
           {...imageProps}
           alt={imageAlt}
-          className={`${
-            fill
-              ? "max-h-full w-auto max-w-full object-contain"
-              : "h-auto w-full"
-          }`}
+          className={
+            !fill
+              ? "h-auto w-full"
+              : fit === "cover"
+                ? "h-full w-full object-cover object-left-top"
+                : "max-h-full w-auto max-w-full object-contain"
+          }
         />
       </div>
     </div>

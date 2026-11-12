@@ -1,4 +1,5 @@
 import { DOCS_URL } from "@/lib/docs";
+import { GITHUB_URL } from "@/lib/socials";
 
 export type NavLink = {
   kind: "link";
@@ -23,13 +24,19 @@ export type NavIconName =
   | "blog"
   | "research"
   | "faq"
-  | "audience";
+  | "audience"
+  | "start"
+  | "architecture"
+  | "guide"
+  | "github";
 
 export type NavMenuItem = {
   href: string;
   label: string;
   hint: string;
   icon: NavIconName;
+  /** Opens in a new tab with an external-link mark (docs, GitHub). */
+  external?: boolean;
 };
 
 export type NavMenu = {
@@ -70,6 +77,20 @@ export const NAV: NavItem[] = [
         hint: "Author and run the graph",
         icon: "docs",
       },
+      {
+        href: `${DOCS_URL}/docs/getting-started`,
+        label: "Getting started",
+        hint: "Run your first workflow",
+        icon: "start",
+        external: true,
+      },
+      {
+        href: `${DOCS_URL}/docs/architecture`,
+        label: "Architecture",
+        hint: "API, workers, and queues",
+        icon: "architecture",
+        external: true,
+      },
     ],
     featured: {
       href: "/replay",
@@ -97,12 +118,25 @@ export const NAV: NavItem[] = [
         hint: "Technical builders first",
         icon: "audience",
       },
+      {
+        href: "/blog/what-is-an-ai-agent-runtime",
+        label: "Agent runtime explained",
+        hint: "Framework vs runtime",
+        icon: "guide",
+      },
+      {
+        href: GITHUB_URL,
+        label: "GitHub",
+        hint: "Open source, Apache-2.0",
+        icon: "github",
+        external: true,
+      },
     ],
     featured: {
-      href: "/blog/why-replay-needs-the-checkpoint",
+      href: "/blog/what-is-an-ai-agent-runtime",
       badge: "Latest post",
-      title: "Why replay needs the checkpoint",
-      copy: "That input only exists if the host executed the run.",
+      title: "What is an AI agent runtime?",
+      copy: "A framework gives you the loop. A runtime runs it, keeps the record, and replays one step.",
       surface: "lp-surface-sky",
     },
   },

@@ -6,7 +6,7 @@ import { FaqJump } from "./jump";
 export const metadata = pageMeta({
   title: "FAQ",
   description:
-    "What Linea is, why it is not a workflow-automation tool, and how the host, checkpoint, and fix loop work.",
+    "What Linea is, how it differs from LangGraph and n8n, why it is not the Linea blockchain, and how the host, checkpoint, and fix loop work.",
   path: "/faq",
 });
 

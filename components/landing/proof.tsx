@@ -1,7 +1,7 @@
 import { FramedShot } from "@/components/landing/framed-shot";
 import { Band } from "@/components/landing/frame";
 import { FullBleed } from "@/components/landing/full-bleed";
-import { HEADING_GAP, SECTION_Y } from "@/components/landing/ui";
+import { HEADING_GAP, SECTION_Y, SWIPE_ITEM, SWIPE_ROW } from "@/components/landing/ui";
 import { AUDIENCE, type AudienceIcon } from "@/lib/audience";
 import { SHOTS } from "@/lib/shots";
 
@@ -34,12 +34,12 @@ function audienceIconPath(icon: AudienceIcon) {
 
 export function AudienceCards({ className = "" }: { className?: string }) {
   return (
-    <div className={`grid gap-3 md:grid-cols-3 ${className}`}>
+    <div className={`${SWIPE_ROW} ${className}`}>
       {AUDIENCE.map((item, index) => {
         const surface = SURFACES[index] ?? SURFACES[1];
 
         return (
-          <article key={item.label} className="flex flex-col">
+          <article key={item.label} className={`flex flex-col ${SWIPE_ITEM}`}>
             <div
               className={`lp-surface flex-1 rounded-[10px] px-5 py-6 sm:px-6 ${surface.card}`}
             >

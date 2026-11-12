@@ -4,8 +4,8 @@ import { FramedShot } from "@/components/landing/framed-shot";
 import { Band } from "@/components/landing/frame";
 import { RunGraph } from "@/components/landing/run-graph";
 import { MemoryNotes } from "@/components/landing/scenes";
-import { ArrowIcon, CheckIcon } from "@/components/landing/section";
-import { SECTION_GAP, SECTION_Y } from "@/components/landing/ui";
+import { ArrowIcon, CheckIcon, PageLabel } from "@/components/landing/section";
+import { SECTION_Y } from "@/components/landing/ui";
 import { SHOTS } from "@/lib/shots";
 
 const ROWS: {
@@ -55,8 +55,8 @@ const ROWS: {
     title: ["Memory that", "survives the run."],
     lead: "The next run reads what the last one learned.",
     points: [
-      "Facts and workspace knowledge on the host",
-      "No vector store to wire up per graph",
+      "Keyed facts, scoped per end user",
+      "Optional expiry on every fact",
       "Shared across every run of the agent",
     ],
     link: { href: "/memory", label: "Explore memory" },
@@ -67,7 +67,8 @@ const ROWS: {
 export function Features() {
   return (
     <Band rule={false} className="lp-defer">
-      <div className={`flex flex-col px-5 sm:px-8 ${SECTION_GAP} ${SECTION_Y}`}>
+      {/* Tighter than SECTION_GAP on phones: 96px between stacked rows read as empty. */}
+      <div className={`flex flex-col gap-20 px-5 sm:gap-28 sm:px-8 lg:gap-32 ${SECTION_Y}`}>
         {ROWS.map((row, index) => {
           const flip = index % 2 === 1;
 
@@ -75,23 +76,26 @@ export function Features() {
             <article
               key={row.id}
               id={row.id}
-              className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
+              className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16"
             >
-              <div className={flip ? "lg:order-2 lg:pl-8" : ""}>
-                <p className="text-sm font-medium tracking-tight text-[#9dbde4]">
-                  {row.eyebrow}
-                </p>
-                <h2 className="mt-3 text-4xl leading-[1.05] font-medium tracking-[-0.04em] sm:text-5xl">
-                  {row.title[0]}
-                  <br />
+              <div className={`lp-reveal ${flip ? "lg:order-2 lg:pl-8" : ""}`}>
+                <PageLabel>{row.eyebrow}</PageLabel>
+                {/* Natural, balanced wrap while stacked; the two-line break only beside the visual. */}
+                <h2 className="mt-4 text-[2rem] leading-[1.08] font-medium tracking-[-0.04em] text-balance sm:text-5xl sm:leading-[1.05]">
+                  {row.title[0]} <br className="hidden lg:inline" />
                   {row.title[1]}
                 </h2>
-                <p className="mt-5 max-w-md text-base leading-7 text-muted">
+                <p className="mt-5 text-base leading-7 text-muted lg:max-w-md">
                   {row.lead}
                 </p>
-                <ul className="mt-6 space-y-2.5">
+                {/* Stacked: chips that wrap across the column (fills the width without a boxed table).
+                    Beside the visual: a plain list. */}
+                <ul className="mt-6 flex flex-wrap gap-2 lg:block lg:space-y-2.5">
                   {row.points.map((point) => (
-                    <li key={point} className="flex items-center gap-3 text-sm">
+                    <li
+                      key={point}
+                      className="inline-flex items-center gap-2 rounded-full bg-white/[0.04] py-1.5 pr-3 pl-1.5 text-sm ring-1 ring-white/10 lg:flex lg:gap-3 lg:rounded-none lg:bg-transparent lg:p-0 lg:ring-0"
+                    >
                       <CheckIcon />
                       {point}
                     </li>
@@ -99,13 +103,13 @@ export function Features() {
                 </ul>
                 <Link
                   href={row.link.href}
-                  className="group mt-6 -ml-3 box-border inline-flex h-9 items-center gap-1.5 rounded-md border border-transparent px-3 text-sm leading-none font-medium tracking-tight text-foreground transition-colors outline-none hover:border-white/30 hover:bg-white/[0.06] focus-visible:border-white/30 focus-visible:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-white/40 motion-reduce:transition-none"
+                  className="lp-press group mt-4 inline-flex h-10 items-center lg:mt-6 gap-1.5 rounded-md px-3 text-sm leading-none font-medium tracking-tight text-foreground outline-none hover:bg-white/[0.06] focus-visible:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-white/40"
                 >
                   {row.link.label}
                   <ArrowIcon />
                 </Link>
               </div>
-              <div className={flip ? "lg:order-1" : ""}>{row.visual}</div>
+              <div className={`lp-reveal ${flip ? "lg:order-1" : ""}`}>{row.visual}</div>
             </article>
           );
         })}

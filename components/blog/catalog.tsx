@@ -38,7 +38,7 @@ export function BlogCatalog({ posts }: { posts: BlogMeta[] }) {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group flex min-w-0 flex-col gap-4 p-3 transition-colors hover:bg-white/[0.03] sm:flex-row sm:items-center sm:gap-6 sm:pr-6 motion-reduce:transition-none"
+                className="lp-press group flex min-w-0 flex-col gap-4 p-3 hover:bg-white/[0.03] sm:flex-row sm:items-center sm:gap-6 sm:pr-6"
               >
                 <div className="overflow-hidden rounded-[8px] ring-1 ring-white/10 sm:w-40 sm:shrink-0 lg:w-48">
                   <PlatformShot

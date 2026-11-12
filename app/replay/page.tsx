@@ -5,7 +5,7 @@ import { pageMeta } from "@/lib/seo";
 const product = getProduct("replay");
 
 export const metadata = pageMeta({
-  title: product.name,
+  title: "Step-level replay for AI agents",
   description: product.description,
   path: product.href,
 });

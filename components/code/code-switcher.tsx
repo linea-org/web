@@ -73,7 +73,7 @@ export function CodeSwitcher({
         <button
           type="button"
           onClick={onCopy}
-          className="rounded-md border border-white/10 px-2 py-1 text-[11px] font-medium tracking-tight text-muted transition-colors hover:border-white/30 hover:text-foreground motion-reduce:transition-none"
+          className="rounded-md border border-white/10 px-2 py-1 text-[11px] font-medium tracking-tight text-muted transition-colors hover:bg-white/[0.06] hover:text-foreground motion-reduce:transition-none"
         >
           {copied ? "Copied" : "Copy"}
         </button>

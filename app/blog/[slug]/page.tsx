@@ -105,7 +105,7 @@ export default async function PostPage({ params }: PostPageProps) {
             >
               <Link
                 href="/blog"
-                className="group inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] py-1 pr-3 pl-2 text-xs font-medium tracking-tight text-muted transition-colors hover:border-white/20 hover:text-foreground motion-reduce:transition-none"
+                className="group inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] py-1 pr-3 pl-2 text-xs font-medium tracking-tight text-muted transition-colors hover:bg-white/[0.06] hover:text-foreground motion-reduce:transition-none"
               >
                 <svg
                   aria-hidden

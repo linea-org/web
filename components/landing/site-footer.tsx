@@ -63,7 +63,7 @@ function FooterItem({ link }: { link: FooterLink }) {
     return (
       <a
         href={link.href}
-        className={`inline-flex items-center gap-1.5 text-sm ${linkClass}`}
+        className={`inline-flex min-h-10 items-center gap-1.5 text-sm sm:min-h-0 ${linkClass}`}
         target="_blank"
         rel="noreferrer"
       >
@@ -75,7 +75,10 @@ function FooterItem({ link }: { link: FooterLink }) {
   }
 
   return (
-    <Link href={link.href} className={`text-sm ${linkClass}`}>
+    <Link
+      href={link.href}
+      className={`inline-flex min-h-10 items-center text-sm sm:min-h-0 ${linkClass}`}
+    >
       {link.label}
       {note}
     </Link>
@@ -110,7 +113,8 @@ export function SiteFooter() {
                   {COLUMNS.map((column) => (
                     <div key={column.title} className="min-w-0">
                       <p className="text-sm font-medium">{column.title}</p>
-                      <ul className="mt-3 space-y-2.5 sm:mt-5 sm:space-y-3">
+                      {/* Phones: 40px rows instead of 20px text with gaps, so each link is a full fingertip target. */}
+                      <ul className="mt-1 sm:mt-5 sm:space-y-3">
                         {column.links.map((link) => (
                           <li key={link.href + link.label}>
                             <FooterItem link={link} />
@@ -138,8 +142,8 @@ export function SiteFooter() {
               <p className={`text-sm ${mutedClass}`}>
                 © 2026 Linea Labs. All rights reserved.
               </p>
-              {/* 32px hit areas around 16px icons; the negative margin keeps the icons flush with the text edge. */}
-              <ul className="-mx-2 flex items-center">
+              {/* 44px hit areas on phones (32px from sm) around 16px icons; the negative margin keeps them flush with the text edge. */}
+              <ul className="-mx-3.5 flex items-center sm:-mx-2">
                 {SOCIAL_LINKS.map((link) => (
                   <li key={link.href}>
                     <a
@@ -147,7 +151,7 @@ export function SiteFooter() {
                       aria-label={link.label}
                       target="_blank"
                       rel="noreferrer"
-                      className={`flex size-8 items-center justify-center ${linkClass}`}
+                      className={`flex size-11 items-center justify-center sm:size-8 ${linkClass}`}
                     >
                       <SocialIcon label={link.label} />
                     </a>

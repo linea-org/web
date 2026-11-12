@@ -46,9 +46,9 @@ export const PRODUCTS: Product[] = [
     hint: "The host that runs the graph",
     title: "The host that runs the agent graph.",
     description:
-      "Linea executes the workflow behind your agent: checkpoints, retries, recovery, and a sandboxed code node. You ship the agent. We run the graph.",
+      "Linea is an AI agent runtime. It runs the workflow behind your agent: checkpoints on every step, retries, and recovery. You ship the agent. We run the graph.",
     excerpt:
-      "Author the graph on the canvas or in TypeScript. Start an execution from your app, a webhook, or a schedule. The host writes a checkpoint after every node.",
+      "Draw the graph in the builder. Start an execution manually, from your app, a webhook, or a schedule. The host writes a checkpoint after every node.",
     image: "/linea/linea-builder.png",
     imageAlt: "Linea builder with a document summarization graph",
     how: {
@@ -56,8 +56,8 @@ export const PRODUCTS: Product[] = [
       lead: "The agent is what you ship. The workflow is the versioned graph behind it. Linea executes that graph and keeps the record of every step.",
       steps: [
         {
-          title: "One graph, two surfaces",
-          copy: "The builder and the TypeScript SDK emit the same workflow definition. An agent may use several graphs. Those are still one product.",
+          title: "One versioned graph",
+          copy: "The builder saves the workflow as a graph, and each publish creates a version. The host runs that exact version. An agent may use several graphs. Those are still one product.",
         },
         {
           title: "Start an execution",
@@ -68,25 +68,33 @@ export const PRODUCTS: Product[] = [
           copy: "Each completed node writes a checkpoint. If the process dies, the next worker resumes from the last successful step.",
         },
         {
-          title: "Sandbox the code node",
-          copy: "Last-mile logic drops into a boxed function. It can fail without taking the host down, and it can be replayed like any other node.",
+          title: "Pause for an approval",
+          copy: "An approval node holds the run at its checkpoint until someone decides. The execution then continues from that step instead of starting over.",
         },
       ],
     },
     example: {
-      title: "Define the graph in your codebase",
-      copy: "The SDK writes the same workflow the builder draws. Keep the file next to the agent you ship. Open the canvas when a visual view helps.",
-      lang: "ts",
-      code: `import { graph, http, model } from "@linea/sdk";
-
-export const recovery = graph({
-  name: "invoice-recovery",
-  nodes: {
-    fetch: http.get("/invoices/:id"),
-    reason: model.complete("Explain the failure."),
-    notify: http.post("/hooks/slack"),
-  },
-});`,
+      title: "Every version is a graph",
+      copy: "This is what the builder saves and the host runs: a trigger, an entry node, nodes, and edges. Each publish freezes it as a version you can replay and test against.",
+      lang: "json",
+      code: `{
+  "version": 1,
+  "trigger": { "type": "webhook" },
+  "entryNodeId": "fetch",
+  "nodes": [
+    {
+      "id": "fetch",
+      "type": "http",
+      "config": { "method": "GET", "url": "https://billing.internal/invoices" }
+    },
+    {
+      "id": "reason",
+      "type": "ai",
+      "config": { "prompt": "Explain the failed invoice in one paragraph." }
+    }
+  ],
+  "edges": [{ "from": "fetch", "to": "reason" }]
+}`,
     },
     compare: {
       title: "Ship the agent. Do not operate the host.",
@@ -104,14 +112,14 @@ export const recovery = graph({
           right: "Resume from the latest checkpoint",
         },
         {
-          label: "A code node",
-          left: "Infrastructure you isolate",
-          right: "Sandboxed execution",
+          label: "A step that needs sign-off",
+          left: "Wait states and callbacks you build",
+          right: "An approval node that holds the checkpoint",
         },
         {
-          label: "Builder vs file in git",
-          left: "Definitions can drift",
-          right: "One shared workflow definition",
+          label: "Run history",
+          left: "Logs you stitch together",
+          right: "Every step's input, output, tokens, and cost",
         },
       ],
     },
@@ -128,7 +136,7 @@ export const recovery = graph({
         title: "Linea manages",
         items: [
           "Workers, retries, and recovery",
-          "Sandboxed execution for custom code",
+          "Approvals that pause a run until someone decides",
           "Checkpoints and execution history for every node",
         ],
       },
@@ -251,48 +259,49 @@ export const recovery = graph({
     hint: "Facts that survive the run",
     title: "Memory that survives the run.",
     description:
-      "Facts and workspace knowledge live on the host. The next execution can read what the last one learned, without a store you operate.",
+      "Memory nodes store keyed facts on the host. The next execution can read what the last one learned, without a store you operate.",
     excerpt:
-      "The graph asks for memory. The host keeps it. remember, recall, and search are calls on the run — not a weekend of schema design.",
+      "A memory node writes a keyed value. A later run reads it back. Facts are scoped to your end user and a namespace, with an optional expiry.",
     image: "/linea/linea-evals.png",
     imageAlt: "Linea evals for a published workflow",
     how: {
       title: "Persistent context, available on the next execution",
-      lead: "Store structured facts for future runs and give every graph a consistent way to search shared knowledge from the host.",
+      lead: "Store structured facts for future runs, scoped to the person they belong to, and share them across workflows when you choose.",
       steps: [
         {
-          title: "Remember structured facts",
-          copy: "Save durable information such as a customer plan or account state as records the next execution can read.",
+          title: "Write a fact",
+          copy: "A memory node saves a value under a key, such as a customer's plan or account state, for the end user named in the run's input.",
         },
         {
-          title: "Recall context on the next run",
-          copy: "A later execution can retrieve what an earlier one learned, so the agent has continuity across conversations and triggers.",
+          title: "Read it on the next run",
+          copy: "A later execution reads the same key, so the agent has continuity across conversations and triggers. AI nodes can also pull recent facts into their prompt.",
         },
         {
-          title: "Search workspace knowledge",
-          copy: "Any graph can retrieve policies or product guidance through one hosted search path.",
+          title: "Share or isolate",
+          copy: "Leave the namespace empty to keep memory inside one workflow, or set the same namespace on several workflows to share it. Add an expiry when a fact should not live forever.",
         },
       ],
     },
     example: {
-      title: "Remember, recall, and search",
-      copy: "The same memory from the builder and the SDK. One store for the agent, not one store per graph.",
-      lang: "ts",
-      code: `await memory.remember("billing", {
-  plan: "annual",
-  last_invoice: "failed",
-});
-
-const facts = await memory.recall("billing");
-
-const policy = await memory.search(
-  "billing",
-  "retry policy for annual plans",
-);`,
+      title: "A memory node",
+      copy: "Memory is a node in the graph, configured in the builder. This one stores a customer's plan for 30 days in the billing namespace.",
+      lang: "json",
+      code: `{
+  "id": "remember-plan",
+  "type": "memory",
+  "config": {
+    "operation": "write",
+    "subjectPath": "customer.id",
+    "namespace": "billing",
+    "key": "plan",
+    "valuePath": "customer.plan",
+    "ttlSeconds": 2592000
+  }
+}`,
     },
     compare: {
       title: "Add memory without operating another service",
-      lead: "Linea keeps facts and workspace knowledge on the host, so every graph behind the agent reads the same store.",
+      lead: "Linea keeps facts on the host, so every graph behind the agent can read the same store.",
       columns: ["Self-managed memory", "Linea Memory"],
       rows: [
         {
@@ -303,17 +312,17 @@ const policy = await memory.search(
         {
           label: "How a node reads them",
           left: "Custom integration for each graph",
-          right: "Shared remember, recall, and search APIs",
+          right: "A memory node that reads or writes by key",
         },
         {
-          label: "Workspace documents",
-          left: "A retrieval pipeline you operate",
-          right: "Hosted workspace search",
+          label: "Whose memory it is",
+          left: "Scoping you enforce in every query",
+          right: "Scoped to the end user in each run",
         },
         {
-          label: "Builder vs SDK",
-          left: "Separate integrations can drift",
-          right: "One memory layer across both surfaces",
+          label: "Facts that should expire",
+          left: "Cleanup jobs you schedule",
+          right: "An expiry on the write",
         },
       ],
     },
@@ -322,16 +331,16 @@ const policy = await memory.search(
         title: "Your workflow decides",
         items: [
           "Which facts should persist beyond the current run",
-          "When earlier context should be recalled",
-          "What knowledge a node should search for",
+          "When earlier context should be read",
+          "Which workflows share a namespace",
         ],
       },
       right: {
         title: "Linea provides",
         items: [
           "A managed fact store for each workspace",
-          "A hosted retrieval path for shared knowledge",
-          "The same memory from the builder and SDK",
+          "Per-user scoping and optional expiry",
+          "Reads and writes recorded like any other step",
         ],
       },
     },

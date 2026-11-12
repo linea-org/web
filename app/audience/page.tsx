@@ -22,8 +22,8 @@ export const metadata = pageMeta({
 
 const FIT = [
   {
-    title: "Author on either surface",
-    copy: "The canvas and the TypeScript SDK emit the same workflow definition. Pick the editor. Do not pick a second product.",
+    title: "Draw it, publish it, run it",
+    copy: "Author the graph on the canvas. Each published version is the exact graph the host runs, and your app starts runs through the API.",
   },
   {
     title: "Bring the agent logic",

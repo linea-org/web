@@ -23,6 +23,17 @@
   --font-sans: var(--font-inter);
 }
 
+/*
+ * One motion vocabulary for the whole site. Overriding the defaults means every
+ * bare `transition-*` utility gets the same speed and curve.
+ */
+@theme {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --default-transition-duration: 150ms;
+  --default-transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 html {
   color-scheme: dark;
 }
@@ -97,8 +108,9 @@ a[aria-disabled="true"] {
   background-size: 128px 128px;
 }
 
+/* Same strength as .lp-noise on the other stage surfaces; 0.4 read as sandpaper on flat orange. */
 .lp-grain-strong::after {
-  opacity: 0.4;
+  opacity: 0.16;
   background-image: url("/linea/grain.png");
   background-size: 128px 128px;
 }
@@ -150,30 +162,20 @@ a[aria-disabled="true"] {
 .lp-btn {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  transition: transform 120ms var(--ease-out);
 }
 
-.lp-btn > * {
-  position: relative;
-  z-index: 1;
-}
-
+/* Hover tint as an overlay, so it works on any fill (white, black, glass). */
 .lp-btn::before {
   content: "";
   position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 0;
-  width: 220%;
-  aspect-ratio: 1;
-  height: auto;
-  border-radius: 50%;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0);
-  transition:
-    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.16s ease-out;
+  /* Leaving settles a touch slower than entering. */
+  transition: opacity 220ms ease;
 }
 
 .lp-btn-primary::before {
@@ -184,10 +186,131 @@ a[aria-disabled="true"] {
   background: rgb(255 255 255 / 0.1);
 }
 
-@media (prefers-reduced-motion: no-preference) {
+@media (hover: hover) and (pointer: fine) {
   .lp-btn:hover::before {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transition-duration: 150ms;
+  }
+}
+
+.lp-btn:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-btn:not(:disabled):active {
+    transform: none;
+  }
+}
+
+/*
+ * Press feedback for cards and rows, so taps register on touch screens where
+ * hover never fires. Uses `scale` (not `transform`) so it composes with the
+ * `translate` used by .lp-reveal.
+ */
+.lp-press {
+  /* Colours too: this unlayered rule replaces any Tailwind `transition-*` on the element. */
+  transition:
+    scale 160ms var(--ease-out),
+    background-color 150ms var(--ease-out),
+    border-color 150ms var(--ease-out),
+    color 150ms var(--ease-out);
+}
+
+.lp-press:active {
+  scale: 0.98;
+}
+
+/*
+ * Scroll entrances: fade and rise 16px as an element enters the viewport.
+ * Scroll-driven, so no JS; unsupported browsers and reduced motion simply show
+ * the content. Never put this inside a horizontal scroller (its timeline would
+ * track the wrong axis); put it on the scroller instead.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .lp-reveal {
+      animation: lp-reveal both var(--ease-out);
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+
+    /* Run graph: steps light up in order as the card scrolls in. */
+    .lp-run-graph {
+      view-timeline: --run-graph block;
+    }
+
+    .lp-run-node {
+      animation: lp-run-node both linear;
+      animation-timeline: --run-graph;
+      animation-range: entry calc(30% + var(--i) * 12%) entry
+        calc(50% + var(--i) * 12%);
+    }
+  }
+
+  /* Mobile menu: panel fades in, rows follow 18ms apart (capped so the last row is not late). */
+  .lp-menu[open] .lp-menu-panel {
+    animation: lp-fade-in 180ms var(--ease-out);
+  }
+
+  .lp-menu[open] .lp-menu-row {
+    animation: lp-menu-row 260ms var(--ease-out) both;
+    animation-delay: calc(min(var(--i, 0), 10) * 18ms);
+  }
+
+  /* Accordion groups: height eases open (snaps where ::details-content is unsupported). */
+  .lp-menu-group {
+    interpolate-size: allow-keywords;
+  }
+
+  .lp-menu-group::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 220ms var(--ease-out),
+      content-visibility 220ms allow-discrete;
+  }
+
+  .lp-menu-group[open]::details-content {
+    block-size: auto;
+  }
+
+  /* A separate class from .lp-menu-row so the stagger replays each time a group opens. */
+  .lp-menu-group[open] .lp-menu-subrow {
+    animation: lp-menu-row 240ms var(--ease-out) both;
+    animation-delay: calc(var(--j, 0) * 25ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-press:active {
+    scale: none;
+  }
+}
+
+@keyframes lp-reveal {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+
+@keyframes lp-run-node {
+  from {
+    opacity: 0.2;
+  }
+}
+
+@keyframes lp-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes lp-menu-row {
+  from {
+    opacity: 0;
+    translate: 0 -6px;
   }
 }
 
@@ -226,9 +349,7 @@ a[aria-disabled="true"] {
   overflow: hidden;
   border: 1px solid rgb(255 255 255 / 0.1);
   border-radius: 14px;
-  background: rgb(10 10 10 / 0.88);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background: rgb(10 10 10);
   box-shadow:
     0 0 0 1px rgb(0 0 0 / 0.4),
     0 32px 64px -16px rgb(0 0 0 / 0.8),
@@ -242,38 +363,12 @@ a[aria-disabled="true"] {
   flex-direction: column;
 }
 
+/* No blur and no open animation: ⌘K is used constantly and should appear on the next frame. */
 .lp-search::backdrop {
   background: rgb(0 0 0 / 0.6);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
 }
 
 .lp-search-list {
   scrollbar-width: thin;
   scrollbar-color: rgb(255 255 255 / 0.15) transparent;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .lp-search[open] {
-    animation: lp-search-in 0.18s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .lp-search[open]::backdrop {
-    animation: lp-fade-in 0.18s ease-out;
-  }
-}
-
-@keyframes lp-search-in {
-  from {
-    opacity: 0;
-    transform: translateY(-6px) scale(0.98);
-  }
-}
-
-@keyframes lp-fade-in {
-  from {
-    opacity: 0;
-  }
-}
-
-

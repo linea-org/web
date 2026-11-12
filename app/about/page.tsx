@@ -17,9 +17,9 @@ import { pageMeta } from "@/lib/seo";
 import { SHOTS } from "@/lib/shots";
 
 export const metadata = pageMeta({
-  title: "About",
+  title: "About Linea Labs",
   description:
-    "Linea Labs is building an agentic runtime and control plane for production agents.",
+    "Linea Labs builds Linea, an AI agent runtime and control plane for production agents. Meet the team and see how the host, checkpoint, and fix loop fit together.",
   path: "/about",
 });
 
@@ -46,8 +46,8 @@ const SAID = [
     copy: "Replay the failing step against the input it saw. Publish a version. The suite checks the fix. An observability tool can show the break; it never ran the graph.",
   },
   {
-    title: "One graph, two surfaces",
-    copy: "The builder and the SDK emit the same workflow definition. An agent may use several graphs. We will not ship a second product for a second editor.",
+    title: "One versioned graph",
+    copy: "The builder saves the workflow as a graph, and every publish freezes it as a version. The host runs that exact version, so what you reviewed is what runs.",
   },
 ] as const;
 

@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 type NodeStatus = "done" | "retried" | "waiting";
 
 type GraphNode = {
@@ -69,12 +71,13 @@ function StatusMark({ status, x, y }: { status: NodeStatus; x: number; y: number
   }
 }
 
-function Node({ node }: { node: GraphNode }) {
+function Node({ node, index }: { node: GraphNode; index: number }) {
   const left = node.x - NODE_W / 2;
   const top = node.y - NODE_H / 2;
 
   return (
-    <g>
+    // --i orders the scroll-in light-up (.lp-run-node in globals.css).
+    <g className="lp-run-node" style={{ "--i": index } as CSSProperties}>
       <rect x={left} y={top} width={NODE_W} height={NODE_H} rx="9" fill="#111111" stroke="rgb(255 255 255 / 0.12)" />
       <rect x={left + 10} y={top + 12} width="3" height="20" rx="1.5" fill={node.accent} />
       <text x={left + 20} y={top + 17} fontSize="8.5" fill="#a1a1aa">
@@ -93,7 +96,7 @@ export function RunGraph() {
   return (
     <div
       aria-hidden
-      className="relative mx-auto w-full max-w-xl overflow-hidden rounded-[14px] bg-[linear-gradient(180deg,var(--stage-sky)_0%,var(--stage-mist)_55%,var(--stage-floor)_100%)] p-4 sm:p-8"
+      className="lp-run-graph relative mx-auto w-full max-w-xl overflow-hidden rounded-[14px] bg-[linear-gradient(180deg,var(--stage-sky)_0%,var(--stage-mist)_55%,var(--stage-floor)_100%)] p-4 sm:p-8"
     >
       <div className="lp-noise absolute inset-0" />
       <div className="relative overflow-hidden rounded-[10px] bg-[#0a0a0a] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.45)] ring-1 ring-black/20">
@@ -125,8 +128,8 @@ export function RunGraph() {
               </circle>
             ))}
           </g>
-          {NODES.map((node) => (
-            <Node key={node.id} node={node} />
+          {NODES.map((node, index) => (
+            <Node key={node.id} node={node} index={index} />
           ))}
         </svg>
       </div>

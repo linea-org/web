@@ -18,6 +18,16 @@ export const SECTION_GAP = "gap-24 sm:gap-28 lg:gap-32";
 /** Space between a section heading and the content it introduces. */
 export const HEADING_GAP = "mt-10 sm:mt-12";
 
+/**
+ * Three cards that swipe sideways on phones (bleeding to the screen edge, next
+ * card peeking) and sit in a 3-column grid from `md`. The parent must pad with
+ * px-5 sm:px-8. Reveal lives on the row: a view() timeline inside a horizontal
+ * scroller would track the wrong axis.
+ */
+export const SWIPE_ROW =
+  "lp-reveal -mx-5 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:-mx-8 sm:scroll-px-8 sm:px-8 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden";
+export const SWIPE_ITEM = "w-[85%] shrink-0 snap-start sm:w-[60%] md:w-auto";
+
 export function Container({
   children,
   className = "",

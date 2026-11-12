@@ -22,14 +22,14 @@ export function Faq() {
             <details
               key={item.q}
               name="faq"
-              className="lp-faq group rounded-[10px] border border-white/10 transition-colors hover:border-white/20"
+              className="lp-faq lp-reveal group rounded-[10px] border border-white/10 transition-colors hover:bg-white/[0.02]"
             >
               <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left text-base font-medium tracking-tight sm:px-6 [&::-webkit-details-marker]:hidden">
                 {item.q}
                 <svg
                   aria-hidden
                   viewBox="0 0 16 16"
-                  className="size-4 shrink-0 text-muted transition-transform duration-200 group-open:rotate-180 motion-reduce:transition-none"
+                  className="size-4 shrink-0 text-muted transition-[color,rotate] duration-200 group-open:rotate-180 group-hover:text-foreground motion-reduce:transition-none"
                 >
                   <path
                     d="M3.2 5.7 8 10.3l4.8-4.6"

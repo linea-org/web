@@ -8,6 +8,7 @@ import {
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
+  type RefObject,
 } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -31,16 +32,20 @@ function Kbd({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * Always mounted (closed) so opening is a synchronous `showModal()` with no
+ * chunk to fetch. `showModal()` focuses the input: it is the first focusable child.
+ */
 export function SearchPanel({
+  id,
+  dialogRef,
   entries,
-  onClose,
 }: {
+  id: string;
+  dialogRef: RefObject<HTMLDialogElement | null>;
   entries: SearchEntry[];
-  onClose: () => void;
 }) {
   const router = useRouter();
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const listId = useId();
   const [query, setQuery] = useState("");
@@ -53,13 +58,16 @@ export function SearchPanel({
 
   function hide() {
     dialogRef.current?.close();
-    onClose();
   }
 
-  useEffect(() => {
-    dialogRef.current?.showModal();
-    inputRef.current?.focus();
-  }, []);
+  // Every close path (Esc, backdrop, result, ⌘K) lands here: start fresh next time.
+  function reset() {
+    setQuery("");
+    setActive(0);
+    if (listRef.current) {
+      listRef.current.scrollTop = 0;
+    }
+  }
 
   useEffect(() => {
     const list = listRef.current;
@@ -113,9 +121,12 @@ export function SearchPanel({
   return (
     <dialog
       ref={dialogRef}
+      id={id}
       className="lp-search"
       aria-label="Search resources"
-      onClose={onClose}
+      // The browser may set `open` before hydration via the trigger's `commandfor`.
+      suppressHydrationWarning
+      onClose={reset}
       onClick={(event) => {
         if (event.target === event.currentTarget) {
           hide();
@@ -126,7 +137,6 @@ export function SearchPanel({
       <div className="flex items-center gap-3 border-b border-white/10 px-4">
         <MagnifierIcon className="size-4 text-muted" />
         <input
-          ref={inputRef}
           type="text"
           role="combobox"
           value={query}
@@ -148,7 +158,7 @@ export function SearchPanel({
           type="button"
           onClick={hide}
           aria-label="Close search"
-          className="inline-flex h-6 items-center rounded-md border border-white/10 px-1.5 text-xs text-muted transition-colors hover:border-white/20 hover:text-foreground"
+          className="inline-flex h-6 items-center rounded-md border border-white/10 px-1.5 text-xs text-muted transition-colors hover:bg-white/[0.06] hover:text-foreground"
         >
           Esc
         </button>
@@ -200,13 +210,13 @@ export function SearchPanel({
                       tabIndex={-1}
                       target={entry.external ? "_blank" : undefined}
                       rel={entry.external ? "noreferrer" : undefined}
-                      className={`group/row flex items-center gap-3 rounded-[8px] px-2.5 py-2 transition-colors duration-100 ${selected ? "bg-white/[0.06]" : ""}`}
+                      className={`group/row flex items-center gap-3 rounded-[8px] px-2.5 py-2 ${selected ? "bg-white/[0.06]" : ""}`}
                       // mousemove, not mouseenter: keyboard scrolling would otherwise steal the active row.
                       onMouseMove={() => setActive(index)}
                       onClick={hide}
                     >
                       <span
-                        className={`grid size-8 shrink-0 place-items-center rounded-md ring-1 transition-colors duration-100 ${selected ? "bg-white/[0.08] text-foreground ring-white/20" : "bg-white/[0.04] text-muted ring-white/10"}`}
+                        className={`grid size-8 shrink-0 place-items-center rounded-md ring-1 ${selected ? "bg-white/[0.08] text-foreground ring-white/20" : "bg-white/[0.04] text-muted ring-white/10"}`}
                       >
                         <SearchResultIcon entry={entry} />
                       </span>

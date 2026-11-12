@@ -1,15 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type MouseEvent,
+} from "react";
 import { ExternalIcon } from "@/components/landing/external-icon";
 import { GitHubIcon } from "@/components/landing/github-icon";
 import { Button } from "@/components/landing/button";
+import { NavIcon } from "@/components/landing/nav-icon";
 import { PLATFORM_URL } from "@/lib/docs";
 import { GITHUB_URL } from "@/lib/socials";
 import { NAV } from "@/lib/nav";
 
 const DESKTOP_QUERY = "(min-width: 64rem)";
+
+/** One top-level row: plain links and the accordion headers share it. */
+const TOP_ROW =
+  "flex items-center px-5 py-4 text-foreground hover:bg-white/[0.06] active:bg-white/[0.06] sm:px-8";
 
 function setPageScrollLocked(locked: boolean) {
   document.documentElement.style.overflow = locked ? "hidden" : "";
@@ -53,8 +64,13 @@ export function MobileNav() {
     };
   }, []);
 
+  // Row order drives the stagger in globals.css (.lp-menu-row).
+  let row = 0;
+  const rowIndex = (): CSSProperties =>
+    ({ "--i": row++ }) as CSSProperties;
+
   return (
-    <details ref={detailsRef} onToggle={handleToggle} className="group lg:hidden">
+    <details ref={detailsRef} onToggle={handleToggle} className="lp-menu group lg:hidden">
       <summary
         className="lp-btn lp-btn-secondary inline-flex size-9 cursor-pointer list-none items-center justify-center border border-white/20 text-foreground [&::-webkit-details-marker]:hidden"
       >
@@ -82,10 +98,10 @@ export function MobileNav() {
         id="mobile-nav"
         style={{ top: panelTop }}
         onClick={handleNavClick}
-        className="fixed inset-x-0 bottom-0 z-30 flex flex-col border-t border-white/10 bg-background"
+        className="lp-menu-panel fixed inset-x-0 bottom-0 z-30 flex flex-col border-t border-white/10 bg-background"
       >
           <nav
-            className="flex-1 divide-y divide-white/10 overflow-y-auto overscroll-contain text-sm"
+            className="flex-1 divide-y divide-white/10 overflow-y-auto overscroll-contain text-[15px]"
             aria-label="Mobile"
           >
             {NAV.map((item) => {
@@ -96,7 +112,8 @@ export function MobileNav() {
                       <a
                         key={item.href}
                         href={item.href}
-                        className="flex items-center justify-between px-5 py-3.5 hover:bg-white/[0.06] hover:text-foreground sm:px-8"
+                        style={rowIndex()}
+                        className={`lp-menu-row justify-between ${TOP_ROW}`}
                         target="_blank"
                         rel="noreferrer"
                       >
@@ -110,32 +127,67 @@ export function MobileNav() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="block px-5 py-3.5 hover:bg-white/[0.06] hover:text-foreground sm:px-8"
+                      style={rowIndex()}
+                      className={`lp-menu-row ${TOP_ROW}`}
                     >
                       {item.label}
                     </Link>
                   );
                 case "menu":
                   return (
-                    <div key={item.label}>
-                      <p className="px-5 pt-4 pb-1 text-xs tracking-[0.12em] text-muted uppercase sm:px-8">
+                    // Accordion: a shared `name` lets only one group stay open.
+                    <details
+                      key={item.label}
+                      name="mobile-nav-group"
+                      className="lp-menu-group group/acc"
+                    >
+                      <summary
+                        style={rowIndex()}
+                        className={`lp-menu-row cursor-pointer list-none justify-between [&::-webkit-details-marker]:hidden ${TOP_ROW}`}
+                      >
                         {item.label}
-                      </p>
-                      {item.items.map((entry) => (
-                        <Link
-                          key={entry.href}
-                          href={entry.href}
-                          className="block px-5 py-3 hover:bg-white/[0.06] hover:text-foreground sm:px-8"
+                        <svg
+                          aria-hidden
+                          viewBox="0 0 12 12"
+                          className="size-3.5 text-muted transition-transform duration-200 group-open/acc:rotate-180 motion-reduce:transition-none"
                         >
-                          <span className="block text-foreground">
-                            {entry.label}
-                          </span>
-                          <span className="mt-0.5 block text-xs text-muted">
-                            {entry.hint}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
+                          <path
+                            d="M2.5 4.5 6 8l3.5-3.5"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.25"
+                            strokeLinecap="square"
+                          />
+                        </svg>
+                      </summary>
+                      <div className="pb-3">
+                        {item.items.map((entry, j) => (
+                          <Link
+                            key={entry.href}
+                            href={entry.href}
+                            target={entry.external ? "_blank" : undefined}
+                            rel={entry.external ? "noreferrer" : undefined}
+                            // --j staggers the rows each time this group opens.
+                            style={{ "--j": j } as CSSProperties}
+                            className="lp-menu-subrow flex items-center gap-3 px-5 py-2.5 text-sm hover:bg-white/[0.06] hover:text-foreground active:bg-white/[0.06] sm:px-8"
+                          >
+                            {/* Same icon chip as the desktop menu, one size down. */}
+                            <span className="grid size-8 shrink-0 place-items-center rounded-md bg-white/[0.04] text-muted ring-1 ring-white/10">
+                              <NavIcon name={entry.icon} />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="flex items-center gap-1.5 text-foreground">
+                                {entry.label}
+                                {entry.external ? <ExternalIcon /> : null}
+                              </span>
+                              <span className="mt-0.5 block text-xs text-muted">
+                                {entry.hint}
+                              </span>
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </details>
                   );
                 default: {
                   const _never: never = item;
@@ -156,7 +208,7 @@ export function MobileNav() {
               GitHub
             </Button>
             <Button href={PLATFORM_URL} shortcut="s" externalIcon={false} className="w-full justify-center">
-              Start building
+              Join waitlist
             </Button>
           </div>
       </div>

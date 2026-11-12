@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Cat } from "@/components/landing/cat";
 import { Band } from "@/components/landing/frame";
 import { HeroGrid } from "@/components/landing/hero-grid";
+import { PageLabel } from "@/components/landing/section";
 import {
   Button,
   Container,
@@ -31,7 +32,7 @@ const PILLARS: {
   },
   {
     title: "Memory on the host",
-    copy: "Facts and workspace knowledge live with the run, so the next execution reads what the last one learned.",
+    copy: "Keyed facts live on the host, so the next execution reads what the last one learned.",
     surface: "lp-surface-floor",
     icon: <path d="M3 4.5h10M3 8h10M3 11.5h6" />,
   },
@@ -43,11 +44,7 @@ export function Hero() {
       <Band rule={false} className="relative">
         <HeroGrid />
         <Container className="relative z-10 flex flex-col items-center justify-center pt-14 pb-12 text-center sm:min-h-[32rem] sm:py-16 lg:min-h-[38rem]">
-          <p className="flex justify-center">
-            <span className="inline-flex items-center border border-white/15 px-2.5 py-1 text-[11px] font-medium tracking-tight text-foreground">
-              The runtime and control plane for production agents
-            </span>
-          </p>
+          <PageLabel>The AI agent runtime and control plane</PageLabel>
           <h1 className="mx-auto mt-5 text-[2.5rem] leading-[1.02] font-medium tracking-[-0.045em] sm:text-6xl lg:text-[4.25rem]">
             Build and operate
             <br />
@@ -88,11 +85,14 @@ export function Hero() {
               className="h-auto w-full"
             />
           </div>
-          <div className={`${HEADING_GAP} grid gap-10 md:grid-cols-3 md:gap-8`}>
+          {/* Phones: open list, icon beside the text, hairlines between items (no box); md+: three columns. */}
+          <div
+            className={`${HEADING_GAP} divide-y divide-white/[0.08] md:grid md:grid-cols-3 md:gap-8 md:divide-y-0`}
+          >
             {PILLARS.map((pillar) => (
-              <div key={pillar.title}>
+              <div key={pillar.title} className="lp-reveal flex gap-4 py-6 first:pt-0 last:pb-0 md:block md:p-0">
                 <span
-                  className={`lp-surface inline-flex size-8 items-center justify-center rounded-md ${pillar.surface}`}
+                  className={`lp-surface inline-flex size-8 shrink-0 items-center justify-center rounded-md ${pillar.surface}`}
                 >
                   <svg
                     aria-hidden
@@ -107,12 +107,14 @@ export function Hero() {
                     {pillar.icon}
                   </svg>
                 </span>
-                <h2 className="mt-4 text-base font-medium tracking-tight">
-                  {pillar.title}
-                </h2>
-                <p className="mt-2 max-w-sm text-sm leading-6 text-muted">
-                  {pillar.copy}
-                </p>
+                <div>
+                  <h2 className="text-base font-medium tracking-tight md:mt-4">
+                    {pillar.title}
+                  </h2>
+                  <p className="mt-1 max-w-sm text-sm leading-6 text-muted md:mt-2">
+                    {pillar.copy}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

@@ -25,7 +25,7 @@ function FeaturedCard({ featured }: { featured: Featured }) {
   return (
     <Link
       href={featured.href}
-      className={`lp-surface group/featured relative mt-3 flex min-h-40 flex-1 flex-col justify-between gap-6 overflow-hidden rounded-[10px] p-5 ring-1 ring-white/20 ring-inset ${featured.surface}`}
+      className={`lp-surface group/featured relative flex flex-1 flex-col justify-between gap-4 overflow-hidden rounded-[10px] p-5 ring-1 ring-white/20 ring-inset ${featured.surface}`}
     >
       <span aria-hidden className="lp-noise absolute inset-0" />
       <span className="relative flex items-center justify-between gap-4">
@@ -64,7 +64,7 @@ function NavEntry({ item }: { item: NavItem }) {
         return (
           <a
             href={item.href}
-            className="inline-flex items-center gap-1.5 hover:text-foreground"
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
             target="_blank"
             rel="noreferrer"
           >
@@ -75,23 +75,25 @@ function NavEntry({ item }: { item: NavItem }) {
       }
 
       return (
-        <Link href={item.href} className="hover:text-foreground">
+        <Link href={item.href} className="transition-colors hover:text-foreground">
           {item.label}
         </Link>
       );
     case "menu":
       return (
         // Not `relative`: the panel anchors to the header so it can span the full column.
-        <div className="group flex h-14 items-center">
+        // The group is only as tall as the label, so hovering the empty header strip does not open it.
+        <div className="group flex items-center">
           <button
             type="button"
-            className="inline-flex items-center gap-1 hover:text-foreground group-hover:text-foreground group-focus-within:text-foreground"
+            // ::after bridges the 18px from the label to the header's bottom edge, so moving down into the panel keeps it open.
+            className="relative inline-flex items-center gap-1 transition-colors after:absolute after:inset-x-0 after:top-full after:h-[18px] group-hover:text-foreground group-has-[:focus-visible]:text-foreground pointer-coarse:group-focus-within:text-foreground"
           >
             {item.label}
             <svg
               aria-hidden
               viewBox="0 0 12 12"
-              className="size-3 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180 motion-reduce:transition-none"
+              className="size-3 transition-transform duration-200 group-hover:rotate-180 group-hover:delay-100 group-has-[:focus-visible]:rotate-180 motion-reduce:transition-none pointer-coarse:group-focus-within:rotate-180"
             >
               <path
                 d="M2.5 4.5 6 8l3.5-3.5"
@@ -102,42 +104,44 @@ function NavEntry({ item }: { item: NavItem }) {
               />
             </svg>
           </button>
-          {/* The ::before is full-bleed like the sticky Band's backdrop, but opaque so page content never shows through. */}
-          <div className="invisible absolute inset-x-0 top-full z-20 opacity-0 transition-opacity duration-150 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:border-y before:border-white/10 before:bg-background group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 motion-reduce:transition-none">
-            {/* Both columns stretch to one height so the tiles end level with the featured card. */}
+          {/* The ::before is full-bleed like the sticky Band's backdrop, but opaque so page content never shows through.
+              The ::after dims the page below, so the panel reads as a layer instead of a slice through the hero. */}
+          {/* Opens after a 100ms hover (so sweeping across the nav does not flash it) and fades out in 100ms.
+              Only keyboard focus pins it open; a mouse click on the trigger does not. */}
+          <div className="invisible absolute inset-x-0 top-full z-20 opacity-0 transition-[opacity,visibility] duration-100 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:border-y before:border-white/10 before:bg-card after:pointer-events-none after:absolute after:top-full after:left-1/2 after:-z-20 after:h-screen after:w-screen after:-translate-x-1/2 after:bg-black/50 group-hover:visible group-hover:opacity-100 group-hover:delay-100 group-hover:duration-150 group-has-[:focus-visible]:visible group-has-[:focus-visible]:opacity-100 pointer-coarse:group-focus-within:visible pointer-coarse:group-focus-within:opacity-100">
             <div className="grid grid-cols-[minmax(0,1fr)_24rem] divide-x divide-white/10 px-5 sm:px-8">
               <div className="flex flex-col py-6 pr-6">
-                <p className="text-xs font-medium tracking-wider text-muted uppercase">
-                  {item.label}
-                </p>
-                <ul className="mt-3 grid flex-1 auto-rows-fr grid-cols-2 gap-2">
+                {/* Plain rows, not boxed tiles: the tint appears only on the row under the cursor.
+                    Rows keep their natural height and start level with the card; -mx-3 keeps icons on the logo's edge. */}
+                <ul className="-mx-3 grid grid-cols-2 content-start gap-1">
                   {item.items.map((entry) => (
                     <li key={entry.href + entry.label} className="flex">
                       <Link
                         href={entry.href}
-                        className="group/entry flex flex-1 items-center gap-3 rounded-[10px] border border-white/10 bg-white/[0.02] px-4 py-3 transition-colors hover:border-white/20 hover:bg-white/[0.05] focus-visible:border-white/20 focus-visible:bg-white/[0.05] motion-reduce:transition-none"
+                        target={entry.external ? "_blank" : undefined}
+                        rel={entry.external ? "noreferrer" : undefined}
+                        className="group/entry flex flex-1 items-center gap-3 rounded-[10px] px-3 py-3 transition-colors duration-100 outline-none hover:bg-white/[0.05] focus-visible:bg-white/[0.05] focus-visible:ring-1 focus-visible:ring-white/20 motion-reduce:transition-none"
                       >
-                        <span className="grid size-9 shrink-0 place-items-center rounded-md bg-white/[0.04] text-muted ring-1 ring-white/10 transition-colors group-hover/entry:bg-white/[0.08] group-hover/entry:text-foreground group-hover/entry:ring-white/20 group-focus-visible/entry:text-foreground">
+                        <span className="grid size-9 shrink-0 place-items-center rounded-md bg-white/[0.04] text-muted ring-1 ring-white/10 transition-colors duration-100 group-hover/entry:bg-white/[0.08] group-hover/entry:text-foreground group-focus-visible/entry:text-foreground">
                           <NavIcon name={entry.icon} />
                         </span>
                         <span className="min-w-0 flex-1">
-                          <span className="block text-sm font-medium text-foreground">
+                          <span className="flex items-center gap-1.5 text-sm font-medium text-foreground">
                             {entry.label}
+                            {entry.external ? (
+                              <ExternalIcon className="size-2.5 text-muted" />
+                            ) : null}
                           </span>
                           <span className="mt-0.5 block truncate text-sm text-muted">
                             {entry.hint}
                           </span>
                         </span>
-                        <NavArrow className="size-4 -translate-x-1 text-muted opacity-0 transition group-hover/entry:translate-x-0 group-hover/entry:opacity-100 group-focus-visible/entry:translate-x-0 group-focus-visible/entry:opacity-100 motion-reduce:transition-none" />
                       </Link>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="flex flex-col py-6 pl-6">
-                <p className="text-xs font-medium tracking-wider text-muted uppercase">
-                  Featured
-                </p>
                 <FeaturedCard featured={item.featured} />
               </div>
             </div>
@@ -188,7 +192,7 @@ export async function SiteHeader() {
               <GitHubIcon />
             </Button>
             <Button href={PLATFORM_URL} shortcut="s" externalIcon={false}>
-              Start building
+              Join waitlist
             </Button>
           </div>
           <MobileNav />

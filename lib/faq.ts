@@ -1,7 +1,7 @@
 export const FAQS = [
   {
     q: "What is Linea?",
-    a: "Linea is an agentic runtime and control plane. You ship an agent to your users. Linea executes the workflow graph behind it — model calls, tools, waits, approvals, memory, and sandboxed code — and keeps the records around the run: checkpoints, signals, approvals, and regressions.",
+    a: "Linea is an agentic runtime and control plane. You ship an agent to your users. Linea executes the workflow graph behind it — model calls, tools, waits, approvals, and memory — and keeps the records around the run: checkpoints, signals, approvals, and regressions.",
   },
   {
     q: "Is this a workflow-automation tool?",
@@ -21,6 +21,10 @@ export const FAQS = [
   },
   {
     q: "Do I have to use the visual builder?",
-    a: "No. The builder and the TypeScript SDK are two views of the same workflow definition. Pick the surface. Do not pick a second product.",
+    a: "Today, yes: you author workflows in the visual builder. Every published version is a JSON graph the host runs exactly as published. The TypeScript SDK is for your app: it starts executions, reads their results, and verifies webhooks.",
+  },
+  {
+    q: "Is Linea the same as Consensys Linea?",
+    a: "No. This Linea is from Linea Labs: an AI agent runtime and control plane at getlinea.app. It is not the Linea blockchain network from Consensys, and it is not the Linea sketching app.",
   },
 ] as const;

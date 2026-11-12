@@ -5,7 +5,7 @@ import { pageMeta } from "@/lib/seo";
 const product = getProduct("runtime");
 
 export const metadata = pageMeta({
-  title: product.name,
+  title: "AI agent runtime with checkpoints",
   description: product.description,
   path: product.href,
 });

@@ -8,8 +8,9 @@ import {
 } from "@/components/landing/ui";
 
 /** The landing card: hairline border on a faint lift. */
-export const CARD = "rounded-[10px] border border-white/10 bg-white/[0.03]";
-export const CARD_LINK = `${CARD} transition-colors hover:border-white/20 hover:bg-white/[0.045] motion-reduce:transition-none`;
+export const CARD = "lp-reveal rounded-[10px] border border-white/10 bg-white/[0.03]";
+/** Hover lifts the fill, never the border: a brighter border on black reads as a selection ring. */
+export const CARD_LINK = `${CARD} lp-press hover:bg-white/[0.05]`;
 /** Inner padding for every standard card, matching the landing audience cards. */
 export const CARD_PAD = "px-5 py-6 sm:px-6";
 /** Inner padding for full-width feature panels (page CTA, featured thesis). */
@@ -25,6 +26,26 @@ export const SURFACES = [
   "lp-surface-mist",
   "lp-surface-floor",
 ] as const;
+
+/**
+ * The one label style for the top of a page (and feature rows): a tinted pill.
+ * Section labels further down stay plain `Eyebrow` text so chips do not pile up.
+ */
+export function PageLabel({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <p
+      className={`inline-flex items-center rounded-full border border-[#9dbde4]/25 bg-[#9dbde4]/10 px-2.5 py-1 text-xs leading-none font-medium tracking-tight text-[#9dbde4] ${className}`}
+    >
+      {children}
+    </p>
+  );
+}
 
 export function Eyebrow({
   children,
@@ -60,7 +81,7 @@ export function PageHero({
     <Band rule={false}>
       <Container className={SECTION_Y}>
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-          <Eyebrow>{eyebrow}</Eyebrow>
+          <PageLabel>{eyebrow}</PageLabel>
           <h1
             className={`${TITLE_GAP} text-4xl leading-[1.04] font-medium tracking-[-0.045em] text-balance sm:text-5xl lg:text-[4rem]`}
           >
@@ -131,8 +152,8 @@ export function SectionHeading({
     <div
       className={
         centered
-          ? "mx-auto flex max-w-3xl flex-col items-center text-center"
-          : "flex flex-col items-start"
+          ? "lp-reveal mx-auto flex max-w-3xl flex-col items-center text-center"
+          : "lp-reveal flex flex-col items-start"
       }
     >
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
@@ -223,7 +244,7 @@ export function ArrowLink({
   return (
     <Link
       href={href}
-      className={`group box-border inline-flex h-9 items-center gap-1.5 rounded-md border border-transparent px-3 text-sm leading-none font-medium tracking-tight text-foreground transition-colors outline-none hover:border-white/30 hover:bg-white/[0.06] focus-visible:border-white/30 focus-visible:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-white/40 motion-reduce:transition-none ${className}`}
+      className={`lp-press group inline-flex h-10 items-center gap-1.5 rounded-md px-3 text-sm leading-none font-medium tracking-tight text-foreground outline-none hover:bg-white/[0.06] focus-visible:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-white/40 ${className}`}
     >
       {children}
       <ArrowIcon />

@@ -28,11 +28,4 @@ export const RESEARCH: ResearchNote[] = [
     kind: "Note",
     copy: "The graph asks for memory. The host keeps it. Future executions can read what earlier ones learned.",
   },
-  {
-    href: "/blog/sandbox-the-code-node",
-    title: "Sandbox the code node",
-    date: "2026-07-21",
-    kind: "Note",
-    copy: "A code node is expected. It still has to run somewhere that cannot take the host down.",
-  },
 ];

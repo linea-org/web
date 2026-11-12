@@ -111,7 +111,7 @@ export default function ResearchPage() {
         <Section id="notes">
           <SectionHeading
             eyebrow="Notes"
-            title="Checkpoints, memory, and the code node."
+            title="Checkpoints, memory, and replay."
             lead="Focused notes on the pieces the host keeps for you."
           />
           <ResearchCards

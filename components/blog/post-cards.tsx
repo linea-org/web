@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/landing/logo";
 import { PlatformShot } from "@/components/media/platform-shot";
+import { SWIPE_ITEM, SWIPE_ROW } from "@/components/landing/ui";
 import { formatPostDate, type BlogMeta } from "@/lib/blog-meta";
 
 export function PostCards({
@@ -11,12 +12,12 @@ export function PostCards({
   eager?: boolean;
 }) {
   return (
-    <div className="grid gap-3 md:grid-cols-3">
+    <div className={SWIPE_ROW}>
       {posts.map((post) => (
         <Link
           key={post.slug}
           href={`/blog/${post.slug}`}
-          className="group relative flex flex-col overflow-hidden rounded-[10px] border border-white/10 bg-white/[0.03] transition-colors hover:border-white/20 motion-reduce:transition-none"
+          className={`lp-press group relative flex flex-col overflow-hidden rounded-[10px] border border-white/10 bg-white/[0.03] ${SWIPE_ITEM}`}
         >
           <div className="p-2">
             <div className="relative aspect-[1627/967] overflow-hidden rounded-[8px] bg-white/[0.03]">
@@ -26,6 +27,7 @@ export function PostCards({
                 fill
                 eager={eager}
                 sizes="(min-width: 768px) 26rem, 100vw"
+                className="transition-transform duration-250 group-hover:scale-[1.02] motion-reduce:transition-none"
               />
             </div>
           </div>
