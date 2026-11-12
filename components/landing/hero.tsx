@@ -82,7 +82,8 @@ export function Hero() {
               alt="Linea dashboard with workflows, signals, and recent executions"
               width={1024}
               height={682}
-              priority
+              preload
+              fetchPriority="high"
               sizes="(min-width: 80rem) 80rem, 100vw"
               className="h-auto w-full"
             />
@@ -106,9 +107,9 @@ export function Hero() {
                     {pillar.icon}
                   </svg>
                 </span>
-                <h3 className="mt-4 text-base font-medium tracking-tight">
+                <h2 className="mt-4 text-base font-medium tracking-tight">
                   {pillar.title}
-                </h3>
+                </h2>
                 <p className="mt-2 max-w-sm text-sm leading-6 text-muted">
                   {pillar.copy}
                 </p>

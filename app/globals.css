@@ -10,6 +10,8 @@
   --stage-sky: #9dbde4;
   --stage-mist: #c4aea4;
   --stage-floor: #c45c32;
+  /* Floor card fill: stage-floor darkened until body text reaches 4.5:1. */
+  --surface-floor: #ad4b24;
 }
 
 @theme inline {
@@ -49,12 +51,12 @@ body {
 }
 
 .lp-surface-floor {
-  background-color: var(--stage-floor);
+  background-color: var(--surface-floor);
   color: #fff8f4;
 }
 
 .lp-surface-floor .text-muted {
-  color: rgb(255 248 244 / 0.78);
+  color: rgb(255 248 244 / 0.92);
 }
 
 a,

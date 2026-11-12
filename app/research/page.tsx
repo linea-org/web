@@ -29,9 +29,9 @@ function ThesisCard({ item }: { item: ResearchNote }) {
           </span>
           <time dateTime={item.date}>{formatPostDate(item.date)}</time>
         </p>
-        <h3 className="mt-5 text-3xl leading-[1.08] font-medium tracking-[-0.035em] text-balance sm:text-4xl">
+        <h2 className="mt-5 text-3xl leading-[1.08] font-medium tracking-[-0.035em] text-balance sm:text-4xl">
           {item.title}
-        </h3>
+        </h2>
         <p className="mt-4 max-w-xl text-base leading-7 text-muted">
           {item.copy}
         </p>
@@ -61,9 +61,9 @@ function ResearchCards({ items }: { items: ResearchNote[] }) {
             </span>
             <time dateTime={item.date}>{formatPostDate(item.date)}</time>
           </p>
-          <h3 className="mt-4 text-xl font-medium tracking-[-0.02em]">
+          <h2 className="mt-4 text-xl font-medium tracking-[-0.02em]">
             {item.title}
-          </h3>
+          </h2>
           <p className="mt-2 text-sm leading-6 text-muted">{item.copy}</p>
           <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium tracking-tight">
             Read the note

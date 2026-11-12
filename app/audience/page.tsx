@@ -73,9 +73,9 @@ export default function AudiencePage() {
                       {String(index + 1).padStart(2, "0")}
                     </p>
                     <div>
-                      <h3 className="text-base font-medium tracking-tight">
+                      <h2 className="text-base font-medium tracking-tight">
                         {item.title}
-                      </h3>
+                      </h2>
                       <p className="mt-1.5 text-sm leading-6 text-muted">
                         {item.copy}
                       </p>

@@ -62,9 +62,9 @@ export function AudienceCards({ className = "" }: { className?: string }) {
                 </span>
                 <p className="text-sm text-muted">{item.label}</p>
               </div>
-              <h3 className="mt-2 text-lg font-medium tracking-tight">
+              <h2 className="mt-2 text-lg font-medium tracking-tight">
                 {item.title}
-              </h3>
+              </h2>
               <p className="mt-3 text-sm leading-6 text-muted">
                 {item.copy}
               </p>

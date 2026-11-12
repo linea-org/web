@@ -16,7 +16,8 @@ export function Cat({
       width={549}
       height={720}
       sizes={sizes}
-      priority={priority}
+      preload={priority}
+      fetchPriority={priority ? "high" : undefined}
       className={`pointer-events-none h-auto select-none ${className}`}
     />
   );
