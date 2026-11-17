@@ -1,3 +1,6 @@
+import { RelatedPosts } from "@/components/blog/related-posts";
+import { Faq } from "@/components/landing/faq";
+import { faqsFor } from "@/lib/faq";
 import { FramedShot } from "@/components/landing/framed-shot";
 import { PathCards } from "@/components/landing/path-cards";
 import {
@@ -147,6 +150,12 @@ export default function AboutPage() {
             />
           </div>
         </Section>
+        <RelatedPosts tags={["Principles"]} />
+        <Faq
+          items={faqsFor("Is Linea the same as Consensys Linea?", "What is Linea?", "Is this a workflow-automation tool?")}
+          title="Questions about this page."
+          align="center"
+        />
       </main>
     </SiteChrome>
   );

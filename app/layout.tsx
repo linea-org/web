@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Newsreader } from "next/font/google";
 import { SiteAnalytics } from "@/components/seo/analytics";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteGraph } from "@/lib/schema";
@@ -10,6 +10,16 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
+});
+
+/** Display serif for the home hero headline only. */
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
   display: "swap",
   preload: true,
 });
@@ -89,7 +99,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} ${newsreader.variable} h-full antialiased`}>
       <body className="min-h-full font-sans text-foreground">
         <JsonLd data={siteGraph()} />
         {children}

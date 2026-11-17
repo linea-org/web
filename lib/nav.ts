@@ -1,5 +1,4 @@
 import { DOCS_URL } from "@/lib/docs";
-import { GITHUB_URL } from "@/lib/socials";
 
 export type NavLink = {
   kind: "link";
@@ -28,7 +27,10 @@ export type NavIconName =
   | "start"
   | "architecture"
   | "guide"
-  | "github";
+  | "github"
+  | "sdk"
+  | "about"
+  | "careers";
 
 export type NavMenuItem = {
   href: string;
@@ -43,6 +45,8 @@ export type NavMenu = {
   kind: "menu";
   label: string;
   items: NavMenuItem[];
+  /** Links per column, filled top to bottom. */
+  columns: readonly number[];
   featured: NavFeatured;
 };
 
@@ -52,6 +56,7 @@ export const NAV: NavItem[] = [
   {
     kind: "menu",
     label: "Product",
+    columns: [3, 1, 2],
     items: [
       {
         href: "/runtime",
@@ -72,37 +77,36 @@ export const NAV: NavItem[] = [
         icon: "memory",
       },
       {
-        href: "/docs",
-        label: "Docs",
-        hint: "Author and run the graph",
-        icon: "docs",
-      },
-      {
-        href: `${DOCS_URL}/docs/getting-started`,
+        href: "/getting-started",
         label: "Getting started",
-        hint: "Run your first workflow",
+        hint: "Publish, then run it",
         icon: "start",
-        external: true,
       },
       {
-        href: `${DOCS_URL}/docs/architecture`,
+        href: "/architecture",
         label: "Architecture",
-        hint: "API, workers, and queues",
+        hint: "API, workers, checkpoints",
         icon: "architecture",
-        external: true,
+      },
+      {
+        href: "/sdk",
+        label: "SDK",
+        hint: "Start runs from TypeScript",
+        icon: "sdk",
       },
     ],
     featured: {
-      href: "/replay",
-      badge: "New",
-      title: "Step-level replay",
-      copy: "Rerun one node against the exact input it originally saw.",
+      href: "/blog/why-replay-needs-the-checkpoint",
+      badge: "From the blog",
+      title: "Why replay needs the checkpoint",
+      copy: "You cannot rerun one step unless the host kept the input that step saw.",
       surface: "lp-surface-floor",
     },
   },
   {
     kind: "menu",
     label: "Resources",
+    columns: [2, 3, 1],
     items: [
       { href: "/blog", label: "Blog", hint: "Writing from the team", icon: "blog" },
       {
@@ -119,17 +123,16 @@ export const NAV: NavItem[] = [
         icon: "audience",
       },
       {
-        href: "/blog/what-is-an-ai-agent-runtime",
-        label: "Agent runtime explained",
-        hint: "Framework vs runtime",
-        icon: "guide",
+        href: "/about",
+        label: "About",
+        hint: "The team behind Linea",
+        icon: "about",
       },
       {
-        href: GITHUB_URL,
-        label: "GitHub",
-        hint: "Open source, Apache-2.0",
-        icon: "github",
-        external: true,
+        href: "/careers",
+        label: "Careers",
+        hint: "No open roles yet",
+        icon: "careers",
       },
     ],
     featured: {

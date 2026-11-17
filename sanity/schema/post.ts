@@ -107,6 +107,7 @@ export const post = defineType({
         defineArrayMember({ type: "code" }),
         defineArrayMember({ type: "codeSwitcher" }),
         defineArrayMember({ type: "postTable" }),
+        defineArrayMember({ type: "mermaidDiagram" }),
         defineArrayMember({ type: "divider" }),
       ],
     }),

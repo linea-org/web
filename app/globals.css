@@ -21,6 +21,7 @@
   --color-border: var(--border);
   --color-card: var(--card);
   --font-sans: var(--font-inter);
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
 }
 
 /*
@@ -288,6 +289,94 @@ a[aria-disabled="true"] {
   }
 }
 
+/*
+ * Sticky header backdrop: clear at the top of the page so the hero glow runs
+ * behind it, then fades to solid black over the first 96px of scroll.
+ * Without scroll-driven animations it simply stays solid.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .lp-header-band::before {
+      animation: lp-header-backdrop both linear;
+      animation-timeline: scroll(root);
+      animation-range: 0 96px;
+    }
+  }
+}
+
+/*
+ * A nav menu is open: banner strip, nav row and panel share one fill (--card),
+ * so they read as a single surface. The nav row's fill lives on its own layer
+ * (::after, above the scroll-driven ::before) so it fades both ways: in with a
+ * 100ms delay and 150ms ease-out, matching the panel, and out in 100ms,
+ * instead of snapping off while the panel is still fading.
+ */
+.lp-header-band::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  z-index: -9;
+  width: 100vw;
+  translate: -50% 0;
+  background: var(--card);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 100ms var(--ease-out);
+}
+
+.lp-header-band:has(.lp-nav-menu:hover, .lp-nav-menu :focus-visible)::after {
+  opacity: 1;
+  transition: opacity 150ms var(--ease-out) 100ms;
+}
+
+/*
+ * Phone menu open: the panel below is the page's pure black, so the banner strip
+ * and the nav row go pure black with it (no delay: the panel appears at once).
+ */
+.lp-header-band:has(.lp-menu[open])::after {
+  background: #000;
+  opacity: 1;
+  transition: opacity 150ms var(--ease-out);
+}
+
+/*
+ * Banner strip: transparent over the hero glow, but while a nav menu is open
+ * the header row goes solid black, so the strip behind the banner follows it
+ * (full-bleed, same 100ms delay and 150ms fade) instead of staying glowy.
+ */
+.lp-announce::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  z-index: -1;
+  width: 100vw;
+  translate: -50% 0;
+  /* Same fill as the dropdown panel (bg-card), so the chrome reads as one surface. */
+  background: var(--card);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 100ms var(--ease-out);
+}
+
+#top:has(.lp-nav-menu:hover, .lp-nav-menu :focus-visible) .lp-announce::before {
+  opacity: 1;
+  transition: opacity 150ms var(--ease-out) 100ms;
+}
+
+#top:has(.lp-menu[open]) .lp-announce::before {
+  background: #000;
+  opacity: 1;
+  transition: opacity 150ms var(--ease-out);
+}
+
+@keyframes lp-header-backdrop {
+  from {
+    opacity: 0;
+  }
+}
+
 @keyframes lp-reveal {
   from {
     opacity: 0;
@@ -361,6 +450,17 @@ a[aria-disabled="true"] {
 .lp-search[open] {
   display: flex;
   flex-direction: column;
+}
+
+/*
+ * The page behind the search panel must not scroll. Keyed to the dialog's real
+ * [open] state, so it covers the button, the ⌘K shortcut, Escape and a click on
+ * the backdrop alike, with no JS to fall out of sync. The gutter keeps the
+ * page from shifting sideways when the scrollbar goes away.
+ */
+html:has(.lp-search[open]) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
 }
 
 /* No blur and no open animation: ⌘K is used constantly and should appear on the next frame. */

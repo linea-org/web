@@ -1,5 +1,9 @@
 import { CodeBlock } from "@/components/product/code-block";
-import { FramedShot } from "@/components/landing/framed-shot";
+import {
+  FramedShot,
+  GLASS_FRAME,
+  GLASS_INNER,
+} from "@/components/landing/framed-shot";
 import {
   CARD,
   CARD_PAD,
@@ -9,9 +13,19 @@ import {
   SectionHeading,
   StepCards,
 } from "@/components/landing/section";
+import { RelatedPosts } from "@/components/blog/related-posts";
+import {
+  ComparePanels,
+  FlowSteps,
+  KeyFacts,
+  LinkCards,
+} from "@/components/landing/blocks";
+import { Faq } from "@/components/landing/faq";
 import { SiteChrome } from "@/components/landing/site-chrome";
 import { Button, HEADING_GAP } from "@/components/landing/ui";
 import { DOCS_URL, PLATFORM_URL } from "@/lib/docs";
+import { faqsFor } from "@/lib/faq";
+import type { NavIconName } from "@/lib/nav";
 import type { Product } from "@/lib/product";
 
 function Header({ product }: { product: Product }) {
@@ -50,7 +64,7 @@ function How({ product }: { product: Product }) {
         lead={product.how.lead}
       />
       <div className={HEADING_GAP}>
-        <StepCards items={product.how.steps} />
+        <FlowSteps items={product.how.steps} />
       </div>
     </Section>
   );
@@ -66,7 +80,15 @@ async function Example({ product }: { product: Product }) {
           title={product.example.title}
           lead={product.example.copy}
         />
-        <CodeBlock code={product.example.code} lang={product.example.lang} />
+        <div className={`lp-reveal ${GLASS_FRAME}`}>
+          <div className={`${GLASS_INNER} bg-[#0a0a0a]`}>
+            <CodeBlock
+              code={product.example.code}
+              lang={product.example.lang}
+              className="rounded-none! border-0!"
+            />
+          </div>
+        </div>
       </div>
     </Section>
   );
@@ -80,34 +102,11 @@ function Compare({ product }: { product: Product }) {
         title={product.compare.title}
         lead={product.compare.lead}
       />
-      <div className={`${HEADING_GAP} ${CARD} overflow-x-auto`}>
-        <table className="w-full min-w-[36rem] text-left text-sm">
-          <thead>
-            <tr className="border-b border-white/10">
-              <th className="w-1/4 px-5 py-4 font-medium sm:px-6">
-                <span className="sr-only">Aspect</span>
-              </th>
-              <th className="px-5 py-4 font-medium text-muted sm:px-6">
-                {product.compare.columns[0]}
-              </th>
-              <th className="px-5 py-4 font-medium text-[#9dbde4] sm:px-6">
-                {product.compare.columns[1]}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {product.compare.rows.map((row) => (
-              <tr
-                key={row.label}
-                className="border-b border-white/10 last:border-b-0"
-              >
-                <th className="px-5 py-4 font-medium sm:px-6">{row.label}</th>
-                <td className="px-5 py-4 text-muted sm:px-6">{row.left}</td>
-                <td className="px-5 py-4 sm:px-6">{row.right}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className={HEADING_GAP}>
+        <ComparePanels
+          columns={product.compare.columns}
+          rows={product.compare.rows}
+        />
       </div>
     </Section>
   );
@@ -143,11 +142,9 @@ function Split({ product }: { product: Product }) {
           </ul>
         </div>
         <div
-          className={`rounded-[10px] border border-[#9dbde4]/25 bg-[#9dbde4]/[0.06] ${CARD_PAD}`}
+          className={`rounded-[10px] border border-white/20 bg-white/[0.06] shadow-[inset_0_1px_0_rgb(255_255_255/0.12)] ${CARD_PAD}`}
         >
-          <p className="text-sm font-medium tracking-tight text-[#9dbde4]">
-            {right.title}
-          </p>
+          <p className="text-sm font-medium tracking-tight">{right.title}</p>
           <CheckList items={right.items} className="mt-5" />
         </div>
       </div>
@@ -211,12 +208,109 @@ function Body({ product }: { product: Product }) {
   }
 }
 
+/*
+ * Added page content. Every line restates something the site already says (the
+ * excerpts, steps and FAQ above, the architecture page); nothing here is a new claim.
+ */
+const FACTS: Record<Product["slug"], { value: string; label: string }[]> = {
+  runtime: [
+    { value: "Every node", label: "writes a checkpoint, so a crashed run resumes from the last successful step" },
+    { value: "30 s", label: "worker lease: if a worker dies, another picks the run up" },
+    { value: "4 ways", label: "to start a run: by hand, from your app, a webhook, or a schedule" },
+    { value: "1 version", label: "frozen at publish: the host runs exactly that graph" },
+  ],
+  replay: [
+    { value: "1 node", label: "replayed on its own, with the steps before it left alone" },
+    { value: "0 deploys", label: "needed to replay a step against its original input" },
+    { value: "Same input", label: "the payload that node received in the original execution" },
+    { value: "Compare", label: "the new output against the original run, in the same context" },
+  ],
+  memory: [
+    { value: "Keyed", label: "facts, scoped to your end user and a namespace" },
+    { value: "Shared", label: "across workflows that use the same namespace" },
+    { value: "90 days", label: "default life of a fact, adjustable up to one year" },
+    { value: "0 stores", label: "for you to run: memory lives on the host" },
+  ],
+};
+
+const QUESTIONS: Record<Product["slug"], string[]> = {
+  runtime: [
+    "What is Linea?",
+    "Is this a workflow-automation tool?",
+    "How is this different from LangGraph?",
+  ],
+  replay: [
+    "What is step-level replay?",
+    "How is this different from LangGraph?",
+    "How is this different from n8n or Zapier?",
+  ],
+  memory: [
+    "What is Linea?",
+    "Do I have to use the visual builder?",
+    "Is this a workflow-automation tool?",
+  ],
+};
+
+const TAGS: Record<Product["slug"], string[]> = {
+  runtime: ["Runtime"],
+  replay: ["Replay", "Runtime"],
+  memory: ["Memory"],
+};
+
+const NEXT: Record<
+  Product["slug"],
+  { href: string; title: string; copy: string; icon: NavIconName }[]
+> = {
+  runtime: [
+    { href: "/replay", title: "Replay", copy: "One step, original input.", icon: "replay" },
+    { href: "/memory", title: "Memory", copy: "Facts that survive the run.", icon: "memory" },
+    { href: "/architecture", title: "Architecture", copy: "API, workers, checkpoints.", icon: "architecture" },
+  ],
+  replay: [
+    { href: "/runtime", title: "Runtime", copy: "The host that runs the graph.", icon: "runtime" },
+    { href: "/memory", title: "Memory", copy: "Facts that survive the run.", icon: "memory" },
+    { href: "/sdk", title: "SDK", copy: "Start runs from TypeScript.", icon: "sdk" },
+  ],
+  memory: [
+    { href: "/runtime", title: "Runtime", copy: "The host that runs the graph.", icon: "runtime" },
+    { href: "/replay", title: "Replay", copy: "One step, original input.", icon: "replay" },
+    { href: "/getting-started", title: "Getting started", copy: "Publish, then run it.", icon: "start" },
+  ],
+};
+
+function Facts({ product }: { product: Product }) {
+  return (
+    <Section id="facts" className="pt-0!">
+      <KeyFacts items={FACTS[product.slug]} />
+    </Section>
+  );
+}
+
+function Next({ product }: { product: Product }) {
+  return (
+    <Section id="next">
+      <SectionHeading eyebrow="Where to go next" title="Keep following the run." />
+      <div className={HEADING_GAP}>
+        <LinkCards items={NEXT[product.slug]} />
+      </div>
+    </Section>
+  );
+}
+
 export async function ProductPage({ product }: { product: Product }) {
   return (
     <SiteChrome>
       <main>
         <Header product={product} />
+        <Facts product={product} />
         <Body product={product} />
+        <RelatedPosts tags={TAGS[product.slug]} />
+        <Faq
+          items={faqsFor(...QUESTIONS[product.slug])}
+          title="Questions about this page."
+          align="center"
+        />
+        <Next product={product} />
       </main>
     </SiteChrome>
   );

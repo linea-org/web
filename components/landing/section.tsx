@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { accentTitle } from "@/components/landing/accent-title";
 import { Band } from "@/components/landing/frame";
+import { HeroGlow } from "@/components/landing/hero-glow";
 import {
   Container,
   HEADING_GAP,
@@ -78,14 +80,15 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <Band rule={false}>
-      <Container className={SECTION_Y}>
+    <Band rule={false} className="relative">
+      <HeroGlow />
+      <Container className={`relative z-10 ${SECTION_Y}`}>
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
           <PageLabel>{eyebrow}</PageLabel>
           <h1
-            className={`${TITLE_GAP} text-4xl leading-[1.04] font-medium tracking-[-0.045em] text-balance sm:text-5xl lg:text-[4rem]`}
+            className={`${TITLE_GAP} font-serif text-[2.5rem] leading-[1.04] font-normal tracking-[-0.03em] text-balance sm:text-5xl lg:text-[4rem]`}
           >
-            {title}
+            {accentTitle(title)}
           </h1>
           {lead ? (
             <p

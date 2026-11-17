@@ -21,10 +21,19 @@ export const FAQS = [
   },
   {
     q: "Do I have to use the visual builder?",
-    a: "Today, yes: you author workflows in the visual builder. Every published version is a JSON graph the host runs exactly as published. The TypeScript SDK is for your app: it starts executions, reads their results, and verifies webhooks.",
+    a: "No. Every published version is a JSON graph the host runs exactly as published. You can author that graph in the visual builder, or create workflows and save drafts and versions through the TypeScript SDK with a workspace API key. Publishing a version and binding it to an environment need a signed-in admin in the dashboard. The SDK also starts executions, reads their results, and verifies webhooks.",
   },
   {
     q: "Is Linea the same as Consensys Linea?",
     a: "No. This Linea is from Linea Labs: an AI agent runtime and control plane at getlinea.app. It is not the Linea blockchain network from Consensys, and it is not the Linea sketching app.",
   },
 ] as const;
+
+/** The answers for just these questions, in the order given (page-specific FAQs). */
+export function faqsFor(...questions: string[]): { q: string; a: string }[] {
+  return questions.flatMap((question) => {
+    const found = FAQS.find((item) => item.q === question);
+
+    return found ? [{ q: found.q, a: found.a }] : [];
+  });
+}

@@ -22,6 +22,24 @@ const RESOURCE_PAGES: Omit<SearchEntry, "id">[] = [
   },
   { href: "/pricing", title: "Pricing", hint: "Not ready yet", group: "Resources" },
   { href: "/about", title: "About", hint: "Linea Labs", group: "Resources" },
+  {
+    href: "/getting-started",
+    title: "Getting started",
+    hint: "Publish, then run it",
+    group: "Product",
+  },
+  {
+    href: "/architecture",
+    title: "Architecture",
+    hint: "API, workers, checkpoints",
+    group: "Product",
+  },
+  {
+    href: "/sdk",
+    title: "SDK",
+    hint: "Start runs from TypeScript",
+    group: "Product",
+  },
 ];
 
 function withId(entry: Omit<SearchEntry, "id">): SearchEntry {

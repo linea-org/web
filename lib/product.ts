@@ -261,7 +261,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Memory nodes store keyed facts on the host. The next execution can read what the last one learned, without a store you operate.",
     excerpt:
-      "A memory node writes a keyed value. A later run reads it back. Facts are scoped to your end user and a namespace, with an optional expiry.",
+      "A memory node writes a keyed value. A later run reads it back. Facts are scoped to your end user and a namespace, and every fact expires: 90 days by default, one year at most.",
     image: "/linea/linea-evals.png",
     imageAlt: "Linea evals for a published workflow",
     how: {
@@ -278,7 +278,7 @@ export const PRODUCTS: Product[] = [
         },
         {
           title: "Share or isolate",
-          copy: "Leave the namespace empty to keep memory inside one workflow, or set the same namespace on several workflows to share it. Add an expiry when a fact should not live forever.",
+          copy: "Leave the namespace empty to keep memory inside one workflow, or set the same namespace on several workflows to share it. Every fact expires: after 90 days by default, or set a shorter or longer life, up to one year.",
         },
       ],
     },
@@ -322,7 +322,7 @@ export const PRODUCTS: Product[] = [
         {
           label: "Facts that should expire",
           left: "Cleanup jobs you schedule",
-          right: "An expiry on the write",
+          right: "An expiry set on the write, 90 days by default",
         },
       ],
     },
@@ -339,7 +339,7 @@ export const PRODUCTS: Product[] = [
         title: "Linea provides",
         items: [
           "A managed fact store for each workspace",
-          "Per-user scoping and optional expiry",
+          "Per-user scoping and an expiry on every fact",
           "Reads and writes recorded like any other step",
         ],
       },

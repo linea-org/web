@@ -12,10 +12,7 @@ export const metadata = pageMeta({
 export default function CareersPage() {
   return (
     <SiteChrome cta={false}>
-      <SparseMain>
-        <h1 className="max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
-          We are building the first team.
-        </h1>
+      <SparseMain title="We are building the first team.">
         <p className="mt-5 max-w-xl text-sm leading-6 text-muted sm:text-base">
           There are no open roles today. As Linea grows, we will post new
           opportunities here with clear ownership, scope, and expectations.

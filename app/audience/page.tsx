@@ -1,8 +1,10 @@
+import { RelatedPosts } from "@/components/blog/related-posts";
+import { Faq } from "@/components/landing/faq";
+import { faqsFor } from "@/lib/faq";
 import { FramedShot } from "@/components/landing/framed-shot";
+import { FlowSteps } from "@/components/landing/blocks";
 import { AudienceCards } from "@/components/landing/proof";
 import {
-  CARD,
-  CARD_PAD,
   PageHero,
   Section,
   SectionHeading,
@@ -58,39 +60,27 @@ export default function AudiencePage() {
         </PageHero>
 
         <Section id="fit">
-          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-            <div>
-              <SectionHeading
-                align="left"
-                eyebrow="How builders work with Linea"
-                title="Keep the logic. Give us the host."
-                lead="Linea is the control plane under the agent, not a rewrite of it."
-              />
-              <div className={`${HEADING_GAP} space-y-3`}>
-                {FIT.map((item, index) => (
-                  <div key={item.title} className={`${CARD} ${CARD_PAD} flex gap-4`}>
-                    <p className="pt-0.5 font-mono text-xs text-[#9dbde4] tabular-nums">
-                      {String(index + 1).padStart(2, "0")}
-                    </p>
-                    <div>
-                      <h2 className="text-base font-medium tracking-tight">
-                        {item.title}
-                      </h2>
-                      <p className="mt-1.5 text-sm leading-6 text-muted">
-                        {item.copy}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <FramedShot
-              src={SHOTS.workflow}
-              alt="A Linea workflow graph on the canvas"
-              sizes="(min-width: 1024px) 40rem, 100vw"
-            />
+          <SectionHeading
+            eyebrow="How builders work with Linea"
+            title="Keep the logic. Give us the host."
+            lead="Linea is the control plane under the agent, not a rewrite of it."
+          />
+          <FramedShot
+            src={SHOTS.workflow}
+            alt="A Linea workflow graph on the canvas"
+            sizes="(min-width: 80rem) 80rem, 100vw"
+            className={HEADING_GAP}
+          />
+          <div className={HEADING_GAP}>
+            <FlowSteps items={FIT} />
           </div>
         </Section>
+        <RelatedPosts tags={["Principles", "Builder"]} />
+        <Faq
+          items={faqsFor("How is this different from n8n or Zapier?", "How is this different from LangGraph?", "Is this a workflow-automation tool?")}
+          title="Questions about this page."
+          align="center"
+        />
       </main>
     </SiteChrome>
   );

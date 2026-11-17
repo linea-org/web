@@ -12,7 +12,20 @@ import { GITHUB_URL } from "@/lib/socials";
 import { NAV, type NavItem } from "@/lib/nav";
 import { getSearchEntries } from "@/lib/search-entries";
 
-type Featured = Extract<NavItem, { kind: "menu" }>["featured"];
+type Menu = Extract<NavItem, { kind: "menu" }>;
+type Featured = Menu["featured"];
+
+function menuColumns(menu: Menu) {
+  const columns: Menu["items"][] = [];
+  let index = 0;
+
+  for (const count of menu.columns) {
+    columns.push(menu.items.slice(index, index + count));
+    index += count;
+  }
+
+  return columns;
+}
 
 /** Stage-surface card in the menu, styled like the landing newsletter pill. */
 function FeaturedCard({ featured }: { featured: Featured }) {
@@ -83,7 +96,7 @@ function NavEntry({ item }: { item: NavItem }) {
       return (
         // Not `relative`: the panel anchors to the header so it can span the full column.
         // The group is only as tall as the label, so hovering the empty header strip does not open it.
-        <div className="group flex items-center">
+        <div className="group lp-nav-menu flex items-center">
           <button
             type="button"
             // ::after bridges the 18px from the label to the header's bottom edge, so moving down into the panel keeps it open.
@@ -109,39 +122,43 @@ function NavEntry({ item }: { item: NavItem }) {
           {/* Opens after a 100ms hover (so sweeping across the nav does not flash it) and fades out in 100ms.
               Only keyboard focus pins it open; a mouse click on the trigger does not. */}
           <div className="invisible absolute inset-x-0 top-full z-20 opacity-0 transition-[opacity,visibility] duration-100 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:border-y before:border-white/10 before:bg-card after:pointer-events-none after:absolute after:top-full after:left-1/2 after:-z-20 after:h-screen after:w-screen after:-translate-x-1/2 after:bg-black/50 group-hover:visible group-hover:opacity-100 group-hover:delay-100 group-hover:duration-150 group-has-[:focus-visible]:visible group-has-[:focus-visible]:opacity-100 pointer-coarse:group-focus-within:visible pointer-coarse:group-focus-within:opacity-100">
-            <div className="grid grid-cols-[minmax(0,1fr)_24rem] divide-x divide-white/10 px-5 sm:px-8">
-              <div className="flex flex-col py-6 pr-6">
+            <div className="grid grid-cols-[minmax(0,1fr)_22rem] divide-x divide-white/10 px-5 sm:px-8">
+              <div className="flex flex-col py-4 pr-6">
                 {/* Plain rows, not boxed tiles: the tint appears only on the row under the cursor.
                     Rows keep their natural height and start level with the card; -mx-3 keeps icons on the logo's edge. */}
-                <ul className="-mx-3 grid grid-cols-2 content-start gap-1">
-                  {item.items.map((entry) => (
-                    <li key={entry.href + entry.label} className="flex">
-                      <Link
-                        href={entry.href}
-                        target={entry.external ? "_blank" : undefined}
-                        rel={entry.external ? "noreferrer" : undefined}
-                        className="group/entry flex flex-1 items-center gap-3 rounded-[10px] px-3 py-3 transition-colors duration-100 outline-none hover:bg-white/[0.05] focus-visible:bg-white/[0.05] focus-visible:ring-1 focus-visible:ring-white/20 motion-reduce:transition-none"
-                      >
-                        <span className="grid size-9 shrink-0 place-items-center rounded-md bg-white/[0.04] text-muted ring-1 ring-white/10 transition-colors duration-100 group-hover/entry:bg-white/[0.08] group-hover/entry:text-foreground group-focus-visible/entry:text-foreground">
-                          <NavIcon name={entry.icon} />
-                        </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="flex items-center gap-1.5 text-sm font-medium text-foreground">
-                            {entry.label}
-                            {entry.external ? (
-                              <ExternalIcon className="size-2.5 text-muted" />
-                            ) : null}
-                          </span>
-                          <span className="mt-0.5 block truncate text-sm text-muted">
-                            {entry.hint}
-                          </span>
-                        </span>
-                      </Link>
-                    </li>
+                <div className="-mx-3 grid grid-cols-3 items-start gap-x-2">
+                  {menuColumns(item).map((column) => (
+                    <ul key={column[0]?.href ?? "column"} className="flex flex-col gap-1">
+                      {column.map((entry) => (
+                        <li key={entry.href + entry.label} className="flex">
+                          <Link
+                            href={entry.href}
+                            target={entry.external ? "_blank" : undefined}
+                            rel={entry.external ? "noreferrer" : undefined}
+                            className="group/entry flex flex-1 items-center gap-3 rounded-[10px] px-3 py-2 transition-colors duration-100 outline-none hover:bg-white/[0.05] focus-visible:bg-white/[0.05] focus-visible:ring-1 focus-visible:ring-white/20 motion-reduce:transition-none"
+                          >
+                            <span className="grid size-9 shrink-0 place-items-center rounded-md bg-white/[0.04] text-muted ring-1 ring-white/10 transition-colors duration-100 group-hover/entry:bg-white/[0.08] group-hover/entry:text-foreground group-focus-visible/entry:text-foreground">
+                              <NavIcon name={entry.icon} />
+                            </span>
+                            <span className="min-w-0 flex-1">
+                              <span className="flex items-center gap-1.5 text-sm font-medium text-foreground">
+                                {entry.label}
+                                {entry.external ? (
+                                  <ExternalIcon className="size-2.5 text-muted" />
+                                ) : null}
+                              </span>
+                              <span className="mt-0.5 block truncate text-sm text-muted">
+                                {entry.hint}
+                              </span>
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   ))}
-                </ul>
+                </div>
               </div>
-              <div className="flex flex-col py-6 pl-6">
+              <div className="flex flex-col py-4 pl-6">
                 <FeaturedCard featured={item.featured} />
               </div>
             </div>

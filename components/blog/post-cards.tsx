@@ -17,10 +17,10 @@ export function PostCards({
         <Link
           key={post.slug}
           href={`/blog/${post.slug}`}
-          className={`lp-press group relative flex flex-col overflow-hidden rounded-[10px] border border-white/10 bg-white/[0.03] ${SWIPE_ITEM}`}
+          className={`lp-press group relative flex flex-col overflow-hidden rounded-[10px] border border-white/10 bg-[#0a0a0a] ${SWIPE_ITEM}`}
         >
           <div className="p-2">
-            <div className="relative aspect-[1627/967] overflow-hidden rounded-[8px] bg-white/[0.03]">
+            <div className="relative aspect-[1627/967] overflow-hidden rounded-[8px] bg-[#0f0f10]">
               <PlatformShot
                 src={post.image}
                 alt=""

@@ -25,7 +25,7 @@ function buttonClass(variant: ButtonVariant, iconOnly: boolean): string {
     case "primary":
       return `${BUTTON_BASE} lp-btn-primary border-white bg-white text-black`;
     case "secondary":
-      return `${BUTTON_BASE} lp-btn-secondary border-white/30 bg-white/[0.06] text-foreground`;
+      return `${BUTTON_BASE} lp-btn-secondary border-white/30 bg-[#0f0f10] text-foreground`;
     default: {
       const _never: never = variant;
       return _never;

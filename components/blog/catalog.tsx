@@ -40,31 +40,34 @@ export function BlogCatalog({ posts }: { posts: BlogMeta[] }) {
                 href={`/blog/${post.slug}`}
                 className="lp-press group flex min-w-0 flex-col gap-4 p-3 hover:bg-white/[0.03] sm:flex-row sm:items-center sm:gap-6 sm:pr-6"
               >
-                <div className="overflow-hidden rounded-[8px] ring-1 ring-white/10 sm:w-40 sm:shrink-0 lg:w-48">
+                <div className="overflow-hidden rounded-[8px] ring-1 ring-white/10 sm:w-44 sm:shrink-0 lg:w-56">
                   <PlatformShot
                     src={post.image}
                     alt=""
-                    sizes="(min-width: 1024px) 12rem, (min-width: 640px) 10rem, 100vw"
+                    sizes="(min-width: 1024px) 14rem, (min-width: 640px) 11rem, 100vw"
                   />
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col gap-3 px-2 pb-2 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-0">
-                  <div className="min-w-0 sm:max-w-md">
+                {/* One text column that uses the row's width: tag, date and author on a single
+                    meta line, then title and excerpt. */}
+                <div className="min-w-0 flex-1 px-2 pb-2 sm:p-0">
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-xs text-muted">
                     {primary ? (
                       <span className={`${TAG_PILL} ${tagBadge(primary)}`}>
                         {primary}
                       </span>
                     ) : null}
-                    <h3 className="mt-2.5 text-lg font-medium tracking-tight">
-                      {post.title}
-                    </h3>
-                    <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-muted">
-                      {post.excerpt}
-                    </p>
+                    <span>{formatPostDate(post.date)}</span>
+                    <span aria-hidden className="text-white/25">
+                      ·
+                    </span>
+                    <span>{post.author}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-muted sm:shrink-0 sm:flex-col sm:items-end sm:gap-1">
-                    <p>{formatPostDate(post.date)}</p>
-                    <p>{post.author}</p>
-                  </div>
+                  <h3 className="mt-3 text-xl font-medium tracking-tight text-balance">
+                    {post.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-pretty text-muted">
+                    {post.excerpt}
+                  </p>
                 </div>
               </Link>
             );

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { GLASS_FRAME, GLASS_INNER } from "@/components/landing/framed-shot";
 
 type NodeStatus = "done" | "retried" | "waiting";
 
@@ -96,10 +97,9 @@ export function RunGraph() {
   return (
     <div
       aria-hidden
-      className="lp-run-graph relative mx-auto w-full max-w-xl overflow-hidden rounded-[14px] bg-[linear-gradient(180deg,var(--stage-sky)_0%,var(--stage-mist)_55%,var(--stage-floor)_100%)] p-4 sm:p-8"
+      className={`lp-run-graph mx-auto w-full max-w-xl ${GLASS_FRAME}`}
     >
-      <div className="lp-noise absolute inset-0" />
-      <div className="relative overflow-hidden rounded-[10px] bg-[#0a0a0a] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.45)] ring-1 ring-black/20">
+      <div className={`${GLASS_INNER} bg-[#0a0a0a]`}>
         <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5 text-xs">
           <span className="flex items-center gap-2 font-medium text-foreground">
             <span className="relative flex size-2">

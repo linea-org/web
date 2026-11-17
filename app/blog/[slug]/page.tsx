@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AuthorLink } from "@/components/blog/author-link";
 import { PostBodyContent } from "@/components/blog/portable-text";
@@ -103,26 +102,7 @@ export default async function PostPage({ params }: PostPageProps) {
             <header
               className={`mx-auto flex max-w-3xl flex-col items-center text-center ${SECTION_PT}`}
             >
-              <Link
-                href="/blog"
-                className="group inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] py-1 pr-3 pl-2 text-xs font-medium tracking-tight text-muted transition-colors hover:bg-white/[0.06] hover:text-foreground motion-reduce:transition-none"
-              >
-                <svg
-                  aria-hidden
-                  viewBox="0 0 16 16"
-                  className="size-3.5 shrink-0 transition-transform group-hover:-translate-x-0.5 motion-reduce:transition-none"
-                >
-                  <path
-                    d="M10.3 3.2 5.7 8l4.6 4.8"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.25"
-                    strokeLinecap="square"
-                  />
-                </svg>
-                Blog
-              </Link>
-              <h1 className="mt-6 text-4xl leading-[1.05] font-medium tracking-[-0.045em] text-balance sm:text-5xl lg:text-[3.5rem]">
+              <h1 className="text-4xl leading-[1.05] font-medium tracking-[-0.045em] text-balance sm:text-5xl lg:text-[3.5rem]">
                 {meta.title}
               </h1>
               {meta.excerpt ? (

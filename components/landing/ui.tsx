@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { Band } from "@/components/landing/frame";
 import { Cat } from "@/components/landing/cat";
-import { HeroGrid } from "@/components/landing/hero-grid";
+import { accentTitle } from "@/components/landing/accent-title";
+import { HeroGlow } from "@/components/landing/hero-glow";
 
 export { Button } from "@/components/landing/button";
 export { ExternalIcon } from "@/components/landing/external-icon";
@@ -38,18 +39,27 @@ export function Container({
   return <div className={`px-5 sm:px-8 ${className}`}>{children}</div>;
 }
 
-/** Short centered pages (careers, pricing, 404): the hero grid with the cat. */
-export function SparseMain({ children }: { children: ReactNode }) {
+/** Short centered pages (careers, pricing, 404): the landing's glow, the cat, and a serif title. */
+export function SparseMain({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
   return (
     <main>
       <Band rule={false} className="relative">
-        <HeroGrid />
+        <HeroGlow />
         <Container className="relative z-10 flex min-h-[60vh] flex-col items-center justify-center py-16 text-center sm:min-h-[32rem] lg:min-h-[38rem]">
           <Cat
             priority
             sizes="6rem"
             className="mb-6 w-20 drop-shadow-[0_10px_16px_rgba(255,255,255,0.16)] lg:w-24"
           />
+          <h1 className="max-w-3xl font-serif text-[2.5rem] leading-[1.04] font-normal tracking-[-0.03em] text-balance sm:text-6xl">
+            {accentTitle(title)}
+          </h1>
           {children}
         </Container>
       </Band>

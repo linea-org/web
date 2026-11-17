@@ -1,4 +1,5 @@
 import { Band } from "@/components/landing/frame";
+import { SectionHeading } from "@/components/landing/section";
 import {
   Container,
   HEADING_GAP,
@@ -7,18 +8,37 @@ import {
 } from "@/components/landing/ui";
 import { FAQS } from "@/lib/faq";
 
-export function Faq() {
+export function Faq({
+  items = FAQS,
+  title = "Everything you need to know.",
+  align = "left",
+}: {
+  items?: readonly { q: string; a: string }[];
+  title?: string;
+  /** Left on the landing page; centered on inner pages, like their other sections. */
+  align?: "left" | "center";
+}) {
+  const centered = align === "center";
+
   return (
     <Band rule={false} className="lp-defer">
       <section id="faq">
         <Container className={SECTION_PT}>
-          <p className="text-sm text-muted">Questions</p>
-          <h2 className="mt-3 text-3xl font-medium tracking-tight sm:text-4xl">
-            Everything you need to know.
-          </h2>
+          {centered ? (
+            <SectionHeading eyebrow="Questions" title={title} />
+          ) : (
+            <>
+              <p className="text-sm text-muted">Questions</p>
+              <h2 className="mt-3 text-3xl font-medium tracking-tight sm:text-4xl">
+                {title}
+              </h2>
+            </>
+          )}
         </Container>
-        <div className={`space-y-2 px-5 sm:px-8 ${HEADING_GAP} ${SECTION_PB}`}>
-          {FAQS.map((item) => (
+        <div
+          className={`space-y-2 px-5 sm:px-8 ${HEADING_GAP} ${SECTION_PB} ${centered ? "mx-auto max-w-4xl" : ""}`}
+        >
+          {items.map((item) => (
             <details
               key={item.q}
               name="faq"

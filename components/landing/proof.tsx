@@ -79,7 +79,9 @@ export function AudienceCards({ className = "" }: { className?: string }) {
 export function Proof() {
   return (
     <Band rule={false}>
-      <FullBleed backdrop="border-y border-white/10 bg-[#0b0b0b]">
+      {/* No hard band: the lift fades in from the black page and back out, instead of a flat
+          fill with a hairline at each end. */}
+      <FullBleed backdrop="bg-[linear-gradient(180deg,transparent_0,#0b0b0b_12rem,#0b0b0b_calc(100%-12rem),transparent_100%)]">
         <section id="audience" className={`px-5 sm:px-8 ${SECTION_Y}`}>
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-4xl leading-[1.05] font-medium tracking-[-0.04em] sm:text-5xl">

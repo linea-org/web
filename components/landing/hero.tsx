@@ -1,16 +1,38 @@
-import Image from "next/image";
 import type { ReactNode } from "react";
 import { Cat } from "@/components/landing/cat";
+import { CodeSwitcher } from "@/components/code/code-switcher";
 import { Band } from "@/components/landing/frame";
-import { HeroGrid } from "@/components/landing/hero-grid";
-import { PageLabel } from "@/components/landing/section";
+import { HeroGlow } from "@/components/landing/hero-glow";
+import { PlatformShot } from "@/components/media/platform-shot";
+import { PageLabel, SectionHeading } from "@/components/landing/section";
 import {
   Button,
   Container,
   HEADING_GAP,
   SECTION_PB,
+  SECTION_Y,
 } from "@/components/landing/ui";
 import { PLATFORM_URL } from "@/lib/docs";
+import { highlightCode } from "@/lib/highlight";
+import { getProduct } from "@/lib/product";
+import { SHOTS } from "@/lib/shots";
+
+/** The hero panel shows real artifacts from the product pages, not invented SDK calls. */
+const SAMPLES = [
+  { id: "graph", label: "Graph", slug: "runtime" },
+  { id: "replay", label: "Replay input", slug: "replay" },
+  { id: "memory", label: "Memory node", slug: "memory" },
+] as const;
+
+async function heroSamples() {
+  return Promise.all(
+    SAMPLES.map(async ({ id, label, slug }) => {
+      const { code, lang } = getProduct(slug).example;
+
+      return { id, label, code, html: await highlightCode(code, lang) };
+    }),
+  );
+}
 
 const PILLARS: {
   title: string;
@@ -38,17 +60,19 @@ const PILLARS: {
   },
 ];
 
-export function Hero() {
+export async function Hero() {
+  const samples = await heroSamples();
+
   return (
     <>
       <Band rule={false} className="relative">
-        <HeroGrid />
-        <Container className="relative z-10 flex flex-col items-center justify-center pt-14 pb-12 text-center sm:min-h-[32rem] sm:py-16 lg:min-h-[38rem]">
+        <HeroGlow />
+        <Container className={`relative z-10 flex flex-col items-center pt-14 text-center sm:pt-16 lg:pt-20 ${SECTION_PB}`}>
           <PageLabel>The AI agent runtime and control plane</PageLabel>
-          <h1 className="mx-auto mt-5 text-[2.5rem] leading-[1.02] font-medium tracking-[-0.045em] sm:text-6xl lg:text-[4.25rem]">
+          <h1 className="mx-auto mt-6 font-serif text-[2.75rem] leading-[1.02] font-normal tracking-[-0.03em] text-balance sm:text-6xl lg:text-[4.75rem]">
             Build and operate
             <br />
-            production agents.
+            <em className="text-[#c9dcf5] italic">production agents.</em>
           </h1>
           <p className="mx-auto mt-5 max-w-lg text-base leading-7 text-muted">
             You ship the agent. Linea executes the graph, holds the
@@ -63,28 +87,67 @@ export function Hero() {
               Explore the platform
             </Button>
           </div>
-        </Container>
-      </Band>
-
-      <Band rule={false}>
-        <div className={`px-5 sm:px-8 ${SECTION_PB}`}>
           <Cat
             priority
             sizes="11rem"
-            className="mx-auto w-28 drop-shadow-[0_10px_16px_rgba(255,255,255,0.16)] lg:w-36"
+            className="mt-10 w-28 drop-shadow-[0_10px_16px_rgba(255,255,255,0.16)] sm:mt-12 lg:w-36"
           />
-          <div className="mt-6 overflow-hidden rounded-[14px]">
-            <Image
-              src="/linea/linea-dashboard-window.jpg"
-              alt="Linea dashboard with workflows, signals, and recent executions"
-              width={1024}
-              height={682}
-              preload
-              fetchPriority="high"
-              sizes="(min-width: 80rem) 80rem, 100vw"
-              className="h-auto w-full"
-            />
+          {/* Glass frame: the plain screenshot sits in a frosted pane over the glow. */}
+          <div className="relative -mt-px w-full rounded-[18px] border border-white/15 bg-white/[0.06] p-1.5 shadow-[0_40px_80px_-24px_rgb(0_0_0/0.7),inset_0_1px_0_rgb(255_255_255/0.18)] backdrop-blur-md sm:p-2.5">
+            <div className="overflow-hidden rounded-[12px] bg-black ring-1 ring-white/10">
+              <PlatformShot
+                eager
+                src={SHOTS.dashboard}
+                alt="Linea dashboard with workflows, signals, and recent executions"
+                sizes="(min-width: 80rem) 80rem, 100vw"
+              />
+            </div>
           </div>
+        </Container>
+      </Band>
+
+      {/* Each section below the hero pads like the rest of the page (SECTION_PT / SECTION_PB),
+          so every gap is 96 / 112 / 128px and each one opens with its own tag and heading. */}
+      <Band rule={false}>
+        <div className={`px-5 sm:px-8 ${SECTION_Y}`}>
+          <SectionHeading
+            eyebrow="Under the hood"
+            title="Real artifacts, not a black box."
+            lead="Every run starts from a published graph. These are the actual payloads the host works with."
+          />
+          {/* One framed card: the real artifacts on the left, what each one is on the right,
+              split by a hairline and stretched to the same height. */}
+          <div
+            className={`${HEADING_GAP} lp-reveal overflow-hidden rounded-[18px] border border-white/10 bg-white/[0.02] lg:grid lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]`}
+          >
+            <CodeSwitcher
+              options={[...samples]}
+              className="h-full rounded-none! border-0!"
+            />
+            <ul className="flex flex-col justify-center divide-y divide-white/[0.08] border-t border-white/10 p-6 sm:p-8 lg:border-t-0 lg:border-l">
+              {SAMPLES.map(({ id, slug }) => {
+                const { title, copy } = getProduct(slug).example;
+
+                return (
+                  <li key={id} className="py-5 first:pt-0 last:pb-0">
+                    <p className="text-sm font-medium tracking-tight">
+                      {title}
+                    </p>
+                    <p className="mt-1 text-sm leading-6 text-muted">{copy}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </Band>
+
+      <Band rule={false}>
+        <div className={`px-5 sm:px-8 ${SECTION_Y}`}>
+          <SectionHeading
+            eyebrow="The platform"
+            title="Three things the host does for you."
+          />
           {/* Phones: open list, icon beside the text, hairlines between items (no box); md+: three columns. */}
           <div
             className={`${HEADING_GAP} divide-y divide-white/[0.08] md:grid md:grid-cols-3 md:gap-8 md:divide-y-0`}
@@ -108,9 +171,9 @@ export function Hero() {
                   </svg>
                 </span>
                 <div>
-                  <h2 className="text-base font-medium tracking-tight md:mt-4">
+                  <h3 className="text-base font-medium tracking-tight md:mt-4">
                     {pillar.title}
-                  </h2>
+                  </h3>
                   <p className="mt-1 max-w-sm text-sm leading-6 text-muted md:mt-2">
                     {pillar.copy}
                   </p>

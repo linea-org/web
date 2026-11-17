@@ -13,10 +13,7 @@ export const metadata = pageMeta({
 export default function PricingPage() {
   return (
     <SiteChrome cta={false}>
-      <SparseMain>
-        <h1 className="max-w-2xl text-3xl font-medium tracking-tight sm:text-5xl">
-          Simple pricing is on the way.
-        </h1>
+      <SparseMain title="Simple pricing is on the way.">
         <p className="mt-5 max-w-xl text-sm leading-6 text-muted sm:text-base">
           Linea is free to use during early access. We will publish clear,
           usage-based pricing before introducing paid plans.

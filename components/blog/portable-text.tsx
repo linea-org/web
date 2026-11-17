@@ -3,6 +3,7 @@ import { CodeSwitcher } from "@/components/code/code-switcher";
 import { langLabel } from "@/components/code/lang-label";
 import { SwitchableCode } from "@/components/code/switchable-code";
 import { MdImage, mdxComponents } from "@/components/blog/mdx";
+import { MermaidDiagram } from "@/components/blog/mermaid-diagram";
 import type { PostBody } from "@/lib/blog";
 import { highlightCode } from "@/lib/highlight";
 
@@ -108,6 +109,10 @@ const components: PortableTextComponents = {
       <SwitchableCode typescript={value?.typescript} python={value?.python} />
     ),
     postTable: Table,
+    mermaidDiagram: ({ value }) =>
+      value?.code ? (
+        <MermaidDiagram code={value.code} caption={value.caption} />
+      ) : null,
     divider: () => <mdxComponents.hr />,
   },
 };

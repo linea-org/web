@@ -56,7 +56,7 @@ const ROWS: {
     lead: "The next run reads what the last one learned.",
     points: [
       "Keyed facts, scoped per end user",
-      "Optional expiry on every fact",
+      "An expiry on every fact",
       "Shared across every run of the agent",
     ],
     link: { href: "/memory", label: "Explore memory" },
