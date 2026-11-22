@@ -14,6 +14,7 @@ const STATIC = [
   "/getting-started",
   "/architecture",
   "/sdk",
+  "/faq",
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

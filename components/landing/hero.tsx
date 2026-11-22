@@ -4,6 +4,7 @@ import { CodeSwitcher } from "@/components/code/code-switcher";
 import { Band } from "@/components/landing/frame";
 import { HeroGlow } from "@/components/landing/hero-glow";
 import { PlatformShot } from "@/components/media/platform-shot";
+import { LinkCards } from "@/components/landing/blocks";
 import { PageLabel, SectionHeading } from "@/components/landing/section";
 import {
   Button,
@@ -12,7 +13,7 @@ import {
   SECTION_PB,
   SECTION_Y,
 } from "@/components/landing/ui";
-import { PLATFORM_URL } from "@/lib/docs";
+import { DOCS_URL, PLATFORM_URL } from "@/lib/docs";
 import { highlightCode } from "@/lib/highlight";
 import { getProduct } from "@/lib/product";
 import { SHOTS } from "@/lib/shots";
@@ -33,6 +34,50 @@ async function heroSamples() {
     }),
   );
 }
+
+/** The three things a first-time visitor comes to find out, each one click from its page. */
+const AT_A_GLANCE = [
+  {
+    href: "/runtime",
+    title: "What it is",
+    copy: "An open-source runtime and control plane for production agents. It runs your graph and keeps the record of every step.",
+    icon: "runtime",
+  },
+  {
+    href: "/audience",
+    title: "Who it is for",
+    copy: "Technical builders who already have an agent and need it to run reliably in production.",
+    icon: "audience",
+  },
+  {
+    href: "/pricing",
+    title: "What it costs",
+    copy: "Free during early access. Usage-based pricing will be published before any paid plan.",
+    icon: "start",
+  },
+] as const;
+
+/** The docs pages people search for, linked from the landing page. */
+const DOCS_LINKS = [
+  {
+    href: `${DOCS_URL}/docs/architecture`,
+    title: "Architecture overview",
+    copy: "The control plane, the execution plane, and the queues between them.",
+    icon: "architecture",
+  },
+  {
+    href: `${DOCS_URL}/docs/api`,
+    title: "Public API overview",
+    copy: "The public /v1 operations, the four surfaces, and the credential each one takes.",
+    icon: "docs",
+  },
+  {
+    href: `${DOCS_URL}/docs/contributing`,
+    title: "Contributing",
+    copy: "Find the package that owns a change, then verify it before a pull request.",
+    icon: "guide",
+  },
+] as const;
 
 const PILLARS: {
   title: string;
@@ -98,7 +143,7 @@ export async function Hero() {
               <PlatformShot
                 eager
                 src={SHOTS.dashboard}
-                alt="Linea dashboard with workflows, signals, and recent executions"
+                alt="The Linea console home with workflows, open signals, and recent executions"
                 sizes="(min-width: 80rem) 80rem, 100vw"
               />
             </div>
@@ -108,6 +153,18 @@ export async function Hero() {
 
       {/* Each section below the hero pads like the rest of the page (SECTION_PT / SECTION_PB),
           so every gap is 96 / 112 / 128px and each one opens with its own tag and heading. */}
+      <Band rule={false}>
+        <div className={`px-5 sm:px-8 ${SECTION_Y}`}>
+          <SectionHeading
+            eyebrow="At a glance"
+            title="What it is, who it is for, and what it costs."
+          />
+          <div className={HEADING_GAP}>
+            <LinkCards items={AT_A_GLANCE} />
+          </div>
+        </div>
+      </Band>
+
       <Band rule={false}>
         <div className={`px-5 sm:px-8 ${SECTION_Y}`}>
           <SectionHeading
@@ -180,6 +237,18 @@ export async function Hero() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </Band>
+      <Band rule={false}>
+        <div className={`px-5 sm:px-8 ${SECTION_Y}`}>
+          <SectionHeading
+            eyebrow="Docs"
+            title="Go deeper in the docs."
+            lead="How the host is built, which API you call, and how to contribute."
+          />
+          <div className={HEADING_GAP}>
+            <LinkCards items={DOCS_LINKS} />
           </div>
         </div>
       </Band>
