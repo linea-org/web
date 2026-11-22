@@ -6,4 +6,8 @@ export const SHOTS = {
   workflow: "/linea/linea-workflow.png",
   signals: "/linea/linea-signals.png",
   evals: "/linea/linea-evals.png",
+  executions: "/linea/linea-executions.png",
+  approvedRun: "/linea/linea-approved-run.png",
+  failedStep: "/linea/linea-failed-step.png",
+  memoryStep: "/linea/linea-memory-step.png",
 } as const;

@@ -85,7 +85,7 @@ export default function GettingStartedPage() {
         >
           <FramedShot
             src={SHOTS.builder}
-            alt="Linea builder with a workflow on the canvas"
+            alt="The Linea builder with a refund workflow on the canvas"
             eager
             sizes="(min-width: 80rem) 80rem, 100vw"
           />

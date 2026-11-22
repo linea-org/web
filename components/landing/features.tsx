@@ -44,7 +44,7 @@ const ROWS: {
     visual: (
       <FramedShot
         src={SHOTS.signals}
-        alt="Linea monitoring view with open signals"
+        alt="The Linea monitoring tab for a workflow, with a trend chart and an open tool error signal"
         sizes="(min-width: 1024px) 40rem, 100vw"
       />
     ),

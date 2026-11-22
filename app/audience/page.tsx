@@ -67,7 +67,7 @@ export default function AudiencePage() {
           />
           <FramedShot
             src={SHOTS.workflow}
-            alt="A Linea workflow graph on the canvas"
+            alt="A published Linea workflow and its executions, with status, trigger, duration, and cost"
             sizes="(min-width: 80rem) 80rem, 100vw"
             className={HEADING_GAP}
           />

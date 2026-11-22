@@ -100,7 +100,7 @@ export function Proof() {
 
           <FramedShot
             src={SHOTS.builder}
-            alt="Linea builder with a document summarization graph"
+            alt="The Linea builder with a refund workflow: a memory read, an approval, and a branch on the decision"
             sizes="(min-width: 80rem) 80rem, 100vw"
             className={HEADING_GAP}
           />
