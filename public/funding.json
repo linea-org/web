@@ -1,0 +1,78 @@
+{
+  "$schema": "https://fundingjson.org/schema/v1.1.0.json",
+  "version": "v1.1.0",
+  "entity": {
+    "type": "individual",
+    "role": "owner",
+    "name": "Rohith Singh",
+    "email": "contact@getlinea.app",
+    "description": "Creator and maintainer of Linea, an open-source runtime and control plane for production AI agents.",
+    "webpageUrl": {
+      "url": "https://www.getlinea.app"
+    }
+  },
+  "projects": [
+    {
+      "guid": "linea",
+      "name": "Linea",
+      "description": "Linea is an open-source (Apache-2.0) runtime and control plane for production AI agents. Workflows run as versioned graphs on durable Postgres and BullMQ workers with checkpoints, crash recovery, human approvals, consent-gated external actions, step replay, and regression tests built from saved executions. It ships a public versioned /v1 protocol with server, browser, native and React SDKs, so teams can run governed, auditable agents on infrastructure they own instead of proprietary platforms.",
+      "webpageUrl": {
+        "url": "https://www.getlinea.app"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/linea-org/linea",
+        "wellKnown": "https://github.com/linea-org/linea/blob/main/.well-known/funding-manifest-urls"
+      },
+      "licenses": ["spdx:Apache-2.0"],
+      "tags": [
+        "ai",
+        "agents",
+        "llm",
+        "workflow-automation",
+        "durable-execution",
+        "developer-tools",
+        "infrastructure",
+        "security",
+        "typescript"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "bank",
+        "type": "bank",
+        "description": "Bank transfer for grants and larger contributions. Email contact@getlinea.app for account details."
+      },
+      {
+        "guid": "github-sponsors",
+        "type": "payment-provider",
+        "address": "https://github.com/sponsors/rohittcodes",
+        "description": "Recurring or one-time sponsorship through GitHub Sponsors."
+      }
+    ],
+    "plans": [
+      {
+        "guid": "project-grant",
+        "status": "active",
+        "name": "Project grant",
+        "description": "Funds full-time maintenance toward Linea 1.0: publishing the SDKs to npm, security review of the auth and consent paths, new connectors, and contributor onboarding.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": ["bank"]
+      },
+      {
+        "guid": "monthly-sponsor",
+        "status": "active",
+        "name": "Monthly sponsorship",
+        "description": "Ongoing support for maintenance, CI and hosting costs.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": ["github-sponsors"]
+      }
+    ],
+    "history": []
+  }
+}
