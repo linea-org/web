@@ -8,7 +8,9 @@ import { useSyncExternalStore } from "react";
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const subscribe = () => () => {};
-const onLiveHost = () => window.location.hostname.endsWith("getlinea.app");
+const onLiveHost = () =>
+  window.location.hostname === "getlinea.app" ||
+  window.location.hostname.endsWith(".getlinea.app");
 
 /**
  * Site analytics. Skipped on the Sanity Studio so editors do not count as traffic, and Google
