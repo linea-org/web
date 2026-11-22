@@ -139,7 +139,7 @@ export default async function PostPage({ params }: PostPageProps) {
               className={HEADING_GAP}
             />
 
-            <div className={`mx-auto max-w-2xl ${HEADING_GAP} ${SECTION_PB}`}>
+            <div className={`mx-auto max-w-3xl ${HEADING_GAP} ${SECTION_PB}`}>
               <PostBodyContent value={body} />
               <div
                 className={`${HEADING_GAP} flex items-center justify-between gap-4 border-t border-white/10 pt-6`}

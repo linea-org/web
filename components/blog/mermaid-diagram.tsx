@@ -124,7 +124,7 @@ export function MermaidDiagram({
       >
         {state.status === "ready" ? (
           <div
-            className="mx-auto [&_svg]:h-auto [&_svg]:max-w-full"
+            className="flex justify-center [&_svg]:h-auto [&_svg]:max-w-full"
             dangerouslySetInnerHTML={{ __html: state.svg }}
           />
         ) : state.status === "error" ? (
@@ -136,7 +136,8 @@ export function MermaidDiagram({
         )}
       </div>
       {caption ? (
-        <figcaption className="mt-3 text-center text-sm text-muted">
+        // w-0 + min-w-full: the caption wraps to the diagram's width instead of stretching the frame.
+        <figcaption className="mt-3 w-0 min-w-full text-center text-sm text-muted">
           {caption}
         </figcaption>
       ) : null}
