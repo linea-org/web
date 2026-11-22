@@ -103,8 +103,8 @@ export default function SdkPage() {
           }
         >
           <FramedShot
-            src={SHOTS.dashboard}
-            alt="Linea dashboard listing executions started from the app"
+            src={SHOTS.executions}
+            alt="Linea execution history listing runs started by API and webhook, with status, duration and cost"
             eager
             sizes="(min-width: 80rem) 80rem, 100vw"
           />

@@ -49,8 +49,9 @@ export const PRODUCTS: Product[] = [
       "Linea is an AI agent runtime. It runs the workflow behind your agent: checkpoints on every step, retries, and recovery. You ship the agent. We run the graph.",
     excerpt:
       "Draw the graph in the builder. Start an execution manually, from your app, a webhook, or a schedule. The host writes a checkpoint after every node.",
-    image: "/linea/linea-builder.png",
-    imageAlt: "Linea builder with a document summarization graph",
+    image: "/linea/linea-approved-run.png",
+    imageAlt:
+      "A succeeded Linea execution for a refund workflow, with its step trace and the approval step expanded",
     how: {
       title: "From trigger to a finished execution",
       lead: "The agent is what you ship. The workflow is the versioned graph behind it. Linea executes that graph and keeps the record of every step.",
@@ -152,8 +153,9 @@ export const PRODUCTS: Product[] = [
       "Because Linea executed the graph, it holds the checkpoint. Replay one node against the exact input it saw — no deploy, no full re-run.",
     excerpt:
       "An observability tool can show the failure. It never ran the graph, so it has no checkpoint to replay from. Linea does.",
-    image: "/linea/linea-signals.png",
-    imageAlt: "Linea monitoring view with open signals",
+    image: "/linea/linea-failed-step.png",
+    imageAlt:
+      "A failed Linea execution with the failing memory step expanded and Replay and Add to regression suite buttons",
     how: {
       title: "The fix loop starts at the checkpoint",
       lead: "When a node misses, keep the steps that already succeeded. Change the prompt or model on that node and replay it against the payload it originally received.",
@@ -262,8 +264,9 @@ export const PRODUCTS: Product[] = [
       "Memory nodes store keyed facts on the host. The next execution can read what the last one learned, without a store you operate.",
     excerpt:
       "A memory node writes a keyed value. A later run reads it back. Facts are scoped to your end user and a namespace, and every fact expires: 90 days by default, one year at most.",
-    image: "/linea/linea-evals.png",
-    imageAlt: "Linea evals for a published workflow",
+    image: "/linea/linea-memory-step.png",
+    imageAlt:
+      "A Linea execution with the Memory step expanded: it read the plan for a customer and returned found true with the value Scale",
     how: {
       title: "Persistent context, available on the next execution",
       lead: "Store structured facts for future runs, scoped to the person they belong to, and share them across workflows when you choose.",

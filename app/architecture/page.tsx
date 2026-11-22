@@ -71,7 +71,7 @@ export default function ArchitecturePage() {
         >
           <FramedShot
             src={SHOTS.workflow}
-            alt="A Linea workflow graph on the canvas"
+            alt="A published Linea workflow and its executions, with status, trigger, duration, and cost"
             eager
             sizes="(min-width: 80rem) 80rem, 100vw"
           />

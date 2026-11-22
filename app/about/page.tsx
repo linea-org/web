@@ -81,7 +81,7 @@ export default function AboutPage() {
         >
           <FramedShot
             src={SHOTS.builder}
-            alt="Linea graph canvas in the builder"
+            alt="The Linea builder canvas showing a refund workflow graph"
             eager
             sizes="(min-width: 80rem) 80rem, 100vw"
           />

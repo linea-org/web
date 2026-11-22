@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [{ type: "host", value: "getlinea.app" }],
+        destination: "https://www.getlinea.app/:path*",
+        permanent: true,
+      },
+      {
         source: "/docs",
         destination: "https://docs.getlinea.app",
         permanent: true,
