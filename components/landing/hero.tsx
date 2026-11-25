@@ -40,7 +40,7 @@ const AT_A_GLANCE = [
   {
     href: "/runtime",
     title: "What it is",
-    copy: "An open-source runtime and control plane for production agents. It runs your graph and keeps the record of every step.",
+    copy: "A runtime and control plane for production agents. It runs your graph and keeps the record of every step.",
     icon: "runtime",
   },
   {
