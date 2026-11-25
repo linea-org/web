@@ -6,7 +6,7 @@
     "role": "owner",
     "name": "Rohith Singh",
     "email": "contact@getlinea.app",
-    "description": "Creator and maintainer of Linea, an open-source runtime and control plane for production AI agents.",
+    "description": "Creator and maintainer of Linea's open-source SDKs and wire protocol for production AI agents.",
     "webpageUrl": {
       "url": "https://www.getlinea.app"
     }
@@ -14,8 +14,8 @@
   "projects": [
     {
       "guid": "linea",
-      "name": "Linea",
-      "description": "Linea is an open-source (Apache-2.0) runtime and control plane for production AI agents. Workflows run as versioned graphs on durable Postgres and BullMQ workers with checkpoints, crash recovery, human approvals, consent-gated external actions, step replay, and regression tests built from saved executions. It ships a public versioned /v1 protocol with server, browser, native and React SDKs, so teams can run governed, auditable agents on infrastructure they own instead of proprietary platforms.",
+      "name": "Linea SDKs and protocol",
+      "description": "The open-source (Apache-2.0) SDKs, wire protocol and examples for Linea, a hosted platform for building and operating production AI agents. The repository has server, browser, native and React SDKs, webhook verification, the schemas of the versioned /v1 API with an OpenAPI description, and working example applications. The platform the SDKs call (dashboard, API and workers) is not open source, and the SDKs are not on npm yet.",
       "webpageUrl": {
         "url": "https://www.getlinea.app"
       },
@@ -28,10 +28,9 @@
         "ai",
         "agents",
         "llm",
-        "workflow-automation",
-        "durable-execution",
+        "sdk",
+        "api",
         "developer-tools",
-        "infrastructure",
         "security",
         "typescript"
       ]
@@ -56,7 +55,7 @@
         "guid": "project-grant",
         "status": "active",
         "name": "Project grant",
-        "description": "Funds full-time maintenance toward Linea 1.0: publishing the SDKs to npm, security review of the auth and consent paths, new connectors, and contributor onboarding.",
+        "description": "Funds maintenance of the SDKs and protocol toward 1.0: publishing the SDKs to npm, security review of their session and webhook code, examples, and contributor onboarding.",
         "amount": 0,
         "currency": "USD",
         "frequency": "one-time",
@@ -66,7 +65,7 @@
         "guid": "monthly-sponsor",
         "status": "active",
         "name": "Monthly sponsorship",
-        "description": "Ongoing support for maintenance, CI and hosting costs.",
+        "description": "Ongoing support for maintenance and CI costs of the SDKs and protocol.",
         "amount": 0,
         "currency": "USD",
         "frequency": "monthly",
