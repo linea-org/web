@@ -20,7 +20,7 @@ const RESOURCE_PAGES: Omit<SearchEntry, "id">[] = [
     group: "Resources",
     external: true,
   },
-  { href: "/pricing", title: "Pricing", hint: "Not ready yet", group: "Resources" },
+  { href: "/pricing", title: "Pricing", hint: "Free in early access", group: "Resources" },
   { href: "/about", title: "About", hint: "Linea Labs", group: "Resources" },
   {
     href: DOCS_GETTING_STARTED_URL,

@@ -13,7 +13,7 @@ export const PAGE_DATES = {
   "/audience": "2026-11-22",
   "/research": "2026-11-12",
   "/careers": "2026-11-18",
-  "/pricing": "2026-11-18",
+  "/pricing": "2026-11-26",
   "/architecture": "2026-11-22",
   "/sdk": "2026-11-22",
   "/faq": "2026-11-18",

@@ -24,9 +24,11 @@ import { Faq } from "@/components/landing/faq";
 import { SiteChrome } from "@/components/landing/site-chrome";
 import { Button, HEADING_GAP } from "@/components/landing/ui";
 import { DOCS_GETTING_STARTED_URL, DOCS_URL, PLATFORM_URL } from "@/lib/docs";
+import { JsonLd } from "@/components/seo/json-ld";
 import { faqsFor } from "@/lib/faq";
 import type { NavIconName } from "@/lib/nav";
 import type { Product } from "@/lib/product";
+import { breadcrumbGraph } from "@/lib/schema";
 
 function Header({ product }: { product: Product }) {
   return (
@@ -300,6 +302,12 @@ function Next({ product }: { product: Product }) {
 export async function ProductPage({ product }: { product: Product }) {
   return (
     <SiteChrome>
+      <JsonLd
+        data={breadcrumbGraph([
+          { name: "Home", path: "/" },
+          { name: product.name, path: product.href },
+        ])}
+      />
       <main>
         <Header product={product} />
         <Facts product={product} />

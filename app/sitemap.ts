@@ -20,10 +20,11 @@ const STATIC = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await listPosts();
 
-  // The blog index changes whenever a post is published, so it takes the
-  // newest post's date. Every other page has a fixed date in lib/page-dates.ts.
+  // The blog index changes whenever a post is published or edited, so it takes
+  // the most recently edited post's date. Every other page has a fixed date in
+  // lib/page-dates.ts.
   const newestPost = posts.reduce<Date | undefined>((latest, post) => {
-    const date = new Date(post.date);
+    const date = new Date(post.updated);
     return !latest || date > latest ? date : latest;
   }, undefined);
 
@@ -47,7 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const postEntries = posts.map((post) => ({
     url: new URL(`/blog/${post.slug}`, SITE_URL).toString(),
-    lastModified: new Date(post.date),
+    lastModified: new Date(post.updated),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));

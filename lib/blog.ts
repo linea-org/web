@@ -13,6 +13,7 @@ const META_FIELDS = /* groq */ `
   "slug": slug.current,
   title,
   date,
+  "updated": coalesce(_updatedAt, date),
   "author": coalesce(author, "Linea Labs"),
   "excerpt": coalesce(excerpt, ""),
   "image": coalesce(image.asset->url, ""),

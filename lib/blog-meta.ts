@@ -2,6 +2,8 @@ export type BlogMeta = {
   slug: string;
   title: string;
   date: string;
+  /** When the post was last edited in Sanity; never earlier than `date`. */
+  updated: string;
   author: string;
   excerpt: string;
   image: string;

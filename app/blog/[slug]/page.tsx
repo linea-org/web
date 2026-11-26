@@ -24,8 +24,33 @@ import {
   listPosts,
   relatedPosts,
 } from "@/lib/blog";
-import { articleGraph } from "@/lib/schema";
+import { LinkCards } from "@/components/landing/blocks";
+import { getProduct, PRODUCTS, type ProductSlug } from "@/lib/product";
+import { articleGraph, breadcrumbGraph } from "@/lib/schema";
 import { ogImageUrl, pageMeta } from "@/lib/seo";
+
+/** Posts are about the runtime, so an untagged one still points at that page. */
+const FALLBACK_PRODUCT: ProductSlug = "runtime";
+
+/** The product pages a post's tags name, in the order the tags are given. */
+function productsFor(tags: readonly string[]) {
+  const slugs = tags
+    .map((tag) => PRODUCTS.find((product) => product.name.toLowerCase() === tag.toLowerCase())?.slug)
+    .filter((slug): slug is ProductSlug => slug !== undefined);
+
+  return [...new Set(slugs.length > 0 ? slugs : [FALLBACK_PRODUCT])].map(
+    (slug) => {
+      const product = getProduct(slug);
+
+      return {
+        href: product.href,
+        title: product.name,
+        copy: product.hint,
+        icon: product.slug,
+      };
+    },
+  );
+}
 
 type PostPageProps = {
   params: Promise<{ slug: string }>;
@@ -65,7 +90,7 @@ export async function generateMetadata({
       ...base.openGraph,
       type: "article",
       publishedTime: meta.date,
-      modifiedTime: meta.date,
+      modifiedTime: meta.updated,
       authors: [meta.author],
       tags: meta.tags,
     },
@@ -83,6 +108,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const related = await relatedPosts(slug, meta.tags);
 
   const date = formatPostDate(meta.date);
+  const products = productsFor(meta.tags);
 
   return (
     <SiteChrome cta={false}>
@@ -92,9 +118,17 @@ export default async function PostPage({ params }: PostPageProps) {
           description: meta.excerpt,
           path: `/blog/${slug}`,
           date: meta.date,
+          modified: meta.updated,
           author: meta.author,
           image: ogImageUrl(`/blog/${slug}`),
         })}
+      />
+      <JsonLd
+        data={breadcrumbGraph([
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: meta.title, path: `/blog/${slug}` },
+        ])}
       />
       <main>
         <Band rule={false}>
@@ -152,6 +186,13 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
           </article>
         </Band>
+
+        <Section id="product">
+          <SectionHeading eyebrow="In the product" title="Where this lives in Linea." />
+          <div className={HEADING_GAP}>
+            <LinkCards items={products} />
+          </div>
+        </Section>
 
         {related.length > 0 ? (
           <Section id="more">
