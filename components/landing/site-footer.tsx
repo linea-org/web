@@ -4,7 +4,7 @@ import { ExternalIcon } from "@/components/landing/external-icon";
 import { Band } from "@/components/landing/frame";
 import { Logo } from "@/components/landing/logo";
 import { SocialIcon } from "@/components/landing/social-icon";
-import { DOCS_URL } from "@/lib/docs";
+import { DOCS_GETTING_STARTED_URL, DOCS_URL } from "@/lib/docs";
 import { SOCIAL_LINKS } from "@/lib/socials";
 
 type FooterLink = {
@@ -21,7 +21,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
       { href: "/runtime", label: "Runtime" },
       { href: "/replay", label: "Replay" },
       { href: "/memory", label: "Memory" },
-      { href: "/getting-started", label: "Getting started" },
+      { href: DOCS_GETTING_STARTED_URL, label: "Getting started", external: true },
       { href: "/sdk", label: "SDK" },
       { href: DOCS_URL, label: "Docs", external: true },
     ],

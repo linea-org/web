@@ -11,7 +11,7 @@ import {
 } from "@/components/landing/section";
 import { SiteChrome } from "@/components/landing/site-chrome";
 import { Button, HEADING_GAP } from "@/components/landing/ui";
-import { DOCS_URL, PLATFORM_URL } from "@/lib/docs";
+import { DOCS_GETTING_STARTED_URL, DOCS_URL, PLATFORM_URL } from "@/lib/docs";
 import { pageMeta } from "@/lib/seo";
 import { SHOTS } from "@/lib/shots";
 
@@ -68,7 +68,7 @@ const NEXT = [
     copy: "Rerun one node against the input that execution recorded.",
   },
   {
-    href: "/getting-started",
+    href: DOCS_GETTING_STARTED_URL,
     icon: "start",
     title: "Getting started",
     copy: "The path from a blank canvas to that first run.",

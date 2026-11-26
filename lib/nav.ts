@@ -1,4 +1,4 @@
-import { DOCS_URL } from "@/lib/docs";
+import { DOCS_GETTING_STARTED_URL, DOCS_URL } from "@/lib/docs";
 
 export type NavLink = {
   kind: "link";
@@ -77,10 +77,11 @@ export const NAV: NavItem[] = [
         icon: "memory",
       },
       {
-        href: "/getting-started",
+        href: DOCS_GETTING_STARTED_URL,
         label: "Getting started",
         hint: "Publish, then run it",
         icon: "start",
+        external: true,
       },
       {
         href: "/architecture",

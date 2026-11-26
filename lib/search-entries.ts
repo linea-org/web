@@ -1,5 +1,5 @@
 import { listPosts } from "@/lib/blog";
-import { DOCS_URL } from "@/lib/docs";
+import { DOCS_GETTING_STARTED_URL, DOCS_URL } from "@/lib/docs";
 import { PRODUCTS } from "@/lib/product";
 import type { SearchEntry } from "@/lib/search";
 
@@ -23,10 +23,11 @@ const RESOURCE_PAGES: Omit<SearchEntry, "id">[] = [
   { href: "/pricing", title: "Pricing", hint: "Not ready yet", group: "Resources" },
   { href: "/about", title: "About", hint: "Linea Labs", group: "Resources" },
   {
-    href: "/getting-started",
+    href: DOCS_GETTING_STARTED_URL,
     title: "Getting started",
     hint: "Publish, then run it",
     group: "Product",
+    external: true,
   },
   {
     href: "/architecture",

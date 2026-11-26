@@ -21,6 +21,11 @@ const nextConfig: NextConfig = {
         destination: "https://docs.getlinea.app",
         permanent: true,
       },
+      {
+        source: "/getting-started",
+        destination: "https://docs.getlinea.app/docs/getting-started",
+        permanent: true,
+      },
     ];
   },
 };

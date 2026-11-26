@@ -23,7 +23,7 @@ import {
 import { Faq } from "@/components/landing/faq";
 import { SiteChrome } from "@/components/landing/site-chrome";
 import { Button, HEADING_GAP } from "@/components/landing/ui";
-import { DOCS_URL, PLATFORM_URL } from "@/lib/docs";
+import { DOCS_GETTING_STARTED_URL, DOCS_URL, PLATFORM_URL } from "@/lib/docs";
 import { faqsFor } from "@/lib/faq";
 import type { NavIconName } from "@/lib/nav";
 import type { Product } from "@/lib/product";
@@ -274,7 +274,7 @@ const NEXT: Record<
   memory: [
     { href: "/runtime", title: "Runtime", copy: "The host that runs the graph.", icon: "runtime" },
     { href: "/replay", title: "Replay", copy: "One step, original input.", icon: "replay" },
-    { href: "/getting-started", title: "Getting started", copy: "Publish, then run it.", icon: "start" },
+    { href: DOCS_GETTING_STARTED_URL, title: "Getting started", copy: "Publish, then run it.", icon: "start" },
   ],
 };
 
